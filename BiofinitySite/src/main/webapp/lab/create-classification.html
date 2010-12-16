@@ -1,0 +1,21 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>My Labs: Create a New Classification - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Classification.renderCreateClassificationScripts group="" />
+		<lift:Classification.renderScripts group="" />
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>
+    
+	<lift:with-param name="primary_content">
+		<div id="create-classification">
+			<lift:embed what="lab/create-classification-start" />
+		</div>
+	</lift:with-param>
+</lift:surround>

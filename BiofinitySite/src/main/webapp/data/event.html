@@ -1,0 +1,186 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:Event.init />
+		<head>
+			<title>Event - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+		<lift:Event.renderScripts />
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:Event.renderEvent>
+			<div class="section_head">Event Details</div>
+			<table>
+				<tr>
+					<td>
+						<b>ID</b>:
+					</td>
+					<td>
+						<event:ID />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Date</b>: 
+					</td>
+					<td>
+						<event:DateFormatted />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Verbatim Date</b>: 
+					</td>
+					<td>
+						<event:VerbatimDate />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Habitat</b>: 
+					</td>
+					<td>
+						<event:Habitat />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Field Number</b>: 
+					</td>
+					<td>
+						<event:FieldNumber />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Field Notes</b>: 
+					</td>
+					<td>
+						<event:FieldNotes />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sampling Effort</b>: 
+					</td>
+					<td>
+						<event:SamplingEffort />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sampling Protocol</b>: 
+					</td>
+					<td>
+						<event:SamplingProtocol />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Remarks</b>: 
+					</td>
+					<td>
+						<event:Remarks />
+					</td>
+				</tr>
+			</table>
+			<event:AdditionalPropertyBundle>
+				<table>
+					<additional-property-bundle:List>
+						<tr>
+							<td>
+								<b><additional-property:Name /></b>:
+							</td>
+							<td>
+								<additional-property:Value />
+							</td>
+						</tr>
+					</additional-property-bundle:List>
+				</table>
+			</event:AdditionalPropertyBundle>
+			<event:Location>
+				<lift:Location.renderLocation>
+					<div style="margin-top: 20px;" class="section_head">Location Summary <location:ViewLink>View</location:ViewLink></div>
+					<table>
+						<tr>
+							<td>
+								<b>Latitude</b>:
+							</td>
+							<td>
+								<location:Latitude />&#176;
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Longitude</b>:
+							</td>
+							<td>
+								<location:Longitude />&#176;
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Elevation</b>:
+							</td>
+							<td>
+								<location:VerbatimElevation />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Continent</b>:
+							</td>
+							<td>
+								<location:Continent /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Country</b>:
+							</td>
+							<td>
+								<location:Country />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>State/Province</b>:
+							</td>
+							<td>
+								<location:StateProvince />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>County</b>:
+							</td>
+							<td>
+								<location:County />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Municipality</b>:
+							</td>
+							<td>
+								<location:Municipality />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Locality</b>:
+							</td>
+							<td>
+								<location:Locality />
+							</td>
+						</tr>
+					</table>
+					<div style="margin-top: 20px; height: 400px;" id="map_canvas"></div>
+					<lift:Map.renderMap />
+					<lift:Map.renderMarker centerMap="" />
+				</lift:Location.renderLocation>
+			</event:Location>
+		</lift:Event.renderEvent>
+	</lift:with-param>
+</lift:surround>

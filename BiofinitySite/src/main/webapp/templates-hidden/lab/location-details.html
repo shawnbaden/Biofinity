@@ -1,0 +1,211 @@
+<lift:Location.renderLocation group="">
+	<div class="section_head">Location Details <location:EditLink>Edit</location:EditLink></div>
+	<table>
+		<tr>
+			<td>
+				<b>ID</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#locationID">[*]</a></sup>:
+			</td>
+			<td>
+				<location:ID />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Wiki Page</b>: 
+			</td>
+			<td>
+				<location:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this location.</location:WikiPageIDLink>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Visibility</b>:
+			</td>
+			<td>
+				<location:Source>
+					<lift:Source.renderSource group="">
+						<b><source:SourceType /></b>
+					</lift:Source.renderSource>
+				</location:Source>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Latitude</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLatitude">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Latitude />&#176;
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Longitude</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLongitude">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Longitude />&#176;
+			</td>
+		</tr>
+		<!--
+		<tr>
+			<td>
+				<b>Verbatim Coordinates</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimCoordinates">[*]</a></sup>:
+			</td>
+			<td>
+				<location:VerbatimCoordinates /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Minimum Elevation In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumElevationInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MinimumElevationInMeters /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Maximum Elevation In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumElevationInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MaximumElevationInMeters /><br />
+			</td>
+		</tr>
+		-->
+		<tr>
+			<td>
+				<b>Elevation</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimElevation">[*]</a></sup>:
+			</td>
+			<td>
+				<location:VerbatimElevation />
+			</td>
+		</tr>
+		<!--
+		<tr>
+			<td>
+				<b>Minimum Depth In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumDepthInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MinimumDepthInMeters /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Maximum Depth In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumDepthInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MaximumDepthInMeters /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Verbatim Depth</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimDepth">[*]</a></sup>:
+			</td>
+			<td>
+				<location:VerbatimDepth /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Minimum Distance Above Surface In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumDistanceAboveSurfaceInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MinimumDistanceAboveSurfaceInMeters /><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Maximum Distance Above Surface In Meters</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumDistanceAboveSurfaceInMeters">[*]</a></sup>:
+			</td>
+			<td>
+				<location:MaximumDistanceAboveSurfaceInMeters /><br />
+			</td>
+		</tr>
+		-->
+		<tr>
+			<td>
+				<b>Continent</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#continent">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Continent />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Country</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#country">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Country />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>State/Province</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#stateProvince">[*]</a></sup>:
+			</td>
+			<td>
+				<location:StateProvince />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>County</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#county">[*]</a></sup>:
+			</td>
+			<td>
+				<location:County />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Municipality</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#municipality">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Municipality />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Locality</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#locality">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Locality />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Water Body</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#waterBody">[*]</a></sup>:
+			</td>
+			<td>
+				<location:WaterBody />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Island</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#island">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Island />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Island Group</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#islandGroup">[*]</a></sup>:
+			</td>
+			<td>
+				<location:IslandGroup />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#locationRemarks">[*]</a></sup>:
+			</td>
+			<td>
+				<location:Remarks />
+			</td>
+		</tr>
+	</table>
+	<p>
+		[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for a <a href="http://rs.tdwg.org/dwc/terms/index.htm#dcterms:Location">location</a>.
+	</p>
+	<div style="margin-top: 20px; height: 400px;" id="map_canvas"></div>
+	<lift:Map.renderMap />
+	<lift:Map.renderMarker centerMap="" />
+</lift:Location.renderLocation>

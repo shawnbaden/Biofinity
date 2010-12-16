@@ -1,0 +1,24 @@
+<lift:surround with="split_page" xmlns:lift="http://www.w3.org/1999/XSL/Transform">
+	<lift:with-param name="main_content">
+		<head>
+			<title>The Biofinity Project</title>
+		</head>
+	</lift:with-param>
+
+	<lift:with-param name="primary_content">
+		<h3><strong>Welcome</strong> <span>to The Biofinity Project</span></h3>
+        <div class="contentarea">
+        <div class="section_head" style="margin-bottom: 15px">Latest News</div>
+            <div style="margin-top: 20px">
+            <iframe id="newsFrame" src="http://cig-production.unl.edu/biofinity/news/" scrolling="no" frameborder="0" style="overflow: visible; width: 100%; height: 800px;"></iframe>
+            </div>
+	    </div>
+    </lift:with-param>                  
+
+	<lift:with-param name="secondary_content">
+		<div>
+			<h4><span>Twitter</span> Updates</h4>
+            <iframe id="tweetFrame" src="http://cig-production.unl.edu/biofinity/news/twitter.html" scrolling="no" frameborder="0" style="overflow: visible; width: 100%; height: 800px;"></iframe>
+		</div>
+	</lift:with-param>
+</lift:surround>

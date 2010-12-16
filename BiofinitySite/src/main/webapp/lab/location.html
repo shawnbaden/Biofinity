@@ -1,0 +1,22 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:Location.init group="" />
+		<head>
+			<title>My Labs: Location Details - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+			<script type="text/javascript" src="/resources/scripts/model/Location.js"></script>
+		</head>
+		<lift:Location.renderScripts group="" />
+	</lift:with-param>
+
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+
+	<lift:with-param name="primary_content">
+		<div id="location-details">
+			<lift:embed what="lab/location-details" />
+		</div>
+	</lift:with-param>
+</lift:surround>

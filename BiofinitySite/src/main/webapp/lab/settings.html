@@ -1,0 +1,100 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>My Labs: Settings - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+
+	<lift:with-param name="primary_content">
+		<h3><strong>My Labs</strong> <span> Settings</span></h3>
+		<lift:User.renderIfNotRestricted>
+			<br /><br />
+			<div>
+				<a href="/lab/new">Create a new lab or join an existing lab</a><br/>
+			</div>
+		</lift:User.renderIfNotRestricted>
+		<table style="width: 100%;">
+		<lift:Lab.renderGroupsAdministered>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><div class="section_head">Labs you administer</div></td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<groups:List>
+				<tr>
+					<td><group:NameLink /></td>
+					<td><group:ViewLink>settings</group:ViewLink></td>
+				</tr>
+			</groups:List>
+		</lift:Lab.renderGroupsAdministered>
+		<lift:Lab.renderGroupsNotAdministered>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><div class="section_head">Labs you are a member of</div></td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<groups:List>
+				<tr>
+					<td><group:NameLink /></td>
+					<td><group:ViewLink>settings</group:ViewLink></td>
+					<td><group:LeaveLink>Leave Lab</group:LeaveLink></td>
+				</tr>
+			</groups:List>
+		</lift:Lab.renderGroupsNotAdministered>
+		<lift:Lab.renderGroupRequests>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><div class="section_head">Labs you have requested to be created</div></td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			<group-requests:List>
+				<tr>
+					<td><group-request:Name /></td>
+					<td><group-request:DeleteLink>Delete Request</group-request:DeleteLink></td>
+				</tr>
+			</group-requests:List>
+		</lift:Lab.renderGroupRequests>
+		<lift:Lab.renderGroupUserRequests>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><div class="section_head">Labs you have requested to join</div></td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			<group-user-requests:List>
+				<tr>
+					<td><group-user-request:Name /></td>
+					<td><group-user-request:DeleteLink>Delete Request</group-user-request:DeleteLink></td>
+				</tr>
+			</group-user-requests:List>
+		</lift:Lab.renderGroupUserRequests>
+		</table>
+	</lift:with-param>
+</lift:surround>

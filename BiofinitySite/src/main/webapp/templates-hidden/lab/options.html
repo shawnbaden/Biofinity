@@ -1,0 +1,28 @@
+<div>
+	<div style="padding: 10px;  border-bottom: 1px solid #e4e8f0; margin-bottom: 20px;">
+		<lift:Lab.renderGroups>
+			<table>
+				<lab:Groups>
+					<tr>
+						<th>Name</th>
+						<th></th>
+					</tr>
+					<groups:List>
+						<tr>
+							<td valign="top" style="width: 80%;"><group:NameLink /></td>
+							<td><group:ViewLink>settings</group:ViewLink></td>
+						</tr>
+					</groups:List>
+				</lab:Groups>
+			</table>
+		</lift:Lab.renderGroups>
+	</div>
+	<div style="padding-left: 10px; margin-bottom: 20px;">
+		<a href="/lab/settings">My Labs settings</a>
+    </div>
+    <div style="padding-left: 10px; margin-bottom: 20px;">
+		<lift:User.renderIfNotRestricted>
+			<a href="/lab/new">Create a new lab request</a>
+		</lift:User.renderIfNotRestricted>
+    </div>
+</div>

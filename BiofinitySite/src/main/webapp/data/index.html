@@ -1,0 +1,46 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+		<title>Database - The Biofinity Project</title>
+		<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<div style="min-height:250px;">
+			<img src="/resources/images/webdb.png" align="left" style="position: absolute; top: 10px; left: 15px; border: none;" />
+			<div style="margin-left: 200px">
+				<h3><strong>Web</strong> <span> Database</span></h3>
+				<p>The Biofinity Project web database allows you to access our
+				vast biological data repository with the ease of browsing the web.
+				Using the web database you can locate data from any of our public data
+				sources. Functionality ranges from browsing the biodiversity data
+				taxonomy to identifying (classifying) amino acid or nucleotide
+				sequences.</p>
+				<div class="section" id="dbsearch">
+					<h2>Search the Database</h2>
+					<form method="post" action="/data/search">
+						<input type="text" style="width: 70%;" name="search-query" />&nbsp;
+						<input class="button" type="submit" value=" Search " />
+					</form>
+				</div>
+				<div class="section">
+					<h2>Browse the Taxonomy</h2>
+					<div id="taxonomyview">
+						<lift:Taxon.renderTaxon>
+							<taxon:Children>
+								<ul>
+									<children:List>
+										<li>
+											<child:NameLink /><span>(<child:Rank />)</span>
+										</li>
+									</children:List>
+								</ul>
+							</taxon:Children>
+						</lift:Taxon.renderTaxon>
+					</div>
+				</div>
+			</div>
+		</div>
+	</lift:with-param>
+</lift:surround>

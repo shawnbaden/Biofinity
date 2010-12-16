@@ -1,0 +1,108 @@
+<lift:surround with="full_page" xmlns:lift="http://www.w3.org/1999/XSL/Transform"
+               xmlns:p="http://www.w3.org/1999/xhtml" xmlns:p="http://www.w3.org/1999/xhtml"
+               xmlns:g="http://java.sun.com/xml/ns/javaee" xmlns:g="http://java.sun.com/xml/ns/j2ee">
+    <lift:with-param name="main_content">
+        <head>
+            <title>Biofinity - Administration</title>
+            <link rel="stylesheet" type="text/css" href="/resources/css/data.css"/>
+            <link rel="stylesheet" type="text/css" href="/resources/css/admin.css"/>
+        </head>
+        <lift:Administration.renderScripts />
+    </lift:with-param>
+
+    <lift:with-param name="primary_content">
+		<div class="section_head">Fixer</div>
+		<lift:Administration.renderFixer>
+			<p>
+				Fix classification names by:
+				<ul>
+					<li>removing consecutive spaces</li>
+					<li>if name is empty, create a name from the associated taxa</li>
+				</ul>
+				<fixer:ClassificationNames>&nbsp;FIX&nbsp;</fixer:ClassificationNames>
+			</p>
+			<p>
+				Fix taxa names by:
+				<ul>
+					<li>removing '-' characters</li>
+					<li>capitalizing the first letter of the name</li>
+				</ul>
+				<fixer:TaxonNames>&nbsp;FIX&nbsp;</fixer:TaxonNames>
+			</p>
+		</lift:Administration.renderFixer>
+		<div class="section_head">Pending Group Requests</div>
+		<div id="group_list">
+		<table>
+			<lift:Administration.renderGroupRequests>
+				<tr>
+					<td><g:name>Group Name</g:name></td>
+					<td><g:instutition>Instutition</g:instutition></td>
+					<td><g:department>Department</g:department></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div style="padding-bottom: 20px"><g:description>The description goes here</g:description></div>
+					</td>
+				</tr>
+				<tr>
+					<td>Requested by: <g:requestor>User Name</g:requestor></td>
+					<td colspan="2" class="actions">
+						<g:approve>Approve this request</g:approve> |
+						<g:deny>Deny this request</g:deny>
+					</td>
+				</tr>
+			</lift:Administration.renderGroupRequests>
+		</table>
+		</div>
+		<div class="section_head">Existing Groups</div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th></th>
+			</tr>
+			<lift:Administration.renderGroup form="post">
+				<tr>
+					<td valign="top" style="width: 20%;"><g:ID /></td>
+					<td><g:Name /></td>
+					<td><g:Description /></td>
+				</tr>
+			</lift:Administration.renderGroup>
+		</table>
+		<div class="section_head">Data Processor</div>
+		<lift:DataProcessor.processXML form="post" multipart="true">
+			<x:file />
+			<br />
+			<x:submit />
+		</lift:DataProcessor.processXML>
+		<div class="section_head">Twitter BioBlitz Importer</div>
+		<lift:Administration.renderTwitterBioBlitzImporter>
+			<twitter-bioblitz-importer:StartLink>&nbsp;&nbsp;Start&nbsp;&nbsp;</twitter-bioblitz-importer:StartLink>
+			<twitter-bioblitz-importer:StopLink>&nbsp;&nbsp;Stop&nbsp;&nbsp;</twitter-bioblitz-importer:StopLink>
+			<p>
+				<span>Current Status: <twitter-bioblitz-importer:Status /></span>
+			</p>
+		</lift:Administration.renderTwitterBioBlitzImporter>
+		<div class="section_head">BioBlitz</div>
+		<lift:Administration.renderBioBlitz>
+			<p>
+				Clear the BioBlitz by deleting of its data!&nbsp;&nbsp;=======================&gt;&nbsp;&nbsp;&nbsp;&nbsp;<bioblitz:ClearLink>CLEAR!</bioblitz:ClearLink>
+			</p>
+		</lift:Administration.renderBioBlitz>
+		<div class="section_head">Posts</div>
+		<lift:Administration.renderPost form="post" multipart="true">
+			<table>
+				<tr>
+					<td>Title:</td>
+					<td><p:title /></td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td><p:description /></td>
+				</tr>
+			</table>
+			<p:submit />
+		</lift:Administration.renderPost>
+    </lift:with-param>
+</lift:surround>

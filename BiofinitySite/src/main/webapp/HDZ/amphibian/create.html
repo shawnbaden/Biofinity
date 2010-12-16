@@ -1,0 +1,249 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:HDZ.initCreateOccurrence />
+		<head>
+			<title>Henry Doorly Zoo Amphibian Database - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+			<script type="text/javascript" src="/resources/scripts/model/Location.js"></script>
+		</head>
+		<lift:Location.renderScripts />
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:User.renderIfNotRestricted>
+			<h2>Add a new amphibian to the Henry Doorly Zoo's Amphibian Database</h2>
+			<span style="color: red;">* denotes required information</span>
+			<lift:HDZ.renderCreateOccurrence>
+				<br />
+				<div class="section_head">Tell us about your school</div>
+				<table>
+					<tr>
+						<td>
+							* School: 
+						</td>
+						<td>
+							<amphibian:School />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							* Teacher's Name: 
+						</td>
+						<td>
+							<amphibian:TeacherName />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							* Teacher's Email: 
+						</td>
+						<td>
+							<amphibian:TeacherEmail />
+						</td>
+					</tr>
+				</table>
+				<div class="section_head">Tell us about the amphibian you saw</div>
+				<table>
+					<tr>
+						<td>
+							Common Name: 
+						</td>
+						<td>
+							<amphibian:CommonName />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Chytrid Swab #: 
+						</td>
+						<td>
+							<amphibian:ChytridSwabNumber />
+						</td>
+					</tr>
+				</table>
+				<div class="section_head">Tell us when you saw the amphibian</div>
+				<lift:Event.renderEvent updateExplicit="">
+					<table>
+						<tr>
+							<td>
+								* Date:
+							</td>
+							<td>
+								<event:Date /><span>&nbsp;&nbsp;MM/DD/YYYY</span>&nbsp;&nbsp;<event:Hour />&nbsp;&nbsp;<event:Minute />&nbsp;&nbsp;<event:PM />
+							</td>
+						</tr>
+					</table>
+					<br />
+				</lift:Event.renderEvent>
+				<div class="section_head">Tell us about where you saw the amphibian</div>
+				<lift:Location.renderLocation updateExplicit="">
+					<p>
+						<span><b>Drag the marker</b> on the map to automatically set the latitude and longitude of this location.</span>
+					</p>
+					<table>
+						<tr>
+							<td>
+								<b>Latitude</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLatitude">[*]</a></sup>:
+							</td>
+							<td>
+								<location:Latitude />&#176;<span>&nbsp;Expressed in <a href="http://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees (DD)</a>, ranging from -90.0 to 90.0.</span>  Alternatively, use <a href="http://en.wikipedia.org/wiki/Geographic_coordinate_system">degrees:minutes:seconds (DMS)</a>:
+							</td>
+						</tr>
+						<tr>
+							<td>
+			
+							</td>
+							<td>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<location:LatitudeDMSDegrees />&#176;&nbsp;&nbsp;<location:LatitudeDMSMinutes />'&nbsp;&nbsp;<location:LatitudeDMSSeconds />"&nbsp;&nbsp;<location:LatitudeDMSDirection />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Longitude</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLongitude">[*]</a></sup>:
+							</td>
+							<td>
+								<location:Longitude />&#176;<span>&nbsp;Expressed in <a href="http://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees (DD)</a>, ranging from -180.0 to 180.0.</span>  Alternatively, use <a href="http://en.wikipedia.org/wiki/Geographic_coordinate_system">degrees:minutes:seconds (DMS)</a>:
+							</td>
+						</tr>
+						<tr>
+							<td>
+			
+							</td>
+							<td>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<location:LongitudeDMSDegrees />&#176;&nbsp;&nbsp;<location:LongitudeDMSMinutes />'&nbsp;&nbsp;<location:LongitudeDMSSeconds />"&nbsp;&nbsp;<location:LongitudeDMSDirection />
+							</td>
+						</tr>
+					</table>
+					<div style="margin-top: 10px; height: 300px;" id="map_canvas"></div>
+					<lift:Map.renderMap />
+					<lift:Map.renderMarker centerMap="" draggable="" latitude="41.52" longitude="-99.41" />
+					<lift:Map.setZoom zoom="7" />
+					<p>
+						<span><b><u><location:LookupLocationLink>Lookup location details</location:LookupLocationLink></u></b> such as elevation, municipality, county, state/province, and country based on the current latitude and longitude.</span>
+					</p>
+					<div style="display:none">
+						<location:Country /><location:Municipality />
+					</div>
+					<table>
+						<tr>
+							<td>
+								* State:
+							</td>
+							<td>
+								<location:StateProvince />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								* County:
+							</td>
+							<td>
+								<location:County />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Locality (remarks, landmarks):
+							</td>
+							<td>
+								<location:Locality /><span>&nbsp;&nbsp;The specific description of the place.  More specific than city, county, etc.</span><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								* Habitat:
+							</td>
+							<td>
+								<amphibian:Habitat /><span>&nbsp;&nbsp;A category or description of the habitat the amphibian was observed in.</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Air Temperature:
+							</td>
+							<td>
+								<amphibian:AirTemperature /><span>&nbsp;&deg; C&nbsp;<b>(degrees Celsius)</b></span>
+							</td>
+						</tr>
+					</table>
+					<br />
+					<div>If the amphibian was observed in water, please provide additional information on the water body.</div>
+					<br />
+					<table>
+						<tr>
+							<td>
+								Water Body:
+							</td>
+							<td>
+								<location:WaterBody /><span>&nbsp;&nbsp;If applicable, the name of the water body in which the location occurs.</span><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Water Temperature:
+							</td>
+							<td>
+								<amphibian:WaterTemperature /><span>&nbsp;&deg; C&nbsp;<b>(degrees Celsius)</b>&nbsp;If applicable, the temperature of the water where the amphibian was observed.</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Water PH:
+							</td>
+							<td>
+								<amphibian:WaterPH />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Water Nitrates:
+							</td>
+							<td>
+								<amphibian:WaterNitrates />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Water Dissolved Oxygen:
+							</td>
+							<td>
+								<amphibian:WaterDissolvedOxygen />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Water Turbidity:
+							</td>
+							<td>
+								<amphibian:WaterTurbidity />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Were Fish Present?:
+							</td>
+							<td>
+								<amphibian:WaterFishPresent />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Was Vegetation Present?:
+							</td>
+							<td>
+								<amphibian:WaterVegetationPresent />
+							</td>
+						</tr>
+					</table>
+					<p>
+						<span>If any additional details are necessary to describe this location, provide them below. It is OK to leave this blank.</span><br />
+						<location:Remarks />
+					</p>
+				</lift:Location.renderLocation>
+	
+				<amphibian:Save /><span>&nbsp;&nbsp;*&nbsp;On the following page you will be able to upload any pictures you took of the amphibian.</span>
+			</lift:HDZ.renderCreateOccurrence>
+		</lift:User.renderIfNotRestricted>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,245 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Occurrence.init group="" />
+		<head>
+			<title>My Labs: Occurrence Details - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Occurrence.renderScripts group="" />
+	</lift:with-param>
+
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+
+	<lift:with-param name="primary_content">
+		<lift:Occurrence.renderOccurrence group="">
+			<occurrence:Classification>
+				<lift:Classification.renderClassification group="">
+					<h2><classification:Name /></h2>
+				</lift:Classification.renderClassification>
+			</occurrence:Classification>
+		</lift:Occurrence.renderOccurrence>
+		<div id="occurrence-details">
+			<lift:embed what="lab/occurrence-details" />
+		</div>
+		<div id="occurrence-additional-property-bundle">
+			<lift:embed what="lab/occurrence-additional-property-bundle" />
+		</div>
+		<lift:Occurrence.renderOccurrence group="">
+			<occurrence:Event>
+				<lift:Event.renderEvent group="">
+					<div style="margin-top: 20px;" class="section_head">Event Summary <event:ViewLink>View</event:ViewLink></div>
+					<table>
+						<tr>
+							<td>
+								<b>Wiki Page</b>: 
+							</td>
+							<td>
+								<event:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this event.</event:WikiPageIDLink>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Date</b>:
+							</td>
+							<td>
+								<event:DateFormatted />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Habitat</b>:
+							</td>
+							<td>
+								<event:Habitat />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Field Number</b>:
+							</td>
+							<td>
+								<event:FieldNumber />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Field Notes</b>:
+							</td>
+							<td>
+								<event:FieldNotes />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Remarks</b>:
+							</td>
+							<td>
+								<event:Remarks />
+							</td>
+						</tr>
+					</table>
+					<event:AdditionalPropertyBundle>
+						<div class="section_subhead">Additional Properties</div>
+						<additional-property-bundle:EmptyText><span>There are no additional properties.</span></additional-property-bundle:EmptyText>
+						<table>
+							<tr>
+								<th width="128px"></th>
+								<th width="128px"></th>
+							</tr>
+							<additional-property-bundle:List>
+								<tr>
+									<td>
+										<b><additional-property:Name /></b>:
+									</td>
+									<td>
+										<additional-property:Value />
+									</td>
+								</tr>
+							</additional-property-bundle:List>
+						</table>
+					</event:AdditionalPropertyBundle>
+					<event:Location>
+						<lift:Location.renderLocation group="">
+							<div style="margin-top: 20px;" class="section_head">Location Summary <location:ViewLink>View</location:ViewLink></div>
+							<table>
+								<tr>
+									<td>
+										<b>Wiki Page</b>: 
+									</td>
+									<td>
+										<location:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this location.</location:WikiPageIDLink>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Latitude</b>:
+									</td>
+									<td>
+										<location:Latitude />&#176;
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Longitude</b>:
+									</td>
+									<td>
+										<location:Longitude />&#176;
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Elevation</b>:
+									</td>
+									<td>
+										<location:VerbatimElevation />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Continent</b>:
+									</td>
+									<td>
+										<location:Continent /><br />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Country</b>:
+									</td>
+									<td>
+										<location:Country />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>State/Province</b>:
+									</td>
+									<td>
+										<location:StateProvince />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>County</b>:
+									</td>
+									<td>
+										<location:County />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Municipality</b>:
+									</td>
+									<td>
+										<location:Municipality />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Locality</b>:
+									</td>
+									<td>
+										<location:Locality />
+									</td>
+								</tr>
+							</table>
+							<div style="margin-top: 20px; height: 400px;" id="map_canvas"></div>
+							<lift:Map.renderMap />
+							<lift:Map.renderMarker centerMap="" />
+						</lift:Location.renderLocation>
+					</event:Location>
+				</lift:Event.renderEvent>
+			</occurrence:Event>
+		</lift:Occurrence.renderOccurrence>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<div>
+			<lift:Occurrence.renderOccurrence group="">
+				<occurrence:Classification>
+					<lift:Classification.renderIfNull group="">
+						<div class="section_head">Classification</div>
+						<span class="warning">No classification has been assigned to this occurrence.</span>
+					</lift:Classification.renderIfNull>
+					<lift:Classification.renderClassification group="">
+						<div class="section_head">Classification <classification:ViewLink>View</classification:ViewLink></div>
+						<classification:Taxons>
+							<taxons:EmptyText>This classification has no taxa associated with it.</taxons:EmptyText>
+							<table>
+								<taxons:List>
+									<tr>
+										<td><b><taxon:Rank /></b>: </td>
+										<td><taxon:NameLink /></td>
+									</tr>
+								</taxons:List>
+							</table>
+						</classification:Taxons>
+						<br />
+						<b>Name</b>: <classification:Name /><br />
+						<b>Wiki Page</b>: <classification:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this classification.</classification:WikiPageIDLink>
+					</lift:Classification.renderClassification>
+				</occurrence:Classification>
+				<br />
+			</lift:Occurrence.renderOccurrence>
+		</div>
+        <div style="margin-top: 20px;" class="section_head">Actions</div>
+            <lift:Occurrence.renderOccurrence group="">
+                <ul>
+                    <li><occurrence:DeleteLink>Delete this occurrence</occurrence:DeleteLink></li>
+                    <li><occurrence:ClassifyLink>Classify this occurrence</occurrence:ClassifyLink></li>
+                    <li><occurrence:ViewInDataLink><link:Name>View in public database</link:Name></occurrence:ViewInDataLink></li>
+                    <li>
+                        <occurrence:PublishLink> <link:Name>Publish this occurrence</link:Name></occurrence:PublishLink>
+                        <occurrence:UnpublishLink> <link:Name>Unpublish this occurrence</link:Name></occurrence:UnpublishLink>
+                    </li>
+                </ul>
+            </lift:Occurrence.renderOccurrence>
+		<div class="section_head"><b>Files</b></div>
+		<div id="occurrence-media-files">
+			<lift:embed what="lab/occurrence-media-files" />
+		</div>
+	</lift:with-param>
+</lift:surround>

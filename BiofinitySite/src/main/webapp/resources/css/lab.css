@@ -1,0 +1,56 @@
+#what { margin-bottom: 20px; }
+
+#what h2
+{ 
+	font-size: 14pt; 
+	color: #0082bf;
+	border-bottom: 1px solid #0082bf;
+}
+
+#benefits { margin-bottom: 20px; }
+
+#benefits h2
+{ 
+	font-size: 14pt; 
+	color: #86be50;
+	border-bottom: 1px solid #86be50;
+}
+
+#data { margin-bottom: 20px; }
+
+#data h2
+{ 
+	font-size: 14pt; 
+	color: #d0181f;
+	border-bottom: 1px solid #d0181f;
+}
+
+#labinfo { margin-top: 10px; width: 350px; }
+
+#labinfo span { 
+	font-weight: bolder;
+}
+
+#labinfo .question { margin-bottom: 10px; }
+
+.list { width: 100%; margin-top: 10px;}
+.list th { text-align: left; }
+.list td a { color: #2a54a6; }
+
+#create-occurrence {
+
+}
+
+#create-occurrence a {
+    font-size: 10pt;
+    font-weight: normal;
+    color: #2a54a6;
+}
+
+td span {
+    font-size: 10pt;
+    font-style: italic;
+    color: #999999;
+}
+
+th { text-align: left; }

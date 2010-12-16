@@ -1,0 +1,140 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Group.init group="" />
+		<head>
+			<title>My Labs:&nbsp;<lift:Group.renderGroup group=""><group:Name /></lift:Group.renderGroup>&nbsp;- The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Group.renderScripts group="" />
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+	
+	<lift:with-param name="primary_content">
+		<div id="group-details">
+			<lift:embed what="lab/group-details" />
+		</div>
+		<lift:Group.renderGroup group="">
+			<group:GroupUsers>
+				<div class="options">
+                <div class="section_head">Users</div>
+				<table class="list">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>User Type</th>
+						<th></th>
+					</tr>
+					<group-users:List>
+						<tr>
+							<td valign="top" style="width: 20%;"><group-user:FirstName /></td>
+							<td><group-user:LastName /></td>
+							<td><group-user:Email /></td>
+							<td><group-user:UserType /></td>
+							<td><group-user:DeleteLink>Remove</group-user:DeleteLink></td>
+						</tr>
+					</group-users:List>
+				</table>
+                </div>
+			</group:GroupUsers>
+			<br />
+			<group:GroupUserRequests>
+				<div class="section_head">Requests To Join</div>
+				<table class="list">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					<group-user-requests:List>
+						<tr>
+							<td valign="top" style="width: 20%;"><group-user-request:FirstName /></td>
+							<td><group-user-request:LastName /></td>
+							<td><group-user-request:Email /></td>
+							<td><group-user-request:ApproveLink>Approve</group-user-request:ApproveLink></td>
+							<td><group-user-request:ApproveAsAdministratorLink>Approve As Administrator</group-user-request:ApproveAsAdministratorLink></td>
+							<td><group-user-request:DeleteLink>Deny</group-user-request:DeleteLink></td>
+						</tr>
+					</group-user-requests:List>
+				</table>
+			</group:GroupUserRequests>
+			<div class="section_head">Additional Properties</div>
+			<div id="occurrence-additional-property-bundle">
+				<lift:embed what="lab/group-occurrence-additional-property-bundle" />
+			</div>
+			<div id="event-additional-property-bundle">
+				<lift:embed what="lab/group-event-additional-property-bundle" />
+			</div>
+		</lift:Group.renderGroup>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<div>
+			<div class="section_head">Public Data Summary</div>
+			<table style="width: 100%">
+				<lift:Group.renderGroup group="">
+					<group:PublicSource>
+						<source:Stats>
+							<tr>
+								<td>Occurrences:</td>
+								<td><stats:Occurrences /></td>
+							</tr>
+							<tr>
+								<td>Classifications:</td>
+								<td><stats:Classifications /></td>
+							</tr>
+							<tr>
+								<td>Events:</td>
+								<td><stats:Events /></td>
+							</tr>
+							<tr>
+								<td>Locations:</td>
+								<td><stats:Locations /></td>
+							</tr>
+							<tr>
+								<td>Media Files:</td>
+								<td><stats:MediaFiles /></td>
+							</tr>
+						</source:Stats>
+					</group:PublicSource>
+				</lift:Group.renderGroup>
+			</table>
+			<div class="section_head">Private Data Summary</div>
+			<table style="width: 100%">
+				<lift:Group.renderGroup group="">
+					<group:PrivateSource>
+						<source:Stats>
+							<tr>
+								<td>Occurrences:</td>
+								<td><stats:Occurrences /></td>
+							</tr>
+							<tr>
+								<td>Classifications:</td>
+								<td><stats:Classifications /></td>
+							</tr>
+							<tr>
+								<td>Events:</td>
+								<td><stats:Events /></td>
+							</tr>
+							<tr>
+								<td>Locations:</td>
+								<td><stats:Locations /></td>
+							</tr>
+							<tr>
+								<td>Media Files:</td>
+								<td><stats:MediaFiles /></td>
+							</tr>
+						</source:Stats>
+					</group:PrivateSource>
+				</lift:Group.renderGroup>
+			</table>
+		</div>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,18 @@
+<div id="create-occurrence">
+	<h2>Step 1 of 3: Fill out location information</h2>
+	<lift:Occurrence.renderCreateOccurrenceLocation group="">
+        <span style="font-size: 10pt;">Use the map below to select an existing location.</span><create-occurrence-location:ToggleLink>  <link:Name>Want to create a new location instead</link:Name>?</create-occurrence-location:ToggleLink>
+        <div align="right">
+			<create-occurrence-location:NextLink>&nbsp;Next&nbsp;</create-occurrence-location:NextLink>
+		</div>
+		<div>
+            <div id="map_canvas" style="float: left; margin-top: 15px; width: 78%;"></div>
+            <div id="location-details" style="float: right; width: 20%;"></div>
+            <div style="clear: both;"></div>
+            <br />
+            <div align="right">
+                <create-occurrence-location:NextLink>&nbsp;Next&nbsp;</create-occurrence-location:NextLink>
+            </div>
+        </div>
+	</lift:Occurrence.renderCreateOccurrenceLocation>
+</div>

@@ -1,0 +1,48 @@
+<div>
+	<h2>Fill out classification information</h2>
+	<lift:Classification.renderCreateClassification group="">
+		<lift:Classification.renderClassification group="" update="" embedUpdateID="create-classification" embedUpdateURL="lab/create-classification">
+			<div align="right">
+				<create-classification:PreviousLink>&nbsp;Previous&nbsp;</create-classification:PreviousLink>
+				<create-classification:SaveLink>&nbsp;Finish&nbsp;</create-classification:SaveLink>
+			</div>
+			<p>
+				<b>Name</b>:&nbsp;&nbsp;&nbsp;<classification:Name />
+			</p>
+			<classification:Taxons>
+				<h4>Taxa</h4>
+				<div style="height: 8px;">&nbsp;</div>
+				<table>
+					<taxons:List>
+						<tr>
+							<td>
+								<b><taxon:Rank /></b>
+							</td>
+							<td>
+								<taxon:Name />
+							</td>
+							<td>
+								&nbsp;
+							</td>
+							<td>
+								<taxon:DeleteLink>&nbsp;Delete&nbsp;</taxon:DeleteLink>
+							</td>
+						</tr>
+					</taxons:List>
+				</table>
+				<taxons:EmptyText><span class="warning">&nbsp;&nbsp;This classification has no taxa associated with it.&nbsp;&nbsp;</span></taxons:EmptyText>
+				<div style="height: 16px;">&nbsp;</div>
+				<div>Use the following form to add taxa to this classification.</div>
+				<div style="height: 8px;">&nbsp;</div>
+				<taxons:Create>
+					<b>Rank</b>:&nbsp;<taxon:Rank />&nbsp;&nbsp;<b>Name</b>:&nbsp;<taxon:Name />&nbsp;&nbsp;<taxon:SaveLink>&nbsp;Create&nbsp;</taxon:SaveLink>
+				</taxons:Create>
+				<div style="height: 16px;">&nbsp;</div>
+			</classification:Taxons>
+			<div align="right">
+				<create-classification:PreviousLink>&nbsp;Previous&nbsp;</create-classification:PreviousLink>
+				<create-classification:SaveLink>&nbsp;Finish&nbsp;</create-classification:SaveLink>
+			</div>
+		</lift:Classification.renderClassification>
+	</lift:Classification.renderCreateClassification>
+</div>

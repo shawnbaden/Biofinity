@@ -1,0 +1,12 @@
+<lift:Event.renderEvent group="" update="">
+	<div class="section_subhead">Additional Properties <a href="javascript:showEventAdditionalPropertyBundle();">Done</a></div>
+	<event:AdditionalPropertyBundleWarning>
+		<span class="warning">&nbsp;This event is missing additional properties defined by the lab.&nbsp;&nbsp;</span>
+		<additional-property-bundle-warning:EnsureContainsLink>&nbsp;&nbsp;Fix&nbsp;&nbsp;</additional-property-bundle-warning:EnsureContainsLink>
+	</event:AdditionalPropertyBundleWarning>
+	<event:AdditionalPropertyBundle>
+		<div id="additional-property-bundle">
+			<lift:embed what="lab/additional-property-bundle-update" />
+		</div>
+	</event:AdditionalPropertyBundle>
+</lift:Event.renderEvent>

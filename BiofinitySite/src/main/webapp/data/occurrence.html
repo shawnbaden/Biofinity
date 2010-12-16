@@ -1,0 +1,374 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Occurrence.init />
+		<head>
+			<title>Occurrence - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+		<lift:Occurrence.renderScripts />
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:Occurrence.renderOccurrence>
+			<occurrence:Classification>
+				<lift:Classification.renderClassification>
+					<h2><classification:Name /></h2>
+				</lift:Classification.renderClassification>
+			</occurrence:Classification>
+		</lift:Occurrence.renderOccurrence>
+		<lift:Occurrence.renderOccurrence>
+			<div class="section_head">Occurrence Details<occurrence:ViewInLabLink> <link:Name>My Lab</link:Name></occurrence:ViewInLabLink></div>
+			<table>
+				<tr>
+					<td>
+						<b>ID</b>:
+					</td>
+					<td>
+						<occurrence:ID />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Type</b>:
+					</td>
+					<td>
+						<occurrence:OccurrenceType />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Recorded By</b>:
+					</td>
+					<td>
+						<occurrence:RecordedBy />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Record Number</b>:
+					</td>
+					<td>
+						<occurrence:RecordNumber />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sex</b>:
+					</td>
+					<td>
+						<occurrence:Sex />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Life Stage</b>:
+					</td>
+					<td>
+						<occurrence:LifeStage />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Reproductive Condition</b>:
+					</td>
+					<td>
+						<occurrence:ReproductiveCondition />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Behavior</b>:
+					</td>
+					<td>
+						<occurrence:Behavior />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Disposition</b>:
+					</td>
+					<td>
+						<occurrence:Disposition />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Establishment Means</b>:
+					</td>
+					<td>
+						<occurrence:EstablishmentMeans />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Preparations</b>:
+					</td>
+					<td>
+						<occurrence:Preparations />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Individual ID</b>:
+					</td>
+					<td>
+						<occurrence:IndividualID />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Individual Count</b>:
+					</td>
+					<td>
+						<occurrence:IndividualCount />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Status</b>:
+					</td>
+					<td>
+						<occurrence:Status />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Catalog Number</b>:
+					</td>
+					<td>
+						<occurrence:CatalogNumber />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Other Catalog Numbers</b>:
+					</td>
+					<td>
+						<occurrence:OtherCatalogNumbers />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Details</b>:
+					</td>
+					<td>
+						<occurrence:Details />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Remarks</b>:
+					</td>
+					<td>
+						<occurrence:Remarks />
+					</td>
+				</tr>
+			</table>
+			<occurrence:AdditionalPropertyBundle>
+				<table>
+					<additional-property-bundle:List>
+						<tr>
+							<td>
+								<b><additional-property:Name /></b>:
+							</td>
+							<td>
+								<additional-property:Value />
+							</td>
+						</tr>
+					</additional-property-bundle:List>
+				</table>
+			</occurrence:AdditionalPropertyBundle>
+			<occurrence:Event>
+				<lift:Event.renderEvent>
+					<div style="margin-top: 20px" class="section_head">Event Summary <event:ViewLink>View</event:ViewLink></div>
+					<table>
+						<tr>
+							<td>
+								<b>Date</b>:
+							</td>
+							<td>
+								<event:DateFormatted />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Habitat</b>:
+							</td>
+							<td>
+								<event:Habitat />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Field Number</b>:
+							</td>
+							<td>
+								<event:FieldNumber />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Field Notes</b>:
+							</td>
+							<td>
+								<event:FieldNotes />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Remarks</b>:
+							</td>
+							<td>
+								<event:Remarks />
+							</td>
+						</tr>
+					</table>
+					<event:AdditionalPropertyBundle>
+						<table>
+							<additional-property-bundle:List>
+								<tr>
+									<td>
+										<b><additional-property:Name /></b>:
+									</td>
+									<td>
+										<additional-property:Value />
+									</td>
+								</tr>
+							</additional-property-bundle:List>
+						</table>
+					</event:AdditionalPropertyBundle>
+					<event:Location>
+						<lift:Location.renderLocation>
+							<div style="margin-top: 20px;" class="section_head">Location Summary <location:ViewLink>View</location:ViewLink></div>
+							<table>
+								<tr>
+									<td>
+										<b>Latitude</b>:
+									</td>
+									<td>
+										<location:Latitude />&#176;
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Longitude</b>:
+									</td>
+									<td>
+										<location:Longitude />&#176;
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Elevation</b>:
+									</td>
+									<td>
+										<location:VerbatimElevation />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Continent</b>:
+									</td>
+									<td>
+										<location:Continent /><br />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Country</b>:
+									</td>
+									<td>
+										<location:Country />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>State/Province</b>:
+									</td>
+									<td>
+										<location:State />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>County</b>:
+									</td>
+									<td>
+										<location:County />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Municipality</b>:
+									</td>
+									<td>
+										<location:Municipality />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<b>Locality</b>:
+									</td>
+									<td>
+										<location:Locality />
+									</td>
+								</tr>
+							</table>
+							<div style="margin-top: 20px; height: 400px;" id="map_canvas"></div>
+							<lift:Map.renderMap />
+							<lift:Map.renderMarker centerMap="" />
+						</lift:Location.renderLocation>
+					</event:Location>
+				</lift:Event.renderEvent>
+			</occurrence:Event>
+		</lift:Occurrence.renderOccurrence>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<div>
+			<lift:Occurrence.renderOccurrence>
+				<occurrence:Classification>
+					<lift:Classification.renderIfNull>
+						<div class="section_head">Classification</div>
+						<span class="warning">No classification has been assigned to this occurrence.</span>
+					</lift:Classification.renderIfNull>
+					<lift:Classification.renderClassification>
+						<div class="section_head">Classification <classification:ViewLink>View</classification:ViewLink></div>
+						<classification:Taxons>
+							<taxons:EmptyText>This classification has no taxa associated with it.</taxons:EmptyText>
+							<table>
+								<taxons:List>
+									<tr>
+										<td><b><taxon:Rank /></b>: </td>
+										<td><taxon:NameLink /></td>
+									</tr>
+								</taxons:List>
+							</table>
+						</classification:Taxons>
+						<br />
+						<b>Name</b>: <classification:Name />
+					</lift:Classification.renderClassification>
+				</occurrence:Classification>
+			</lift:Occurrence.renderOccurrence>
+		</div>
+        <div style="margin-top: 20px;" class="section_head">Sharing</div>
+        <div class="section" style="padding-top: 10px;">
+		    <lift:Occurrence.renderFacebookLink />
+		    <lift:Occurrence.renderTwitterLink />
+        </div>
+		<div class="section_head"><b>Files</b></div>
+		<div id="media-files">
+			<lift:Occurrence.renderOccurrence>
+				<occurrence:MediaFiles>
+					<ul>
+						<media-files:List>
+							<li>
+								<media-file:ViewLink />
+							</li>
+						</media-files:List>
+					</ul>
+				</occurrence:MediaFiles>
+			</lift:Occurrence.renderOccurrence>
+		</div>
+	</lift:with-param>
+</lift:surround>

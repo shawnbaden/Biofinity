@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	
+	<link rel="stylesheet" type="text/css" href="/classpath/autocomplete/jquery.autocomplete.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/biofinity.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/colorbox/colorbox.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui/jquery-ui.css" media="all" />
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
+	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js"></script>
+	<script type="text/javascript" src="/classpath/jquery.js" id="jquery"></script>
+	<script type="text/javascript" src="/classpath/json.js" id="json"></script>
+	<script type="text/javascript" src="/classpath/autocomplete/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="/resources/scripts/master.js"></script>
+	<script type="text/javascript" src="/resources/scripts/map.js"></script>
+	<script type="text/javascript" src="/resources/scripts/colorbox/jquery.colorbox.js"></script>
+	<script type="text/javascript" src="/resources/scripts/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-585704-11']);
+		_gaq.push(['_trackPageview']);
+		
+		(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</head>
+
+<body onload="globalLoad()">
+	<lift:bind name="main_content"/>
+   
+	<div id="header">
+	</div>
+	<div id="outer">
+		<div id="headerpic"><a href="/"></a></div>
+		
+		<lift:bind name="menus"/>
+		
+		<div id="content">	
+			<lift:bind name="content"/>
+		</div>
+	</div>
+	<div id="displaybox"></div>
+	<div id="displaycontent"></div>
+</body>
+</html>

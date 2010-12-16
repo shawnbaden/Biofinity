@@ -1,0 +1,63 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Lab.initGroup />
+		<head>
+			<title>My Labs - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<div id="primary_content">
+			<div class="section" style="margin-bottom: 300px;">
+				<lift:Group.renderGroup group="">
+					<h2><group:Name/>'s Lab</h2>
+					<div style="margin-bottom: 20px;">
+						<group:Description>
+							Welcome to the your lab. In this lab you can use the robust data framework provided by The Biofinity Project to manage and interact with your data sets, publish data, share results within your lab, and contribute to The Biofinity Project database. New alerts are visible on thr right of this page, you can browse your lab data in the taxonomy browser below.  If this isn't the lab you want to access, you can change to another lab by selecting it from the list under 'My Labs' in the top-right corner of this page.
+						</group:Description>
+					</div>
+				</lift:Group.renderGroup>
+				<div id="taxonomyview">
+					<div class="section_head">Lab Taxonomy</div>
+					<lift:Taxon.renderTaxon group="">
+						<taxon:Children>
+							<ul>
+								<children:List>
+									<li>
+										<child:NameLink /><span>(<child:Rank />)</span>
+									</li>
+								</children:List>
+							</ul>
+						</taxon:Children>
+					</lift:Taxon.renderTaxon>
+				</div>
+			</div>
+		</div>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+        <lift:embed what="lab/search-menu-item"/>
+		<div class="section_head" style="font-weight: bold;">Alerts</div>
+		<lift:Group.renderGroup group="">
+			<group:GroupUserRequests>
+				<span>(<group-user-requests:Count />) <group-user-requests:ViewLink>Lab Join Requests</group-user-requests:ViewLink></span>
+			</group:GroupUserRequests>
+			<group:RecentOccurrences>
+				<div>
+					(<recent-occurrences:Count />)&nbsp;<recent-occurrences:ViewLink>Recent Occurrences</recent-occurrences:ViewLink>
+				</div>
+			</group:RecentOccurrences>
+			<group:UnclassifiedOccurrences>
+				<div>
+					(<unclassified-occurrences:Count />)&nbsp;<unclassified-occurrences:ViewLink>Unclassified Occurrences</unclassified-occurrences:ViewLink>
+				</div>
+			</group:UnclassifiedOccurrences>
+		</lift:Group.renderGroup>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,71 @@
+<div>
+	<div class="section_subhead">Event Summary</div>
+	<lift:Event.renderEvent group="">
+		<table>
+			<tr>
+				<td>
+					<b>ID</b>:
+				</td>
+				<td>
+					<event:ID />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Date</b>: 
+				</td>
+				<td>
+					<event:DateFormattedNoTime />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Verbatim Date</b>: 
+				</td>
+				<td>
+					<event:VerbatimDate />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Habitat</b>: 
+				</td>
+				<td>
+					<event:Habitat />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Field Number</b>:
+				</td>
+				<td>
+					<event:FieldNumber />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Field Notes</b>:
+				</td>
+				<td>
+					<event:FieldNotes />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Sampling Effort</b>: 
+				</td>
+				<td>
+					<event:SamplingEffort />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Sampling Protocol</b>: 
+				</td>
+				<td>
+					<event:SamplingProtocol />
+				</td>
+			</tr>
+		</table>
+	</lift:Event.renderEvent>
+</div>

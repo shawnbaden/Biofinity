@@ -1,0 +1,46 @@
+<div>
+	<h3><strong>User Account</strong></h3>
+	<div class="section_head">Services: Mobile Devices</div>
+	<div style="margin-top: 10px;">
+		To add a mobile device (such as an iPhone, iPad, or Android device), simply fill out the form below and click <b>Add</b>.
+	</div>
+	<br />
+	<br />
+	
+	<lift:User.renderService>
+		<service:MobileDevices>
+			<mobile-devices:Create>
+				<div class="box">
+					<table>
+						<tr>
+							<td>Unique ID (UDID):</td>
+							<td><mobile-device:UniqueID /></td>
+						</tr>
+						<tr>
+							<td valign="top">Description:</td>
+							<td><mobile-device:Description /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><mobile-device:SaveLink>&nbsp;&nbsp;Add&nbsp;&nbsp;&nbsp;</mobile-device:SaveLink></td>
+						</tr>
+					</table>
+				</div>
+			</mobile-devices:Create>
+			<table style="width: 100%">
+				<tr>
+					<th>Unique ID</th>
+					<th>Description</th>
+					<th></th>
+				</tr>
+				<mobile-devices:List>
+					<tr>
+						<td><mobile-device:UniqueID /></td>
+						<td><mobile-device:Description /></td>
+						<td><mobile-device:DeleteLink>&nbsp;&nbsp;Remove&nbsp;&nbsp;&nbsp;</mobile-device:DeleteLink></td>
+					</tr>
+				</mobile-devices:List>
+			</table>
+			<mobile-devices:EmptyText>You do not have any mobile devices registered.</mobile-devices:EmptyText>
+		</service:MobileDevices>
+	</lift:User.renderService>
+</div>

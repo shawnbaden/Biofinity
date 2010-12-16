@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:biofinity="edu.unl.biofinity"
+	targetNamespace="edu.unl.biofinity">
+	<xs:include schemaLocation="BiofinitySystemSchema.xsd"/>
+	<xs:element name="Data">
+		<xs:annotation>
+			<xs:documentation>
+				The full representation of a database maintained by The Biofinity Project.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Source"              type="biofinity:Source"/>
+				
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Classification"      type="biofinity:Classification"/>
+				
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Taxon"               type="biofinity:Taxon"/>
+				
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="BiologicalSequence"  type="biofinity:BiologicalSequence"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Chromosome"          type="biofinity:Chromosome"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Citation"            type="biofinity:Citation"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Contig"              type="biofinity:Contig"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Event"               type="biofinity:Event"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Exon"                type="biofinity:Exon"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Gene"                type="biofinity:Gene"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Location"            type="biofinity:Location"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Occurrence"          type="biofinity:Occurrence"/>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="Sample"              type="biofinity:Sample"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="Classification">
+		<xs:annotation>
+			<xs:documentation>
+				A hierarchical taxonomy for a group of organisms.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="CitationID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Citation_ associated with this classification.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								A descriptive name for the classification.  e.g. grey wolf
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Taxonomy">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="TaxonomyNode" type="biofinity:TaxonomyNode" minOccurs="1" maxOccurs="1"></xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="TaxonomyNode">
+		<xs:sequence>
+			<xs:element name="TaxonomyNode" type="biofinity:TaxonomyNode" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="TaxonID" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Taxon">
+		<xs:annotation>
+			<xs:documentation>
+				A taxon is a group of one or more organisms.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The formal name of the taxon.  e.g. C. lupus
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Rank" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The rank of the taxon in the taxonomy (i.e. species, genus, etc.).
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="AminoAcid">
+		<xs:annotation>
+			<xs:documentation>
+				TODO: do we need this?
+			</xs:documentation>
+			<xs:documentation> Documentation of any one of the twenty amino acids that make up
+				proteins. Since there are no complex types for the various elements I have left them
+				as strings. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ChemicalFormula" type="xs:string"/>
+					<xs:element name="CodonTriple" type="xs:string"/>
+					<xs:element name="GraphicView" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> This could be various representations of the amino
+								acid, any of quite a few different schemes for displaying a
+								molecule. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Citation">
+		<xs:annotation>
+			<xs:documentation>
+				
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ArticleKeywords" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The keywords specified in the original source where the citation comes from.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ArticleTitle" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The title of the article being cited.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Person" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The person responsible for making the first valid publication.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PersonID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Person_ who made the first valid publication.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FullCitation" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The full citation generally restricted to taxonomic publications.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NormalCitation" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The commonly accepted citation for the classification.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationIssue" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The issue of the publication used to locate the citation.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationName" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The name of the publication where the citation occurs.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationPages" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The page number(s) of the article being cited.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationType" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The type of publication such as journal, etc.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationVolume" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The volume of the publication used to locate the citation.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PublicationYear" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The year in which the citation occurred.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BLASTQuery">
+		<xs:annotation>
+			<xs:documentation> The query sequence, DNA or protein, registered or not (test sequence
+				or unknown sequence) </xs:documentation>
+			<xs:documentation> Similarity measure as performed by the BLAST algorithm between to
+				sequences, either protein (amino acids) or DNA (nucleotides) </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="BLASTResult" type="biofinity:BLASTResult" maxOccurs="unbounded"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> a single BLAST result against the query hit. If no
+								hits occurred above the threshold, this element will not be present
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QuerySequenceID" type="xs:string" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ used as the query sequence in	the BLAST run.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BLASTResult">
+		<xs:annotation>
+			<xs:documentation> BLAST results could be either gene hits or protein hits and belong to
+				a BLASTQuery </xs:documentation>
+			<xs:documentation> Similarity measure as performed by the BLAST algorithm between to
+				sequences, either protein (amino acids) or DNA (nuecleotides) </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="AlignmentLength" type="xs:int" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The number of symbols (including gaps) in the
+								subsequences continued in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BitScore" type="xs:float" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The score of the best alignment possible between the
+								two sequences. Each identical or positive pairing adds to the score,
+								while any gap or negative match subtracts from it. It is possible to
+								achieve a negative bit score. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="E-val" type="xs:float" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation> Expectation that an alignment achieving a higher
+								score can be achieved between the two sequences involved in this
+								BLAST run. The lower the value, the higher the similarity between
+								the two sequences. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HitAlignment" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> Subsequence of symbols from the hit sequence the are
+								involved in the local alignment. This subsequence may or may not
+								contain added gaps ( - ) depending on the version of BLAST used or
+								the quality of the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HitEndPosition" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The position within the Hit sequence that ends the
+								subsequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HitGaps" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The number of gaps within the subsequence of the hit
+								sequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HitSequenceID" type="xs:string" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ representing the hit sequence.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HitStartPosition" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The position within the Hit sequence that starts the
+								subsequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdentityPercent" type="xs:float" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The percent of symbols in Query sequence that match
+								identically with the hit sequence in the best alignment possible.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MatchAlignment" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The row between the Query Sequence and the hit
+								sequence to indicate the type of match between each pair of aligned
+								symbols. IF the pair is an axact match, the symbol with be present.
+								If the pair is only a positive match (determined by the specific
+								scoring matrix used) a + will be present. If the match is negative,
+								the position will be blank. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherStats" type="xs:string" maxOccurs="unbounded"
+						minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+								TODO: Don't know what other stats you had in mind?????
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PositivePercent" type="xs:float" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The percent of symbols in Query sequence that match
+								positivally (includes identity) with te hit sequence in the best
+								alignment possible. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryAlignment" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> Subsequence of symbols from the query sequence the
+								are involved in the local alignment. This sub sequence may or may
+								not contain added gaps ( - ) depending on the version of BLAST used
+								or the quality of the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryEndPosition" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The position within the Query sequence that ends the
+								subsequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryGaps" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The number of gaps within the subsquence of the query
+								sequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QueryStartPosition" type="xs:int" maxOccurs="1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation> The position within the Query sequence that starts
+								the subsequence involved in the alignment. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BiologicalSequence">
+		<xs:annotation>
+			<xs:documentation> A biological sequence represents either a DNA or amino acid sequence. </xs:documentation>
+			<xs:documentation> If it is a known sequence, type should be specified. </xs:documentation>
+			<xs:documentation> If it is an unknown sample or test sequence, description should be
+				specified. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+				  <xs:choice>
+			      <xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="1">
+	            <xs:annotation>
+	              <xs:documentation>
+	                The ID of the _Classification_ of the biological sequence.
+	              </xs:documentation>
+	            </xs:annotation>
+            </xs:element>
+            <xs:element name="SampleID" type="xs:string" minOccurs="0" maxOccurs="1">
+              <xs:annotation>
+                <xs:documentation>
+                  The ID of the _Sample_ the biological sequence was extracted from.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+				  </xs:choice>
+					<xs:choice>
+						<xs:element name="EmbeddedSequence">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Sequence" type="xs:string" minOccurs="0" maxOccurs="1">
+										<xs:annotation>
+											<xs:documentation>
+												The actual DNA (e.g. ATAAGGGCCCC...) or amino acid (e.g. WALRRMLLL...) sequence.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SequenceType" minOccurs="0" maxOccurs="1">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Nucleotide"/>
+												<xs:enumeration value="Amino Acid"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="AccessionNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+										<xs:annotation>
+											<xs:documentation>
+												The accession number of the sequence.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="LinkedSequence">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="EndPosition" type="xs:int" minOccurs="0" maxOccurs="1">
+										<xs:annotation>
+											<xs:documentation>
+												The desired ending position in the source (gene's DNA)/(protein's amino acid) sequence.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="BiologicalSequenceID" type="xs:string" minOccurs="1" maxOccurs="1">
+										<xs:annotation>
+											<xs:documentation>
+												The ID of the _BiologicalSequence_ to use.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StartPosition" type="xs:int" minOccurs="0" maxOccurs="1">
+										<xs:annotation>
+											<xs:documentation>
+												The desired starting position in the source (gene's DNA)/(protein's amino acid) sequence.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Chromosome">
+		<xs:annotation>
+			<xs:documentation>
+				
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The classification the chromosome is associated with.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BiologicalSequenceID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ that makes up the chromosome.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GenomeID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Genome_ to which the chromosome belongs to.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Number" type="xs:int" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The identifying number of the chromosome within the
+								genome (chromosome 1, chromosome 2, ...) </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Clade">
+		<xs:annotation>
+			<xs:documentation> Clades are undirected graphs that define a common ancestor.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="RootNode" type="biofinity:CladeNode" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The common ancestor that defines the clade.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Type" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> The type of elements described by the clade. e.g.
+								species, families, etc. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CladeNode">
+		<xs:annotation>
+			<xs:documentation> The node of a clade that describes the parent/child relationship.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ChildNode" type="biofinity:CladeNode" minOccurs="0"
+						maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ClassificationSynonym">
+		<xs:annotation>
+			<xs:documentation> A synonym links multiple classifications that represent a single
+				species of organism. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="2"
+						maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation> A synonym links multiple classifications that
+								represent a single species of organism. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Contig">
+		<xs:annotation>
+			<xs:documentation>
+				Contig mapped to this chromosome (actual segment of sequenced data)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ChromosomeID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Chromosome_ to which the contig belongs.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BiologicalSequenceID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ that makes up the contig.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EndPosition" type="xs:int">
+						<xs:annotation>
+							<xs:documentation>
+								The ending position of the contig on the chromosome.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The descriptive name of a contig.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StartPosition" type="xs:int">
+						<xs:annotation>
+							<xs:documentation>
+								The starting position of the contig on the chromosome.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Disagreement">
+		<xs:annotation>
+			<xs:documentation> A disagreement describes 2 or more classifications that are disputed.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="CitationID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="DisputedItemID" type="xs:string" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="Type" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> type of elements, genus, species etc.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="Resolved" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation> False if the disagreement in still being disputed, true
+							otherwise. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Exon">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="GeneID" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Gene_ to which the exon belongs.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EndPosition" type="xs:int" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ending position of the exon on the gene.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StartPosition" type="xs:int" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The starting position of the exon on the gene.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="File">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="FullPath" type="xs:string">
+							<xs:annotation>
+								<xs:documentation> The full path to the specified file.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RelativePath" type="xs:string">
+							<xs:annotation>
+								<xs:documentation> The path to the specified file relative to the
+									XML file. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="LocationID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Type" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> If the file extension doesn't accurately describe the
+								file's type or the type is different from the extension, specify the
+								file's type here. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SampleID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="OccurrenceID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Gene">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="ChromosomeID" type="xs:string" minOccurs="1" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>
+									The ID of the _Chromosome_ to which the gene belongs.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ContigID" type="xs:string" minOccurs="1" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>
+									The ID of the _Contig_ which the gene is a part of.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="EndPosition" type="xs:int" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ending position of the gene on either the contig or chromosome.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BiologicalSequenceID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ representing the DNA sequence that makes up the gene.
+							</xs:documentation>
+							<xs:documentation>
+								This includes non-coded introns.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GenomeID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Genome_ to which the gene belongs to.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The descriptive name of a gene.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StartPosition" type="xs:int" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The starting position of the gene on either the contig or chromosome.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Genome">
+		<xs:annotation>
+			<xs:documentation>
+				The genetic map of an organism.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="ClassificationID" type="xs:string" maxOccurs="1" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>
+									The ID of the _Classification_ to which the genome belongs.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OccurrenceID" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									The ID of the _Occurrence_ the genome represents.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ImageFile">
+		<xs:complexContent>
+			<xs:extension base="biofinity:File">
+				<xs:sequence>
+					<xs:element name="Caption" type="xs:string"/>
+					<xs:element name="Copyright" type="xs:string"/>
+					<xs:element name="CopyrightURL" type="xs:string"/>
+					<xs:element name="ImageCategory" type="xs:string"/>
+					<xs:element name="Photographer" type="xs:string"/>
+					<xs:element name="ResponseField" type="xs:string"/>
+					<xs:element name="SourceOfImage" type="xs:string"/>
+					<xs:element name="Stage" type="xs:string"/>
+					<xs:element name="Type" type="xs:string"/>
+					<xs:element name="CopyRightLogoPath" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Other">
+		<xs:annotation>
+			<xs:documentation> Holder object </xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="PCR">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="SampleID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> Attach PCR to a sample </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ResultID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The ID of the _BiologicalSequence_</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BandQuality" type="xs:string"/>
+					<xs:element name="Genome" type="xs:string"/>
+					<xs:element name="Machine" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> The machine used in PCR </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PCR_By" type="xs:string"/>
+					<xs:element name="PositiveControl" type="xs:string"/>
+					<xs:element name="Program" type="xs:string"/>
+					<xs:element name="ProgramDetail" type="xs:string"/>
+					<xs:element name="Region" type="xs:string"/>
+					<xs:element name="ForwadPrimerID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> PrimerID </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReversePrimerID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> PrimerID </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PCR_Date" type="xs:date"/>
+					<xs:element name="ExtractionID" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Population">
+		<xs:annotation>
+			<xs:documentation> Populations would be group of ccurrences of the same species that may
+				have certian group characteristics. Additionally in the fungal world there is no way
+				to find individual occurrences so population is needed to take samples. Hang group
+				info here </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="OccurrenceID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="SampleID" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Primer">
+		<xs:annotation>
+			<xs:documentation> A primer is a strand of nucleic acid that serves as a starting point
+				for DNA replication. They are required because the enzymes that catalyze
+				replication, DNA polymerases, can only add new nucleotides to an existing strand of
+				DNA. The polymerase starts replication at the 3'-end of the primer, and copies the
+				opposite strand, that’s why there is one forward and one reverse. A primer would be
+				like this: ATCGGGTCCCAACCTTGTCAGTCA Or a name (usually arbitrary) that describes it
+				ex: “Scarab18S-F” </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="AlternativePrimerID" type="xs:string"/>
+					<xs:element name="PrimerLocation" type="xs:string"/>
+					<xs:element name="PremerSequence" type="xs:string"/>
+					<xs:element name="SourceOfPrimer" type="xs:string"/>
+					<xs:element name="DateDiluted" type="xs:date"/>
+					<xs:element name="PrimerForGene" type="xs:string"/>
+					<xs:element name="amount_of_primer_into_spec" type="xs:int"/>
+					<xs:element name="amount_of_water_into_spec" type="xs:int"/>
+					<xs:element name="dilute_primer_to_concentration" type="xs:int"/>
+					<xs:element name="O_D_reading_at_260" type="xs:int"/>
+					<xs:element name="Single_stranded_DNA_cte" type="xs:int"/>
+					<xs:element name="Water_in_oringal_dilution" type="xs:int"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Protein">
+		<xs:annotation>
+			<xs:documentation> A protein is the gene product. Its structure (shape, the way it is
+				folded in 3-d space) is determined by its amino acid sequence </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="BiologicalSequenceID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ representing the amino acid sequence that makes up the protein.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Classification_ the protein belongs to.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GeneID" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Gene_ that encodes this protein.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GenomeID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Genome_ to which the protein belongs to.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> Offical protein name </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TranscriptID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _BiologicalSequence_ representing the DNA sequence that make up the CoDing Sequence (CDS).
+							</xs:documentation>
+							<xs:documentation>
+								TODO: This might be better to put this in the Gene?
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Sample">
+		<xs:annotation>
+			<xs:documentation>
+				A sample extracted from a occurrence. There can be multiple samples from one occurrence.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="EventID" type="xs:string" minOccurs="0"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Event_ that describes the sample being collected.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Protocol" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The protocol used for extracting the sample.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OccurrenceID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Occurrence_ the sample was extracted from.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StorageMedium" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Information on how the sample is stored.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SoundFile">
+		<xs:complexContent>
+			<xs:extension base="biofinity:File">
+				<xs:sequence>
+					<xs:element name="Microphone" type="xs:string"/>
+					<xs:element name="Recorder" type="xs:string"/>
+					<xs:element name="spectrogram_caption" type="xs:string"/>
+					<xs:element name="Spectrum_caption" type="xs:string"/>
+					<xs:element name="Tape" type="xs:string"/>
+					<xs:element name="TapeSide" type="xs:string"/>
+					<xs:element name="SamplingRate" type="xs:int"/>
+					<xs:element name="SpeciesIDValidated" type="xs:int"/>
+					<xs:element name="Temperature" type="xs:int"/>
+					<xs:element name="RecDate" type="xs:date"/>
+					<xs:element name="RecTime" type="xs:time"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Occurrence">
+		<xs:annotation>
+			<xs:documentation>
+				A occurrence is an individual organism.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="ClassificationID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="EventID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Event_ that describes the occurrence's collection/capture.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LifeStage" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								A description of the occurrence's current stage of life.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sex" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Indicates the sex of the organism.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Preparations" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								Information on how the occurrence is stored.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

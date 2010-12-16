@@ -1,0 +1,31 @@
+<lift:surround with="master_page" xmlns:lift="http://www.w3.org/1999/XSL/Transform">
+	<lift:with-param name="menus">
+		<div id="menu">
+			<ul>
+				<lift:Global.renderMenu>
+					<g:menuItem>
+						<li><a href="#" class="active">Active Menu Item</a></li>
+						<li><a href="#">Inactive Menu Item</a></li>
+					</g:menuItem>
+				</lift:Global.renderMenu>
+			</ul>
+		</div>
+		<div id="submenu_section">
+			<lift:bind name="page_menus"/>
+		</div>
+	</lift:with-param>
+	<lift:with-param name="content">
+		<!-- Primary content: Stuff that goes in the primary content column (by default, the left column) -->
+		<div id="primarycontainer" class="full">
+		    <lift:embed what="header_menu" />
+            <div id="primarycontent">
+				<lift:bind name="primary_content"/>
+			</div>
+            <div style="clear: both;"/>
+            <div id="footer">
+                <div class="left"></div>
+                <div class="right"><a href="/info/">Project Information</a></div>
+			</div>
+		</div>
+	</lift:with-param>
+</lift:surround>

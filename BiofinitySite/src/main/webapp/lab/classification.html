@@ -1,0 +1,29 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Classification.init group="" />
+		<head>
+			<title>My Labs: Classification - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Classification.renderScripts group="" />
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+	
+	<lift:with-param name="primary_content">
+		<div id="classification-details">
+			<lift:embed what="lab/classification-details" />
+		</div>
+	</lift:with-param>
+    <lift:with-param name="secondary_content">
+            <div class="section_head">Actions</div>
+        	<lift:Classification.renderClassification group="">
+			<p>
+				<classification:DeleteLink>Delete this classification</classification:DeleteLink><br />
+			</p>
+		</lift:Classification.renderClassification>  
+    </lift:with-param>
+</lift:surround>

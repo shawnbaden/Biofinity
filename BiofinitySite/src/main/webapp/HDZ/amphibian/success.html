@@ -1,0 +1,45 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:HDZ.initCreateOccurrenceMediaFile />
+		<head>
+			<title>Henry Doorly Zoo Amphibian Database - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:User.renderIfNotRestricted>
+			<span style="font-size: 16px;">Congratulations.  You successfully added a new amphibian to the Henry Doorly Zoo's Amphibian Database!</span><br />
+			<br />
+			<h2><b>Do you have any pictures of the amphibian you'd like to upload?</b></h2>
+			<br />
+			<p><span style="font-size: 16px;"><b>If not</b></span>, return to <a href=".">main page</a> of the Henry Doorly Zoo's Amphibian Database.</p>
+			<p><span style="font-size: 16px;"><b>If you do</b></span> have pictures of the amphibian, use the form below to upload them.  When you are done uploading, return to <a href=".">main page</a>.</p>
+			<form method="post" action="" enctype="multipart/form-data">
+				<lift:Occurrence.renderOccurrence updateExplicit="" redirectURL="/HDZ/amphibian/success?OccurrenceID=">
+					<occurrence:MediaFiles>
+						<media-files:Create>
+							<media-file:File />
+							<br />
+							<div style="height: 4px;">&nbsp;</div>
+							<media-file:SaveLink> Upload File  </media-file:SaveLink>
+						</media-files:Create>
+					</occurrence:MediaFiles>
+				</lift:Occurrence.renderOccurrence>
+			</form>
+			<br />
+			<div id="media-files">
+				<lift:Occurrence.renderOccurrence updateExplicit="">
+					<occurrence:MediaFiles>
+						<media-files:List>
+							<span>
+								<media-file:ViewLink />
+							</span>
+						</media-files:List>
+					</occurrence:MediaFiles>
+				</lift:Occurrence.renderOccurrence>
+			</div>
+		</lift:User.renderIfNotRestricted>
+	</lift:with-param>
+</lift:surround>

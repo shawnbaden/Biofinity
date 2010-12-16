@@ -1,0 +1,39 @@
+<lift:surround with="full_page" xmlns:lift="http://www.w3.org/1999/XSL/Transform" xmlns:service="edu.unl.biofinity">
+	<lift:with-param name="main_content">
+		<head>
+			<title>User Account: Services - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css"/>
+			<link rel="stylesheet" type="text/css" href="/resources/css/profile.css"/>
+		</head>
+	</lift:with-param>
+
+	<lift:with-param name="primary_content">
+		<div id="user-services-content">
+			<h3><strong>User Account</strong></h3>
+
+		<div style="margin-top: 15px;" class="section_head">Services</div>
+			<p>The Biofinity Project provides several services that can be
+				used to access, manage, and interact with our data. The following
+				services can be managed or added to your profile.</p>
+
+			<div id="service-list" class="service">
+				<lift:User.renderServices>
+					<div class="description">
+						<service:Icon/>
+						<span class="name"><service:Name/></span>
+						<p>
+							<service:Description/>
+						</p>
+					</div>
+					<div class="actions">
+						<service:Action/>
+					</div>
+				</lift:User.renderServices>
+			</div>
+		</div>
+	</lift:with-param>
+
+	<lift:with-param name="page_menus">
+		<lift:embed what="user/menu"/>
+	</lift:with-param>
+</lift:surround>

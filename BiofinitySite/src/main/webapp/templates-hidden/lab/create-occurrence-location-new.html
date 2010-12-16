@@ -1,0 +1,220 @@
+<div>
+	<h2>Step 1 of 3: Fill out location information</h2>
+	<lift:Occurrence.renderCreateOccurrenceLocation group="" new="">
+		<div>
+			<span style="font-size: 10pt;">The following form will create a new location.</span><create-occurrence-location:ToggleLink>  <link:Name>Want to use an existing location instead</link:Name>?</create-occurrence-location:ToggleLink>
+		</div>		
+        <div align="right">
+			<create-occurrence-location:NextLink>&nbsp;Next&nbsp;</create-occurrence-location:NextLink>
+		</div>
+		<lift:Location.renderLocation group="" update="">
+			<p>
+				<span><b>Drag the marker</b> on the map to automatically set the latitude and longitude of this location.</span>
+			</p>
+			<table>
+				<tr>
+					<td>
+						<b>Latitude</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLatitude">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Latitude />&#176;<span>&nbsp;Expressed in <a href="http://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees (DD)</a>, ranging from -90.0 to 90.0.</span>  Alternatively, use <a href="http://en.wikipedia.org/wiki/Geographic_coordinate_system">degrees:minutes:seconds (DMS)</a>:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<location:LatitudeDMSDegrees />&#176;&nbsp;&nbsp;<location:LatitudeDMSMinutes />'&nbsp;&nbsp;<location:LatitudeDMSSeconds />"&nbsp;&nbsp;<location:LatitudeDMSDirection />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Longitude</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#decimalLongitude">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Longitude />&#176;<span>&nbsp;Expressed in <a href="http://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees (DD)</a>, ranging from -180.0 to 180.0.</span>  Alternatively, use <a href="http://en.wikipedia.org/wiki/Geographic_coordinate_system">degrees:minutes:seconds (DMS)</a>:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<location:LongitudeDMSDegrees />&#176;&nbsp;&nbsp;<location:LongitudeDMSMinutes />'&nbsp;&nbsp;<location:LongitudeDMSSeconds />"&nbsp;&nbsp;<location:LongitudeDMSDirection />
+					</td>
+				</tr>
+			</table>
+			<div style="margin-top: 10px; height: 300px;" id="map_canvas"></div>
+			<lift:Map.renderMap />
+			<lift:Map.renderMarker centerMap="" />
+			<p>
+				<span><b><u><location:LookupLocationLink>Lookup location details</location:LookupLocationLink></u></b> such as elevation, municipality, county, state/province, and country based on the current latitude and longitude.</span>
+			</p>
+			<table>
+				<!--
+				<tr>
+					<td>
+						<b>Verbatim Coordinates</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimCoordinates">[*]</a></sup>:
+					</td>
+					<td>
+						<location:VerbatimCoordinates />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Minimum Elevation In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumElevationInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MinimumElevationInMeters />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Maximum Elevation In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumElevationInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MaximumElevationInMeters />
+					</td>
+				</tr>
+				-->
+				<tr>
+					<td>
+						<b>Elevation</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimElevation">[*]</a></sup>:
+					</td>
+					<td>
+						<location:VerbatimElevation /><span>&nbsp;&nbsp;If available, the approximate elevation of the location.</span>
+					</td>
+				</tr>
+				<!--
+				<tr>
+					<td>
+						<b>Minimum Depth In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumDepthInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MinimumDepthInMeters />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Maximum Depth In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumDepthInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MaximumDepthInMeters />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Verbatim Depth</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimDepth">[*]</a></sup>:
+					</td>
+					<td>
+						<location:VerbatimDepth />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Minimum Distance Above Surface In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#minimumDistanceAboveSurfaceInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MinimumDistanceAboveSurfaceInMeters />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Maximum Distance Above Surface In Meters</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#maximumDistanceAboveSurfaceInMeters">[*]</a></sup>:
+					</td>
+					<td>
+						<location:MaximumDistanceAboveSurfaceInMeters />
+					</td>
+				</tr>
+				-->
+				<tr>
+					<td>
+						<b>Continent</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#continent">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Continent />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Country</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#country">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Country /><span>&nbsp;&nbsp;The country or major administrative unit in which the location occurs.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>State/Province</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#stateProvince">[*]</a></sup>:
+					</td>
+					<td>
+						<location:StateProvince /><span>&nbsp;&nbsp;The next smaller administrative region than country (state, province, canton, department, region, etc.).</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>County</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#county">[*]</a></sup>:
+					</td>
+					<td>
+						<location:County /><span>&nbsp;&nbsp;The next smaller administrative region than state/province (county, shire, department, etc.).</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Municipality</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#municipality">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Municipality /><span>&nbsp;&nbsp;The next smaller administrative region than county (city, municipality, etc.).</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Locality</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#locality">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Locality /><span>&nbsp;&nbsp;The specific description of the place.  More specific than other city/municipality, county, etc.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Water Body</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#waterBody">[*]</a></sup>:
+					</td>
+					<td>
+						<location:WaterBody /><span>&nbsp;&nbsp;The name of the water body in which the location occurs.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Island</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#island">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Island /><span>&nbsp;&nbsp;The island on or near which the location occurs.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Island Group</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#islandGroup">[*]</a></sup>:
+					</td>
+					<td>
+						<location:IslandGroup /><span>&nbsp;&nbsp;The name of the island group in which the location occurs.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Remarks</b><sup><a class="reference" target="_blank" href="http://rs.tdwg.org/dwc/terms/index.htm#locationRemarks">[*]</a></sup>:
+					</td>
+					<td>
+						<location:Remarks /><span>&nbsp;&nbsp;Comments or notes about the location.</span>
+					</td>
+				</tr>
+			</table>
+		</lift:Location.renderLocation>
+		<p>
+			[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for a <a href="http://rs.tdwg.org/dwc/terms/index.htm#dcterms:Location">location</a>.
+		</p>
+		<div align="right">
+			<create-occurrence-location:NextLink>&nbsp;Next&nbsp;</create-occurrence-location:NextLink>
+		</div>
+	</lift:Occurrence.renderCreateOccurrenceLocation>
+</div>

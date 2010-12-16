@@ -1,0 +1,26 @@
+<lift:AdditionalPropertyBundle.renderAdditionalPropertyBundle group="" update="">
+	<div style="margin-top: 10px">Use the following form to create an additional property.</div>
+	<additional-property-bundle:Create>
+		<b>Name</b>:&nbsp;<additional-property:Name />&nbsp;&nbsp;<b>Value</b>:&nbsp;<span id="additional-property-value"><additional-property:Value /></span>&nbsp;&nbsp;<b>Type</b>:&nbsp;<additional-property:ValueType />&nbsp;&nbsp;<additional-property:SaveLink>&nbsp;Create&nbsp;</additional-property:SaveLink>
+	</additional-property-bundle:Create>
+	<div style="height: 8px;">&nbsp;</div>
+	<table>
+		<tr>
+			<th width="128px"></th>
+			<th width="128px"></th>
+		</tr>
+		<additional-property-bundle:List>
+			<tr>
+				<td>
+					<additional-property:Name />
+				</td>
+				<td>
+					<additional-property:Value />
+				</td>
+				<td>
+					<additional-property:DeleteLink>&nbsp;Delete&nbsp;</additional-property:DeleteLink>
+				</td>
+			</tr>
+		</additional-property-bundle:List>
+	</table>
+</lift:AdditionalPropertyBundle.renderAdditionalPropertyBundle>

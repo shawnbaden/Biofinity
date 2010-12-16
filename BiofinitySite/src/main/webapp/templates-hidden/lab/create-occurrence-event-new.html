@@ -1,0 +1,87 @@
+<div>
+	<h2>Step 2 of 3: Fill out event information</h2>
+	<lift:Occurrence.renderCreateOccurrenceEvent group="" new="">
+		<div>
+			<span style="font-size: 10pt;">The following form will create a new event.</span><create-occurrence-event:ToggleLink>  <link:Name>Want to use an existing event instead</link:Name>?</create-occurrence-event:ToggleLink>
+		</div>
+        <div align="right">
+			<create-occurrence-event:PreviousLink>&nbsp;Previous&nbsp;</create-occurrence-event:PreviousLink>
+			<create-occurrence-event:NextLink>&nbsp;Next&nbsp;</create-occurrence-event:NextLink>
+		</div>
+		<lift:Event.renderEvent group="" update="">
+			<table>
+				<tr>
+					<td>
+						<b>Date</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#eventDate">[*]</a></sup>:
+					</td>
+					<td>
+						<event:Date /><span>&nbsp;&nbsp;MM/DD/YYYY</span>&nbsp;&nbsp;<event:Hour />&nbsp;&nbsp;<event:Minute />&nbsp;&nbsp;<event:PM />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Verbatim Date</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimEventDate">[*]</a></sup>:
+					</td>
+					<td>
+						<event:VerbatimDate /><span>&nbsp;If an exact date is not known but some details are available, fill it in here.  Examples include: 2001, summer, or October 1997.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Habitat</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#habitat">[*]</a></sup>:
+					</td>
+					<td>
+						<event:Habitat /><span>&nbsp;A category or description of the habitat in which the event occurred.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Field Number</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#fieldNumber">[*]</a></sup>:
+					</td>
+					<td>
+						<event:FieldNumber /><span>&nbsp;An identifier given to the event in the field.  Often serves as a link between field notes and the event.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Field Notes</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#fieldNotes">[*]</a></sup>:
+					</td>
+					<td>
+						<event:FieldNotes /><span>&nbsp;Generally the text of notes taken in the field about the event.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sampling Effort</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#samplingEffort">[*]</a></sup>:
+					</td>
+					<td>
+						<event:SamplingEffort /><span>&nbsp;The amount of effort expended during the event. Examples include: "40 trap-nights" or "10 observer-hours; 10 km by foot; 30 km by car".</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sampling Protocol</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#samplingProtocol">[*]</a></sup>:
+					</td>
+					<td>
+						<event:SamplingProtocol /><span>&nbsp;The name of, reference to, or description of the method or protocol used during the event. Examples include: "UV light trap", "mist net", or "bottom trawl".</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#eventRemarks">[*]</a></sup>:
+					</td>
+					<td>
+						<event:Remarks /><span>&nbsp;Comments or notes about the event.</span>
+					</td>
+				</tr>
+			</table>
+		</lift:Event.renderEvent>
+		<p>
+			[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for an <a href="http://rs.tdwg.org/dwc/terms/index.htm#Event">event</a>.
+		</p>
+		<div align="right">
+			<create-occurrence-event:PreviousLink>&nbsp;Previous&nbsp;</create-occurrence-event:PreviousLink>
+			<create-occurrence-event:NextLink>&nbsp;Next&nbsp;</create-occurrence-event:NextLink>
+		</div>
+	</lift:Occurrence.renderCreateOccurrenceEvent>
+</div>

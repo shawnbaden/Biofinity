@@ -1,0 +1,22 @@
+<lift:surround with="full_page" xmlns:lift="http://www.w3.org/1999/XSL/Transform">
+	<lift:with-param name="main_content">
+		<head>
+			<title>User Account: Information - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css"/>
+			<link rel="stylesheet" type="text/css" href="/resources/css/profile.css"/>
+		</head>
+		<lift:User.renderScripts group=""/>
+	</lift:with-param>
+
+	<lift:with-param name="primary_content">
+		<h3><strong>User Account</strong></h3>
+
+		<div id="user-details">
+			<lift:embed what="user/user-details"/>
+		</div>
+	</lift:with-param>
+
+	<lift:with-param name="page_menus">
+		<lift:embed what="user/menu"/>
+	</lift:with-param>
+</lift:surround>

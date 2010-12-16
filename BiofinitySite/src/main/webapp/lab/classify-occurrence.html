@@ -1,0 +1,92 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Occurrence.init group="" />
+		<head>
+			<title>My Labs: Assign a Classification to an Occurrence - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Occurrence.renderClassifyOccurrenceScripts group="" />
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<h2>Assign a Classification to an Occurrence</h2>
+		<p>
+			Use the form below to search for a classification to assign to this occurrence.
+			Search will look for matches based on the name of a classification and the name of the deepest child taxon (typically species or subspecies) of a classification.
+		</p>
+		<lift:Occurrence.renderClassifyOccurrence group="">
+			<classify-occurrence:SearchQuery />&nbsp;<classify-occurrence:SearchExecuteLink>&nbsp;Search&nbsp;</classify-occurrence:SearchExecuteLink>
+			<div id="classify-occurrence-search-results">
+			</div>
+		</lift:Occurrence.renderClassifyOccurrence>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<lift:Occurrence.renderOccurrence group="">
+			<div class="section_head">Occurrence <occurrence:ViewLink>View</occurrence:ViewLink></div>
+			<table>
+				<tr>
+					<td>
+						<b>ID</b>:
+					</td>
+					<td>
+						<occurrence:IDLink />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Type</b>:
+					</td>
+					<td>
+						<occurrence:OccurrenceType />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Sex</b>:
+					</td>
+					<td>
+						<occurrence:Sex />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Life Stage</b>:
+					</td>
+					<td>
+						<occurrence:LifeStage />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Reproductive Condition</b>:
+					</td>
+					<td>
+						<occurrence:ReproductiveCondition />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Behavior</b>:
+					</td>
+					<td>
+						<occurrence:Behavior />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Preparations</b>:
+					</td>
+					<td>
+						<occurrence:Preparations />
+					</td>
+				</tr>
+			</table>
+		</lift:Occurrence.renderOccurrence>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,150 @@
+<div>
+    <lift:Occurrence.renderOccurrence group="" update="">
+    <div class="section_head">Occurrence Details <occurrence:CancelLink>Cancel</occurrence:CancelLink></div>
+        <table>
+            <tr>
+                <td>
+                    <b>Type</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#basisOfRecord">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:OccurrenceType />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Recorded By</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#recordedBy">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:RecordedBy /><span>&nbsp;A list (semicolon-separated) of names responsible for recording the occurrence, with the primary collector or observer first.</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Record Number</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#recordNumber">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:RecordNumber /><span>&nbsp;An identifier given to the occurrence at the time it was recorded. Often serves as a link between field notes and the occurrence.</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Sex</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#sex">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Sex /><span>&nbsp;The sex of the individual(s) represented in the occurrence. Examples include: "female", "hermaphrodite", "8 males, 4 females".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Life Stage</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#lifeStage">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:LifeStage /><span>&nbsp;The age class or life stage of the individual(s) at the time the occurrence was recorded. Examples include: "egg", "eft", "juvenile", "adult", "2 adults 4 juveniles".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Reproductive Condition</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#reproductiveCondition">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:ReproductiveCondition /><span>&nbsp;The reproductive condition of the individual(s) represented in the occurrence.  Examples include: "non-reproductive", "pregnant", "in bloom", "fruit-bearing".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Behavior</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#behavior">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Behavior /><span>&nbsp;A description of the behavior shown by the subject at the time the occurrence was recorded. Examples include: "roosting", "foraging", "running".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Disposition</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#disposition">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Disposition /><span>&nbsp;The current state with respect to the collection identified in the collection code/ID. Examples include: "in collection", "missing", "voucher elsewhere", "duplicates elsewhere".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Establishment Means</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#establishmentMeans">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:EstablishmentMeans /><span>&nbsp;The process by which the individual(s) represented in the occurrence became established at the location. Examples include: "cultivated", "invasive", "escaped from captivity", "wild", "native".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Preparations</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#preparations">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Preparations /><span>&nbsp;A list (semicolon-separated) of preparations and preservation methods. Examples include: "skin; skull; skeleton", "whole animal (ETOH); tissue (EDTA)", "fossil", "cast", "photograph", "DNA extract".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Individual ID</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#individualID">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:IndividualID /><span>&nbsp;An identifier for the individual(s) represented in the occurrence meant to accommodate resampling. Examples include: "U.amer. 44", "Smedley", "Orca J 23".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Individual Count</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#individualCount">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:IndividualCount /><span>&nbsp;The number of individuals present at the time of the occurrence.</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Status</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceStatus">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Status /><span>&nbsp;A statement about the presence or absence of a taxon at a location. Examples include: "present", "absent".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Catalog Number</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#catalogNumber">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:CatalogNumber /><span>&nbsp;An identifier (preferably unique) for the record within the data set or collection. Examples include: "2008.1334", "145732a", "145732".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Other Catalog Numbers</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#otherCatalogNumbers">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:OtherCatalogNumbers /><span>&nbsp;A list (semicolon-separated) of alternate catalog numbers for the occurrence. Examples include: "FMNH:Mammal:1234", "NPS YELLO6778; MBG 33424".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Details</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceDetails">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Details /><span>&nbsp;A reference (publication, URI) to the most detailed information available about the occurrence. Examples include: "http://mvzarctos.berkeley.edu/guid/MVZ:Mamm:165861".</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceRemarks">[*]</a></sup>:
+                </td>
+                <td>
+                    <occurrence:Remarks /><span>&nbsp;Comments or notes about the occurrence.</span>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <occurrence:SaveLink>&nbsp;Save&nbsp;</occurrence:SaveLink>&nbsp;
+            <occurrence:CancelLink>Cancel</occurrence:CancelLink>
+        </p>
+		<p>
+			[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for an <a href="http://rs.tdwg.org/dwc/terms/index.htm#Occurrence">occurrence</a>.
+		</p>
+    </lift:Occurrence.renderOccurrence>
+</div>

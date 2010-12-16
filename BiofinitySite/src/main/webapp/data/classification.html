@@ -1,0 +1,30 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:Classification.init />
+		<head>
+			<title>Classification - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<h1>Classification Details</h1>
+		<lift:Classification.renderClassification>
+			<br />
+			<p>
+				<b>Name</b>:&nbsp;&nbsp;&nbsp;<classification:Name />
+			</p>
+			<classification:Taxons>
+				<taxons:EmptyText>This classification has no taxa associated with it.</taxons:EmptyText>
+				<table>
+					<taxons:List>
+						<tr>
+							<td><b><taxon:Rank /></b>: </td>
+							<td><taxon:NameLink /></td>
+						</tr>
+					</taxons:List>
+				</table>
+			</classification:Taxons>
+		</lift:Classification.renderClassification>
+	</lift:with-param>
+</lift:surround>

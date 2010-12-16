@@ -1,0 +1,19 @@
+<div>
+	<table>
+			<tr>
+				<th>Name</th>
+				<th>Rank</th>
+				<th></th>
+			</tr>
+		<lift:Classification.renderTaxonomyNodes group="">
+			<tr>
+				<td><taxonomyNode:Name /></td>
+				<td><taxonomyNode:Rank /></td>
+				<td><taxonomyNode:Delete /></td>
+			</tr>
+		</lift:Classification.renderTaxonomyNodes>
+	</table>
+	<lift:Classification.renderIfNoTaxons>
+		<span>This classification currently has no taxa associated with it.</span>
+	</lift:Classification.renderIfNoTaxons>
+</div>

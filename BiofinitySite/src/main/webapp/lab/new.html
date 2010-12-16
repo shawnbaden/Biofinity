@@ -1,0 +1,42 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>My Labs: New Lab - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<div style="float: left; width: 48%; border-right: 1px solid black; padding-right: 2%">
+			<h2>Create a new lab</h2>
+			<p>If you are currently managing a database of biological data and would
+			like to begin to use My Labs by The Biofinity Project to manage data, you should
+			register your organization as a lab.  The following forms will guide you through
+			this process.  There will be a several day delay between submission and approval
+			for your lab request as members of our team verify your organization and create
+			a new lab for you.</p>
+			<div style="text-align: center">
+				<a href="/lab/create" style="text-decoration: none;">
+					<img src="/resources/images/lab/newlab.png" style="border: none"/><br/>
+					<span style="font-size: 15pt;">Get Started</span>
+				</a>
+			</div>
+		</div>
+		<div style="float: right; width: 49%">
+			<h2>Join an existing lab</h2>
+			<p>If you are working with a group that has already registered a lab with 
+			The Biofinity Project, you can request to join the
+			lab and begin to collaborate with researchers.  The following forms will 
+			guide you through the process of registering your account and requesting
+			access to the existing lab.  There may be a delay as the manager of the lab
+			reviews your request and processes the approval.</p>
+			<div style="text-align: center">
+				<a href="/lab/join" style="text-decoration: none;">
+					<img src="/resources/images/lab/public.png" style="border: none"/><br/>
+					<span style="font-size: 15pt;">Get Started</span>
+				</a>
+			</div>
+		</div>
+	</lift:with-param>
+</lift:surround>

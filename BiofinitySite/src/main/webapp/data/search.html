@@ -1,0 +1,78 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:Search.init />
+		<head>
+			<title>My Labs: Search for: <lift:Search.renderSearch><search:QueryText /></lift:Search.renderSearch> - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<div>
+			<lift:Search.renderSearch form="post">
+				<div class="section" id="dbsearch">
+					<h2>Search the Database</h2>
+					<search:Query />&nbsp;<search:ExecuteLink> Search </search:ExecuteLink>
+				</div>
+				
+				<div id="results">
+					<search:Results>
+						<results:AlertText><p class="warning">&nbsp;&nbsp;The search query must be more than 2 characters.</p></results:AlertText>
+						<results:Classifications>
+							<h2>Classifications</h2>
+							<classifications:List>
+								<div class="searchResult">
+									<classification:NameLink /> (<b>ID</b>: <classification:IDLink />)<br />
+									<b>Taxa</b>:&nbsp;&nbsp;
+									<classification:Taxons>
+										<taxons:List>
+											<taxon:NameLink /> (<b><taxon:Rank /></b>) |
+										</taxons:List>
+									</classification:Taxons>
+									<br/>
+								</div>
+							</classifications:List>
+						</results:Classifications>
+						<results:Taxons>
+							<h2>Taxa</h2>
+							<taxons:List>
+								<div class="searchResult">
+									<b><taxon:NameLink /></b> (<taxon:Rank />)
+								</div>
+							</taxons:List>
+						</results:Taxons>
+						<results:Occurrences>
+							<h2>Occurrences</h2>
+							<table id="occurrences">
+								<tr>
+									<th>ID</th>
+									<th>Recorded By</th>
+									<th>Date</th>
+									<th>Country</th>
+									<th>State/Province</th>
+									<th>Locality</th>
+									<th>Elevation</th>
+								</tr>
+								<occurrences:List>
+										<tr>
+											<td valign="top" style="padding-right: 2em;"><occurrence:IDLink /></td>
+											<td><occurrence:RecordedBy /></td>
+											<occurrence:Event>
+												<td><event:DateFormattedNoTime /></td>
+												<event:Location>
+													<td><location:Country /></td>
+													<td><location:StateProvince /></td>
+													<td><location:Locality /></td>
+													<td><location:VerbatimElevation /></td>
+												</event:Location>
+											</occurrence:Event>
+										</tr>
+								</occurrences:List>
+							</table>
+						</results:Occurrences>
+					</search:Results>
+				</div>
+			</lift:Search.renderSearch>
+		</div>
+	</lift:with-param>
+</lift:surround>

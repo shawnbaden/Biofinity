@@ -1,0 +1,12 @@
+<lift:Occurrence.renderOccurrence group="" update="">
+	<div class="section_subhead">Additional Properties <a href="javascript:showOccurrenceAdditionalPropertyBundle();">Done</a></div>
+	<occurrence:AdditionalPropertyBundleWarning>
+		<span class="warning">&nbsp;This occurrence is missing additional properties defined by the lab.&nbsp;&nbsp;</span>
+		<additional-property-bundle-warning:EnsureContainsLink>&nbsp;&nbsp;Fix&nbsp;&nbsp;</additional-property-bundle-warning:EnsureContainsLink>
+	</occurrence:AdditionalPropertyBundleWarning>
+	<occurrence:AdditionalPropertyBundle>
+		<div id="additional-property-bundle">
+			<lift:embed what="lab/additional-property-bundle-update" />
+		</div>
+	</occurrence:AdditionalPropertyBundle>
+</lift:Occurrence.renderOccurrence>

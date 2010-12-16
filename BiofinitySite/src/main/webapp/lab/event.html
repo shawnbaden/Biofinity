@@ -1,0 +1,209 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<lift:Event.init group="" />
+		<head>
+			<title>My Labs: Event Details - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+		<lift:Event.renderScripts group="" />
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>    
+	
+	<lift:with-param name="primary_content">
+		<div id="event-details">
+			<lift:embed what="lab/event-details" />
+		</div>
+		<div id="event-additional-property-bundle">
+			<lift:embed what="lab/event-additional-property-bundle" />
+		</div>
+		<div style="height: 8px;">&nbsp;</div>
+		<lift:Event.renderEvent group="">
+			<event:Location>
+				<lift:Location.renderLocation group="">
+					<div class="section_head">Location Summary <location:ViewLink>View</location:ViewLink></div>
+					<table>
+						<tr>
+							<td>
+								<b>Wiki Page</b>: 
+							</td>
+							<td>
+								<location:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this location.</location:WikiPageIDLink>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Latitude</b>:
+							</td>
+							<td>
+								<location:Latitude />&#176;
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Longitude</b>:
+							</td>
+							<td>
+								<location:Longitude />&#176;
+							</td>
+						</tr>
+						<!--
+						<tr>
+							<td>
+								<b>Verbatim Coordinates</b>:
+							</td>
+							<td>
+								<location:VerbatimCoordinates /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Minimum Elevation In Meters</b>:
+							</td>
+							<td>
+								<location:MinimumElevationInMeters /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Maximum Elevation In Meters</b>:
+							</td>
+							<td>
+								<location:MaximumElevationInMeters /><br />
+							</td>
+						</tr>
+						-->
+						<tr>
+							<td>
+								<b>Elevation</b>:
+							</td>
+							<td>
+								<location:VerbatimElevation />
+							</td>
+						</tr>
+						<!--
+						<tr>
+							<td>
+								<b>Minimum Depth In Meters</b>:
+							</td>
+							<td>
+								<location:MinimumDepthInMeters /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Maximum Depth In Meters</b>:
+							</td>
+							<td>
+								<location:MaximumDepthInMeters /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Verbatim Depth</b>:
+							</td>
+							<td>
+								<location:VerbatimDepth /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Minimum Distance Above Surface In Meters</b>:
+							</td>
+							<td>
+								<location:MinimumDistanceAboveSurfaceInMeters /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Maximum Distance Above Surface In Meters</b>:
+							</td>
+							<td>
+								<location:MaximumDistanceAboveSurfaceInMeters /><br />
+							</td>
+						</tr>
+						-->
+						<tr>
+							<td>
+								<b>Continent</b>:
+							</td>
+							<td>
+								<location:Continent /><br />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Country</b>:
+							</td>
+							<td>
+								<location:Country />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>State/Province</b>:
+							</td>
+							<td>
+								<location:StateProvince />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>County</b>:
+							</td>
+							<td>
+								<location:County />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Municipality</b>:
+							</td>
+							<td>
+								<location:Municipality />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Locality</b>:
+							</td>
+							<td>
+								<location:Locality />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Water Body</b>:
+							</td>
+							<td>
+								<location:WaterBody />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Island</b>:
+							</td>
+							<td>
+								<location:Island />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Island Group</b>:
+							</td>
+							<td>
+								<location:IslandGroup />
+							</td>
+						</tr>
+					</table>
+					<div style="margin-top: 20px; height: 400px;" id="map_canvas"></div>
+					<lift:Map.renderMap />
+					<lift:Map.renderMarker centerMap="" />
+				</lift:Location.renderLocation>
+			</event:Location>
+		</lift:Event.renderEvent>
+	</lift:with-param>
+</lift:surround>

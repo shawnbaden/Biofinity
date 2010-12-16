@@ -1,0 +1,24 @@
+<lift:Classification.renderCreateClassification group="">
+	<div id="results">
+		<create-classification:ImportSearchResults>
+			<div class="section_subhead">Classifications</div>
+			<import-search-results:EmptyText><p>&nbsp;&nbsp;No classifications from ubio.org match the search query.</p></import-search-results:EmptyText>
+			<import-search-results:WaitingText><p class="warning">&nbsp;&nbsp;Please wait while your search of ubio.org is performed.</p></import-search-results:WaitingText>
+			<import-search-results:List>
+				<div class="searchResult">
+					<classification:Name /><br />
+					<b>Taxa</b>:&nbsp;&nbsp;
+					<classification:Taxons>
+						<taxons:List>
+							<taxon:Name /> (<b><taxon:Rank /></b>) |
+						</taxons:List>
+					</classification:Taxons>
+					<br/>
+					<div style="height: 8px;">&nbsp;</div>
+					<classification:SelectLink>Import Classification&nbsp;</classification:SelectLink>
+					<div style="height: 4px;">&nbsp;</div>
+				</div>
+			</import-search-results:List>
+		</create-classification:ImportSearchResults>
+	</div>
+</lift:Classification.renderCreateClassification>

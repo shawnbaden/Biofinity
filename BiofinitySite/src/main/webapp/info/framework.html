@@ -1,0 +1,104 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>Biofinity - Framework</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/info.css" />
+		</head>
+	</lift:with-param>
+
+    <lift:with-param name="page_menus">
+        <lift:embed what="info/menu"/>
+    </lift:with-param>
+
+	<lift:with-param name="primary_content">
+		<h3><span>SCID</span> <strong>Framework</strong></h3>
+		<p>The Biofinity Project is built atop the Semantic
+		Cyberinfrastructure for Information Discovery (SCID) Framework. This
+		framework provides The Biofinity Project tools and web pages with
+		access to many robust tools to support discovery of new relationships
+		in biological data. The Biofinity Project utilizes the SCID framework
+		to integrate the many independant data repositories which provide data
+		to the project. More information on the SCID framework an access to
+		developer resources can be found on this page.</p>
+
+		<center><img src="/resources/images/framework/scid.png"
+			style="margin-bottom: 5px;" /></center>
+
+		<p>The above figure details the SCID framework. This figure
+		illustrates the fundamental distributed nature of SCID. Rather than
+		creating a monolithic software system to achieve our project goals, we
+		have chosen to create an ecosystem in which to build smaller software
+		components each implementing some aspect of the larger software
+		system. In this way, we hope to create a sustainable and evolving
+		model in which to promote the use of semantic web technologies in
+		biological science research.</p>
+
+		<p>SCID&#39;s ontology builder (OB) will accept user&#39;s
+		existing databases (both data and structure) based on the SCID Data
+		Specification (SDS). Using these and existing, relevant ontologies,
+		the OB will build an initial set of ontologies. These ontologies may
+		be located on separate machines distributed across the WWW and use
+		heterogeneous formats, but axiomatic definitions and Semantic Web
+		standards will be used to federate the data so they can be used as a
+		computational unit. Then, the OB will, via the intelligent user
+		interface (IUI), elicit from the users more detailed information about
+		the data (e.g., other relationships that may exist in the data, rules
+		that must be satisfied by the data, etc.). This yields Version 0 of
+		the new ontologies. A second component is its collaborative editing
+		tool (CET). All edits of an ontology&#39;s structure and data will be
+		performed through the CET. It also will allow for positing new
+		discoveries in genomics and proteomics, which could be recently
+		published or considered for publication. All these can be discussed
+		(and edited) on the CET&#39;s discussion board. These components are
+		collectively delivered as the intelligent user interface (IUI),
+		provides users access to SCID. All queries to data stores (both inside
+		and outside SCID), ontology building and editing, and external tool
+		access are performed via this interface. It will allow users to access
+		data and tools via a data-flow model, described below. The IUI also
+		will perform traces of users&#39; query patterns and build and code
+		models of these traces, which will then be used to support the
+		investigative and discovery activities for future users.</p>
+
+		<p>In order to support the definition of complex data
+		relationships, we have ontologies implemented using the SDS based on
+		OWL, the Web Ontology Language (Miller &#38; Hendler 2007). SCID will
+		federate the ontologies into an ontology with biodiversity data,
+		genomics data, and other relevant data sources. SCID will combine this
+		information into a single ontology for inferencing, consistency
+		checking and retrieval of data via queries and logical deduction via
+		rules and relationships. In order to transparently create a single
+		ontology based on the relationships defined in many disparate
+		ontologies, SCID will provide a software framework that it dynamically
+		compose subsets of data based on individual requests. This software
+		framework itself can be thought of as the complete SCID ontology in
+		that the complete set of relationships are expressed through software
+		calls. This architectural decision is driven by the unique nature of
+		the individual (and often incompatible) data sources that exist today.</p>
+
+		<p>The benefit of federating these data sources together to allow
+		biodiversity studies to leverage data from genomics and proteomics.
+		Federation of data sources is achieved by providing the SCID
+		application programming interface (API), allows outside tools, such as
+		sequence alignment, mapping, and phylogenetics tools, to access data
+		in SCID&#39;s ontology. It also will allow SCID users to invoke these
+		tools via the IUI. In addition, the API will support federation of
+		SCID&#39;s data with outside data stores such as GBIF and NCBI via
+		protocols like DiGIR or TAPIR. Thus, the outside tools written to
+		SCID&#39;s API also will automatically have access to these federated
+		data stores. We plan to use our API to interface SCID with some tools
+		our group can use (e.g., BLAST, DesktopGarp, data
+		mining tools, CIPRES, and ArcGIS, the latter of which was already
+		integrated in our initial prototype). We will add additional tools as
+		needed by our group, but our working model is to encourage the tool
+		developers themselves to code to our API. Their incentive would be the
+		vast amounts of data available via SCID and the federated stores.</p>
+
+		<p>The SCID framework is currently under active development. We
+		have seen many initial successes in transitioning tools developed as
+		part of a previous project to our newly defined model based on several
+		existing databases containing genomic and biodiversity data. All of
+		the results of our development are made publicly available through the
+		reference implementation of our framework specification, The Biofinity
+		Project.</p>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,38 @@
+<div class="edit_section">
+	<lift:Occurrence.renderOccurrence group="" update="">
+		<occurrence:MediaFiles>
+			<media-files:CancelLink><div class="edit_dismiss">Done</div></media-files:CancelLink>
+		</occurrence:MediaFiles>
+	</lift:Occurrence.renderOccurrence>
+
+	<form method="post" action="" enctype="multipart/form-data">
+		<lift:Occurrence.renderOccurrence group="" update="" redirectURL="/lab/occurrence?ID=">
+			<occurrence:MediaFiles>
+				<media-files:Create>
+					<div style="margin: 10px 0px">Attach a file to this occurrence.</div>
+					<media-file:File />
+					<br />
+					<div style="height: 4px;">&nbsp;</div>
+					<media-file:SaveLink> Upload File  </media-file:SaveLink>
+				</media-files:Create>
+			</occurrence:MediaFiles>
+		</lift:Occurrence.renderOccurrence>
+	</form>
+	<div style="height: 16px;">&nbsp;</div>
+	<lift:Occurrence.renderOccurrence group="" update="">
+		<occurrence:MediaFiles>
+			<ul>
+				<media-files:List>
+					<li>
+						<media-file:ViewLink width="220" /><br />
+						<div style="height: 4px;">&nbsp;</div>
+						<media-file:Description />&nbsp;<media-file:SaveLink>&nbsp;Save&nbsp;&nbsp;</media-file:SaveLink>
+						<div style="height: 4px;">&nbsp;</div>
+						<media-file:DeleteLink>&nbsp;Delete&nbsp;&nbsp;</media-file:DeleteLink><br />
+					</li>
+				</media-files:List>
+			</ul>
+			<media-files:CancelLink><div class="edit_dismiss">Done</div></media-files:CancelLink>
+		</occurrence:MediaFiles>
+	</lift:Occurrence.renderOccurrence>
+</div>

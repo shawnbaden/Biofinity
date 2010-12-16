@@ -1,0 +1,22 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>Henry Doorly Zoo Amphibian Database - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:User.renderIfNotRestricted>
+			<h2>Welcome to the Henry Doorly Zoo's Amphibian Database!</h2>
+			<br />&nbsp;<br />
+			<lift:User.renderIfNotSignedIn>
+				<p>In order to add a new amphibian, <strong><u>you must be logged in with a Google Account</u></strong>.  Use the '<strong>Log In</strong>' link to log into The Biofinity Project.</p>
+			</lift:User.renderIfNotSignedIn>
+			<lift:User.renderIfSignedIn>
+				<p><a href="create">Add a new amphibian</a></p>
+			</lift:User.renderIfSignedIn>
+		</lift:User.renderIfNotRestricted>
+	</lift:with-param>
+</lift:surround>

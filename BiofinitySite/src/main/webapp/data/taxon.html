@@ -1,0 +1,107 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Taxon.init />
+		<head>
+			<title><lift:Taxon.renderTaxon><taxon:Rank />: <taxon:Name /></lift:Taxon.renderTaxon> - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" />
+		</head>
+		<lift:Taxon.renderScripts />
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:Taxon.renderTaxon>
+			<div id="taxonomyview">
+				<h2><taxon:Rank />: <span class="nodeName"><taxon:Name /></span></h2>
+				<taxon:Children>
+					<div class="section" style="margin-top: 10px">
+						<ul>
+							<children:List>
+								<li>
+									<child:NameLink /><span>(<child:Rank />)</span>
+								</li>
+							</children:List>
+						</ul>
+					</div>
+					<br />
+					<div style="clear: both;" />
+				</taxon:Children>
+				<taxon:Classifications>
+					<div class="section_head">Classifications</div>
+					<classifications:List>
+						<div class="searchResult">
+							<classification:NameLink /> (<b>ID</b>: <classification:IDLink />)<br />
+							<div style="height: 4px;">&nbsp;</div>
+							<b>Taxa</b>:&nbsp;&nbsp;
+							<classification:Taxons>
+								<taxons:List>
+									<taxon:NameLink /> (<b><taxon:Rank /></b>) |
+								</taxons:List>
+							</classification:Taxons>
+							<br/>
+						</div>
+					</classifications:List>
+					<div style="clear: both;" />
+				</taxon:Classifications>
+				<taxon:Occurrences>
+					<div class="section_head">Occurrences</div>
+					<table id="occurrences">
+						<tr>
+							<th>ID</th>
+							<th>Recorded By</th>
+							<th>Date</th>
+							<th>Country</th>
+							<th>State/Province</th>
+							<th>Locality</th>
+							<th>Elevation</th>
+						</tr>
+						<occurrences:List>
+							<tr>
+								<td valign="top" style="padding-right: 2em;"><occurrence:IDLink /></td>
+								<td><occurrence:RecordedBy /></td>
+								<occurrence:Event>
+									<td><event:DateFormattedNoTime /></td>
+									<event:Location>
+										<td><location:Country /></td>
+										<td><location:StateProvince /></td>
+										<td><location:Locality /></td>
+										<td><location:VerbatimElevation /></td>
+									</event:Location>
+								</occurrence:Event>
+							</tr>
+						</occurrences:List>
+					</table>
+				</taxon:Occurrences>
+				<div id="wall"><!-- 3D Wall Goes Here --></div>
+				<script type="text/javascript">
+					var flashvars = {
+						feed: &#39;<taxon:MediaURL />&#39;,
+						style: 'light',
+						backgroundColor: '#ffffff',
+						numRows: '5'
+					};
+					
+					var params = {
+						allowscriptaccess: 'always'
+					};
+					
+					swfobject.embedSWF('http://apps.cooliris.com/embed/cooliris.swf', 'wall', '100%', '500', '9.0.0', '', flashvars, params);
+				</script>
+			</div>
+		</lift:Taxon.renderTaxon>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<div class="section_head"><b>Actions</b></div>
+		<div class="link_group">
+			<ul>
+				<lift:Taxon.renderTaxon>
+					<li>
+						<taxon:MapLink>Map this taxon's occurrences</taxon:MapLink>
+					</li>
+				</lift:Taxon.renderTaxon>
+			</ul>
+		</div>
+		<lift:embed what="taxon-external-links" />
+	</lift:with-param>
+</lift:surround>

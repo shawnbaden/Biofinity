@@ -1,0 +1,42 @@
+<lift:User.renderUser update="">
+	<div style="margin-top: 15px;" class="section_head">Information <user:CancelLink>Cancel</user:CancelLink></div>
+	<table style="width: 750px">
+		<tr>
+			<td valign="top">
+				<table style="width: 400px">
+					<tr>
+						<td colspan="2">&nbsp;</td>
+					</tr>
+					<tr>
+						<td><b>First Name</b>:</td>
+						<td><user:FirstName /></td>
+					</tr>
+					<tr>
+						<td><b>Last Name</b>:</td>
+						<td><user:LastName /></td>
+					</tr>
+					<tr>
+						<td><b>Email</b>:</td>
+						<td><user:Email /></td>
+					</tr>
+					<tr>
+						<td><b>Phone Number</b>:</td>
+						<td><user:PhoneNumber /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table style="width: 300px">
+					<tr>
+						<td style="font-style: italic; border-bottom: 1px solid black;"><b>Address</b>:</td>
+					</tr>
+					<tr>
+						<td style="padding-top: 5px;"><user:Address /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<user:SaveLink>&nbsp;Save&nbsp;</user:SaveLink>&nbsp;<user:CancelLink>Cancel</user:CancelLink>
+</lift:User.renderUser>

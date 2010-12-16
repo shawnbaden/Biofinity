@@ -1,0 +1,30 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>My Labs: Create a New Occurrence - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+			<script type="text/javascript" src="/resources/scripts/model/Location.js"></script>
+			<lift:Location.renderLocationsJSON group="" />
+		</head>
+	</lift:with-param>
+	
+    <lift:with-param name="page_menus">
+        <lift:embed what="lab/menu"/>
+    </lift:with-param>
+    
+	<lift:with-param name="primary_content">
+		<lift:Occurrence.renderCreateOccurrenceScripts group="" />
+		<lift:Event.renderScripts group="" />
+		<lift:Location.renderScripts group="" />
+		
+		<div id="create-occurrence">
+            <h2>Occurrence Entry Wizard</h2>
+			<span style="font-size: 10pt;">
+				The following 3 step wizard will walk you through the steps to create a new occurrence.
+				<br /><br />
+			    <button onclick="showCreateOccurrenceLocationExisting();">Begin</button>
+			</span>
+		</div>
+	</lift:with-param>
+</lift:surround>

@@ -1,0 +1,62 @@
+<lift:surround with="split_page">
+	<lift:with-param name="main_content">
+		<lift:Group.init />
+		<head>
+			<title>Lab:&nbsp;<lift:Group.renderGroup><group:Name /></lift:Group.renderGroup>&nbsp;- The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:Group.renderGroup>
+			<h3><group:Name /></h3>
+			<table>
+				<tr>
+					<td><b>Institution</b>:</td>
+					<td><group:Institution /></td>
+				</tr>
+				<tr>
+					<td><b>Department</b>:</td>
+					<td><group:Department /></td>
+				</tr>
+			</table>
+			<p>
+				<group:Description />
+			</p>
+		</lift:Group.renderGroup>
+	</lift:with-param>
+	
+	<lift:with-param name="secondary_content">
+		<div>
+			<div class="section_head">Data Summary</div>
+			<table style="width: 100%">
+				<lift:Group.renderGroup>
+					<group:PublicSource>
+						<source:Stats>
+							<tr>
+								<td>Occurrences:</td>
+								<td><stats:Occurrences /></td>
+							</tr>
+							<tr>
+								<td>Classifications:</td>
+								<td><stats:Classifications /></td>
+							</tr>
+							<tr>
+								<td>Events:</td>
+								<td><stats:Events /></td>
+							</tr>
+							<tr>
+								<td>Locations:</td>
+								<td><stats:Locations /></td>
+							</tr>
+							<tr>
+								<td>Media Files:</td>
+								<td><stats:MediaFiles /></td>
+							</tr>
+						</source:Stats>
+					</group:PublicSource>
+				</lift:Group.renderGroup>
+			</table>
+		</div>
+	</lift:with-param>
+</lift:surround>

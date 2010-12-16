@@ -1,0 +1,31 @@
+<lift:surround with="full_page">
+	<lift:with-param name="main_content">
+		<head>
+			<title>My Labs: Join an Existing Lab - The Biofinity Project</title>
+			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
+			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
+		</head>
+	</lift:with-param>
+	
+	<lift:with-param name="primary_content">
+		<lift:User.renderIfNotRestricted>
+			<h2>Join an Existing Lab</h2>
+			<lift:Lab.renderGroupsToJoin>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th></th>
+					</tr>
+					<groups:List>
+						<tr>
+							<td valign="top" style="width: 20%;"><group:Name /></td>
+							<td><group:Description /></td>
+							<td><group:JoinLink>Join this lab</group:JoinLink></td>
+						</tr>
+					</groups:List>
+				</table>
+			</lift:Lab.renderGroupsToJoin>
+		</lift:User.renderIfNotRestricted>
+	</lift:with-param>
+</lift:surround>

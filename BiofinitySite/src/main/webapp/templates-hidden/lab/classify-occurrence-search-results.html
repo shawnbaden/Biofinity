@@ -1,0 +1,26 @@
+<lift:Search.renderSearch group="">
+	<div id="results">
+		<search:Results>
+			<results:AlertText><p class="warning">&nbsp;&nbsp;The search query must be more than 2 characters.</p></results:AlertText>
+			<results:EmptyText>No results were found.  Would you like to <a href="create-classification">create a classification</a>?</results:EmptyText>
+			<results:Classifications>
+				<h2>Classifications</h2>
+				<classifications:List>
+					<div class="searchResult">
+						<classification:NameLink /><br />
+						<b>Taxa</b>:&nbsp;&nbsp;
+						<classification:Taxons>
+							<taxons:List>
+								<taxon:NameLink /> (<b><taxon:Rank /></b>) |
+							</taxons:List>
+						</classification:Taxons>
+						<br/>
+						<div style="height: 8px;">&nbsp;</div>
+						<classification:SelectLink><b>Assign Classification</b></classification:SelectLink>
+						<div style="height: 4px;">&nbsp;</div>
+					</div>
+				</classifications:List>
+			</results:Classifications>
+		</search:Results>
+	</div>
+</lift:Search.renderSearch>

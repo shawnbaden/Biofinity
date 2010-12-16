@@ -1,0 +1,170 @@
+<lift:Occurrence.renderOccurrence group="">
+	<div class="section_head">Occurrence Details <occurrence:EditLink>Edit</occurrence:EditLink></div>
+	<table>
+		<tr>
+			<td>
+				<b>ID</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceID">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:ID />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Wiki Page</b>: 
+			</td>
+			<td>
+				<occurrence:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this occurrence.</occurrence:WikiPageIDLink>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Visibility</b>:
+			</td>
+			<td>
+				<occurrence:Source>
+					<lift:Source.renderSource group=""><b><source:SourceType /></b></lift:Source.renderSource>
+				</occurrence:Source>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Type</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#basisOfRecord">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:OccurrenceType />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Recorded By</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#recordedBy">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:RecordedBy />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Record Number</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#recordNumber">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:RecordNumber />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Sex</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#sex">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Sex />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Life Stage</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#lifeStage">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:LifeStage />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Reproductive Condition</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#reproductiveCondition">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:ReproductiveCondition />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Behavior</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#behavior">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Behavior />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Disposition</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#disposition">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Disposition />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Establishment Means</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#establishmentMeans">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:EstablishmentMeans />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Preparations</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#preparations">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Preparations />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Individual ID</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#individualID">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:IndividualID />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Individual Count</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#individualCount">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:IndividualCount />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Status</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceStatus">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Status />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Catalog Number</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#catalogNumber">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:CatalogNumber />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Other Catalog Numbers</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#otherCatalogNumbers">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:OtherCatalogNumbers />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Details</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceDetails">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Details />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#occurrenceRemarks">[*]</a></sup>:
+			</td>
+			<td>
+				<occurrence:Remarks />
+			</td>
+		</tr>
+	</table>
+	<p>
+		[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for an <a href="http://rs.tdwg.org/dwc/terms/index.htm#Occurrence">occurrence</a>.
+	</p>
+</lift:Occurrence.renderOccurrence>

@@ -1,0 +1,59 @@
+<div>
+	<h2>Step 2 of 3: Fill out event information</h2>
+	<lift:Occurrence.renderCreateOccurrenceEvent group="">
+		<div>
+			<span style="font-size: 10pt;">Select an existing event from the list below.</span><create-occurrence-event:ToggleLink>  <link:Name>Want to create a new event instead</link:Name>?</create-occurrence-event:ToggleLink>
+		</div>        
+		<div align="right">
+			<create-occurrence-event:PreviousLink>&nbsp;Previous&nbsp;</create-occurrence-event:PreviousLink>
+			<create-occurrence-event:NextLink>&nbsp;Next&nbsp;</create-occurrence-event:NextLink>
+		</div>
+		<div style="float: left; width: 70%;">
+			<lift:Location.renderEvents group="">
+				<table>
+					<tr>
+						<th>
+							ID
+						</th>
+						<th>
+							Date
+						</th>
+						<th>
+							Habitat
+						</th>
+						<th>
+							
+						</th>
+					</tr>
+					<location:events>
+						<tr>
+							<td>
+								<event:ID />
+							</td>
+							<td>
+								<event:Date />
+							</td>
+							<td>
+								<event:Habitat />
+							</td>
+							<td>
+								<event:SelectLink>Use this event</event:SelectLink>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								&nbsp;
+							</td>
+						</tr>
+					</location:events>
+				</table>
+			</lift:Location.renderEvents>
+		</div>
+		<div id="event-details" style="float: right; width: 20%;"></div>
+		<div style="clear: both;"></div>
+		<div align="right">
+			<create-occurrence-event:PreviousLink>&nbsp;Previous&nbsp;</create-occurrence-event:PreviousLink>
+			<create-occurrence-event:NextLink>&nbsp;Next&nbsp;</create-occurrence-event:NextLink>
+		</div>
+	</lift:Occurrence.renderCreateOccurrenceEvent>
+</div>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:biofinity="edu.unl.biofinity"
+	targetNamespace="edu.unl.biofinity">
+	<xs:complexType name="SystemEntity" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Contains core system-level information.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Created" type="biofinity:ChangeEvent" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						When the entity was created in the system.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Modified" type="biofinity:ChangeEvent" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						When the entity was modified in the system.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>
+					A unique identifier for the entity.  Note: ID is not a globally unique identifier within the system, only a unique identifier among entities of the same type.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="CommentableEntity" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Represents an entity that can be commented on.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SystemEntity">
+				<xs:sequence>
+					<xs:element name="Comment" type="biofinity:Comment" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								A general description of the object.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="SourcedEntity" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Represents an entity that may be imported from an external source.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:CommentableEntity">
+				<xs:sequence>
+					<xs:element name="SourceID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="SourceItemCreated" type="biofinity:ChangeEvent" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="SourceItemID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="SourceItemModified" type="biofinity:ChangeEvent" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="Address">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="Line1" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="Line2" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="City" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="State" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="PostalCode" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="Country" type="xs:string" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeEvent">
+		<xs:annotation>
+			<xs:documentation>
+				Represents a single instance of time when a change occurred.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonID" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						The ID of the _Person_ who made the change.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Timestamp" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						When the change occurred.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Comment">
+		<xs:annotation>
+			<xs:documentation>
+				Used to store comments/notes about the object.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ChangeEvent" type="biofinity:ChangeEvent" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Content" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Email">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="EmailAddress" type="xs:string"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Event">
+		<xs:annotation>
+			<xs:documentation>
+				Represents an occurrence in time, the place of the occurrence, and who is associated with the occurrence.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="AssociatedPerson" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The name of the associated person(s).
+		        			</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AssociatedPersonID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Person_ associated with the event.
+		        			</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationID" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Location_ which describes where the event occurred.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:choice minOccurs="0" maxOccurs="1">
+						<xs:element name="TimeEvent" type="biofinity:TimeEvent"/>
+						<xs:element name="VerbatimDate" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									Use this if the data contains time-relevant information but the specifics dates and times are ambiguous.
+								</xs:documentation>
+								<xs:documentation>
+									e.g. “Nov. 1943” or “December 1850” or "1955?"
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Group">
+		<xs:annotation>
+			<xs:documentation> Contains the information for the funding or hosting institute of the
+				database maintained by the system. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The official name of the institute.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AlternateName" type="xs:string" minOccurs="0"
+						maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation> An alternate name for the institute such as an
+								abbreviation or a former official name. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="URL" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The primary Web address of the institute.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PrimaryContactID" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation> The ID of the _Person_ who is the main point of
+								contact. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalContactID" type="xs:string" minOccurs="0"
+						maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation> The ID of the _Person_ who is an another point of
+								contact. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="biofinity:Address" maxOccurs="unbounded"
+						minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Location">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:choice>
+						<xs:sequence>
+							<xs:element name="VerbatimElevation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="Latitude" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="Longitude" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+						<xs:sequence>
+							<xs:annotation>
+								<xs:documentation>
+									Represents an area via a bounding box.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:element name="TopLongitude" type="xs:int"/>
+							<xs:element name="RightLatitude" type="xs:int"/>
+							<xs:element name="BottomLongitude" type="xs:int"/>
+							<xs:element name="LeftLatitude" type="xs:int"/>
+						</xs:sequence>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Person">
+		<xs:annotation>
+			<xs:documentation>
+				An individual person.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="Title" type="xs:string" minOccurs="0" maxOccurs="1"> </xs:element>
+					<xs:element name="FirstName" type="xs:string" minOccurs="1" maxOccurs="1"> </xs:element>
+					<xs:element name="MiddleName" type="xs:string" minOccurs="0" maxOccurs="1"> </xs:element>
+					<xs:element name="LastName" type="xs:string" minOccurs="1" maxOccurs="1"> </xs:element>
+					<xs:element name="FullName" type="xs:string" minOccurs="0" maxOccurs="1"> </xs:element>
+					<xs:element name="AlternateName" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								
+		        			</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PrimaryEmail" type="biofinity:Email" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								e-mail address of contact for correspondence
+		        			</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AlternateEmail" type="biofinity:Email" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								e-mail address of contact for correspondence
+		        			</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WebPage" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The person's primary (preferably professional) Web page.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Phone" type="biofinity:Phone" maxOccurs="unbounded" minOccurs="0"/>
+					<xs:element name="Address" type="biofinity:Address" maxOccurs="unbounded"
+						minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Phone">
+		<xs:complexContent>
+			<xs:extension base="biofinity:SourcedEntity">
+				<xs:sequence>
+					<xs:element name="PhoneNumber" type="xs:string" maxOccurs="1" minOccurs="0"/>
+					<xs:element name="Type" type="xs:string" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Source">
+		<xs:annotation>
+			<xs:documentation>
+				Fully describes the source of the data being provided to the system.
+			</xs:documentation>
+		</xs:annotation>
+				<xs:complexContent>
+			<xs:extension base="biofinity:CommentableEntity">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PersonID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The ID of the _Person_ who is providing the data.
+							</xs:documentation>
+							<xs:documentation>
+								Note this is not necessarily the person who created or discovered the data, simply the person who is providing the data to the system.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UniqueID" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>
+								A globally unique identifier that uniquely identifies the source of the data, including externally. 
+							</xs:documentation>
+							<xs:documentation>
+								This identifier will be used to map data back to existing entities in the system for the purpose of data updates.
+							</xs:documentation>
+							<xs:documentation>
+								If a source with the specified identifier doesn't already exist in the system, data import will fail.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="URL" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+								The URL from which this data can be accessed at the source
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TimeEvent">
+		<xs:annotation>
+			<xs:documentation>
+				Represents a period of time.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="End" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Start" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>
+						A revolving period of time. e.g. every 2 weeks, twice a year, etc.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:element name="Period" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							seconds, minutes, hours, days, weeks, years, etc.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Instances" type="xs:int" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							The number of periods before repeating.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Start" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="End" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

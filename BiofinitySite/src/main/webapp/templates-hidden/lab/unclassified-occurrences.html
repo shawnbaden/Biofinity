@@ -1,0 +1,42 @@
+<div>
+	<div class="section_head">Unclassified Occurrences</div>
+	<lift:Group.renderGroup group="">
+		<group:UnclassifiedOccurrences>
+			<unclassified-occurrences:SimpleOccurrences>
+				<div id="simple-occurrences">
+				<lift:SimpleOccurrence.renderSimpleOccurrences>
+					<div><b>Download</b>:&nbsp;&nbsp;<simple-occurrences:DownloadCSVLink>Excel (CSV)</simple-occurrences:DownloadCSVLink>&nbsp;&nbsp;|&nbsp;&nbsp;<simple-occurrences:DownloadKMLLink>Google Earth (KML)</simple-occurrences:DownloadKMLLink></div>
+					<div><simple-occurrences:MapLink>Map these occurrences</simple-occurrences:MapLink></div>
+					<div style="margin-bottom: 4px" />
+					<table>
+						<tr>
+							<th><simple-occurrences:SortByOccurrenceIDLink>ID</simple-occurrences:SortByOccurrenceIDLink></th>
+							<th></th>
+							<th><simple-occurrences:SortByRecordedByLink>Recorded By</simple-occurrences:SortByRecordedByLink></th>
+							<th><simple-occurrences:SortByEventDateLink>Date</simple-occurrences:SortByEventDateLink></th>
+							<th><simple-occurrences:SortByCountryLink>Country</simple-occurrences:SortByCountryLink></th>
+							<th><simple-occurrences:SortByStateProvinceLink>State/Province</simple-occurrences:SortByStateProvinceLink></th>
+							<th><simple-occurrences:SortByLocalityLink>Locality</simple-occurrences:SortByLocalityLink></th>
+							<th><simple-occurrences:SortByVerbatimElevationLink>Elevation</simple-occurrences:SortByVerbatimElevationLink></th>
+						</tr>
+							<tbody id="simple-occurrences-list">
+								<simple-occurrences:List>
+									<tr>
+										<td valign="top" style="padding-right: 2em;"><simple-occurrence:IDLink /></td>
+										<td><simple-occurrence:MediaFileLink width="125"/></td>
+										<td><simple-occurrence:RecordedBy /></td>
+										<td><simple-occurrence:EventDate /></td>
+										<td><simple-occurrence:Country /></td>
+										<td><simple-occurrence:StateProvince /></td>
+										<td><simple-occurrence:Locality /></td>
+										<td><simple-occurrence:VerbatimElevation /></td>
+									</tr>
+								</simple-occurrences:List>
+							</tbody>
+					</table>
+				</lift:SimpleOccurrence.renderSimpleOccurrences>
+				</div>
+			</unclassified-occurrences:SimpleOccurrences>
+		</group:UnclassifiedOccurrences>
+	</lift:Group.renderGroup>
+</div>

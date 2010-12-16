@@ -1,0 +1,87 @@
+<div>
+	<div class="section_subhead">Location Summary</div>
+	<lift:Location.renderLocation group="">
+		<table style="width: 100px;">
+			<tr>
+				<td>
+					<b>ID</b>:
+				</td>
+				<td>
+					<location:ID />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Latitude</b>:
+				</td>
+				<td>
+					<div style="width: 60px; overflow: hidden;"><location:Latitude /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Longitude</b>:
+				</td>
+				<td>
+					<div style="width: 60px; overflow: hidden;"><location:Longitude /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Elevation</b>:
+				</td>
+				<td>
+					<location:VerbatimElevation />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Continent</b>:
+				</td>
+				<td>
+					<location:Continent /><br />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Country</b>:
+				</td>
+				<td>
+					<location:Country />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>State/Province</b>:
+				</td>
+				<td>
+					<location:StateProvince />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>County</b>:
+				</td>
+				<td>
+					<location:County />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Municipality</b>:
+				</td>
+				<td>
+					<location:Municipality />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Locality</b>:
+				</td>
+				<td>
+					<location:Locality />
+				</td>
+			</tr>
+		</table>
+	</lift:Location.renderLocation>
+</div>

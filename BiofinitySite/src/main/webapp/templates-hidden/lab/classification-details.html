@@ -1,0 +1,53 @@
+<lift:Classification.renderClassification group="">
+	<div class="section_head">Classification Details <classification:EditLink>Edit</classification:EditLink></div>
+	<table>
+		<tr>
+			<td>
+				<b>ID</b>:
+			</td>
+			<td>
+				<classification:ID />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Wiki Page</b>: 
+			</td>
+			<td>
+				<classification:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this classification.</classification:WikiPageIDLink>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Visibility</b>:
+			</td>
+			<td>
+				<classification:Source>
+					<lift:Source.renderSource group=""><b><source:SourceType /></b></lift:Source.renderSource>
+				</classification:Source>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Name</b>:
+			</td>
+			<td>
+				<classification:Name />
+			</td>
+		</tr>
+	</table>
+	<div style="height: 16px;">&nbsp;</div>
+	<classification:Taxons>
+		<h4>Taxa</h4>
+		<div style="height: 8px;">&nbsp;</div>
+		<table>
+			<taxons:List>
+				<tr>
+					<td><b><taxon:Rank /></b>: </td>
+					<td><taxon:NameLink /></td>
+				</tr>
+			</taxons:List>
+		</table>
+		<taxons:EmptyText>This classification has no taxa associated with it.</taxons:EmptyText>
+	</classification:Taxons>
+</lift:Classification.renderClassification>
