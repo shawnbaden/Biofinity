@@ -1,0 +1,9 @@
+The Biofinity Project (http://biofinity.unl.edu)
+
+Setup:
+To build the BiofinitySite project, simply browse into the "BiofinitySite" folder and run "mvn package" to create the WAR (found in the target folder).  The MySQL database specifics (database name and username/password) can be found in BiofinitySite/src/main/scala/bootstrap/liftweb/Boot.scala.
+
+License:
+See LICENSE.txt.
+
+Copyright 2010 University of Nebraska-Lincoln
