@@ -242,6 +242,7 @@ class Search {
 								bind(
 									"classifications",
 									nodeSeq,
+									"EmptyText" -> Text(""),
 									"List" -> {(listNodeSeq: NodeSeq) => {
 										val classificationsNodeSeq: NodeSeq = classifications.flatMap(classification => {
 											Model.Classification.currentClassification(classification)
@@ -252,7 +253,14 @@ class Search {
 									}}
 								)
 							} else {
-								Text("")
+								bind(
+									"classifications",
+									nodeSeq,
+									"EmptyText" -> {(nodeSeq: NodeSeq) => {
+										nodeSeq
+									}},
+									"List" -> Text("")
+								)
 							}
 						}},
 						"Occurrences" -> {(nodeSeq: NodeSeq) => {
