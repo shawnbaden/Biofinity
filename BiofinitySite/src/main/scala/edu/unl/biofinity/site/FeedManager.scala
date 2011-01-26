@@ -69,9 +69,7 @@ object FeedManager {
 				if (0 < classifications.length) {
 					"machine_tags=" + classifications.map(classification => {
 						val name = classification.name.is
-						Log.info(name)
 						val nameParts = name.split(" ")
-						Log.info(nameParts.length.toString)
 						val queryType =
 							if (nameParts.length < 3) {
 								"%22taxonomy:binomial="
