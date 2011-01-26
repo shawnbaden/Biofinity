@@ -45,8 +45,6 @@ object Authentication {
 		fetch_req.setCount("Email", 1)
 		
 		req.addExtension(fetch_req);
-		
-		Log.info("Request URL: "+req.getDestinationUrl(true))
  
 		// generate the authentication request URL and redirect to it
 		Full(RedirectResponse(req.getDestinationUrl(true), S responseCookies :_*))
@@ -102,7 +100,6 @@ object Authentication {
 		val encodedOpenID = Helpers.urlEncode(Model.User.currentUser.is.openID.is.toString)
 		val encodedRedirectURL = Helpers.urlEncode(S.hostAndPath+redirectPath)
 		val wikiLoginURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/biologin?openId=" + encodedOpenID + "&returnPage=" + encodedRedirectURL
-		Log.info("Wiki Login URL="+wikiLoginURL)
 
 		Full(RedirectResponse(wikiLoginURL, S responseCookies :_*))		
 	}
@@ -115,7 +112,6 @@ object Authentication {
 		val host = S.hostName + ":8080"
 		//val host = "localhost:8080"
 		val wikiLogoutURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/logout?returnPage=" + Helpers.urlEncode(S.hostAndPath+redirectURL)
-		Log.info("Wiki Logout URL="+wikiLogoutURL)
 
 		Full(RedirectResponse(wikiLogoutURL, S responseCookies :_*))
 	}
