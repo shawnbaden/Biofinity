@@ -116,7 +116,7 @@ class Boot {
 		
 		DB.defineConnectionManager(DefaultConnectionIdentifier, DevDbProvider)
 		
-		Schemifier.schemify(true, Log.infoF _,
+		Schemifier.schemify(true, Schemifier.infoF _,
 			Model.AdditionalProperty,
 			Model.AdditionalPropertyBundle,
 			Model.Classification,

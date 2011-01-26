@@ -35,10 +35,11 @@ import java.util.concurrent.TimeUnit
 import javax.xml.bind.DatatypeConverter
 
 object TwitterBioBlitzImporter extends Actor {
+	val logger = Logger("Twitter BioBlitz Importer")
 	val searchURL = "http://search.twitter.com/search.atom?&q=%23BioBlitz&since_id="
 	
 	def act() = {
-		Log.info("Running Twitter BioBlitz Importer...")
+		logger.info("Running Twitter BioBlitz Importer...")
 		val privateSource = Model.Source.find(By(Model.Source.uniqueID, "BIOBLITZ_PRIVATE")) openOr null
 		if (null != privateSource) {
 			val group = privateSource.group
@@ -200,6 +201,7 @@ object TwitterBioBlitzImporter extends Actor {
 }
 
 object TwitterBioBlitzImporterScheduler {
+	val logger = Logger("Twitter BioBlitz Importer")
 	private final val scheduledExecutorService: ScheduledExecutorService = Executors.newScheduledThreadPool(1)
 	private final val runImporter: Boolean = {
 		val publicSource = Model.Source.find(By(Model.Source.uniqueID, "BIOBLITZ")) openOr null
@@ -228,14 +230,14 @@ object TwitterBioBlitzImporterScheduler {
 	
 	def start() = {
 		if (null == scheduledFuture) {
-			Log.info("Starting Twitter BioBlitz Importer Scheduler...")
+			logger.info("Starting Twitter BioBlitz Importer Scheduler...")
 			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(importer, 5, 10, TimeUnit.MINUTES).asInstanceOf[ScheduledFuture[AnyRef]]
 		}
 	}
 	
 	def stop() = {
 		if (null != scheduledFuture) {
-			Log.info("Stopping Twitter BioBlitz Importer Scheduler...")
+			logger.info("Stopping Twitter BioBlitz Importer Scheduler...")
 			scheduledFuture.cancel(true)
 			scheduledFuture = null
 		}
