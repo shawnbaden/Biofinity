@@ -333,7 +333,6 @@ class Search {
 	
 	def renderOccurrencesJSON: NodeSeq = {
 		if (null != Controller.Occurrence.occurrenceIDs.is && 0 < Controller.Occurrence.occurrenceIDs.is.length) {
-			Log.info(Controller.Occurrence.occurrenceIDs.is.length.toString)
 			<script type="text/javascript" src={S.hostAndPath + "/service/search/occurrencesJSON"}></script>
 		} else {
 			Text("")

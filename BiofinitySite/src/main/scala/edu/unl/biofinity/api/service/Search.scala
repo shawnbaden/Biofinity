@@ -24,7 +24,6 @@ object Search {
 		if (null == Controller.Occurrence.occurrenceIDs.is) {
 			Full(NotFoundResponse())
 		} else {
-			Log.info(Controller.Occurrence.occurrenceIDs.is.length.toString)
 			var occurrencesJS: List[JsExp] = List()
 			val simpleOccurrences: List[Model.SimpleOccurrence] = Controller.SimpleOccurrence.search(Controller.Occurrence.occurrenceIDs.is)
 			simpleOccurrences.foreach(simpleOccurrence => {
