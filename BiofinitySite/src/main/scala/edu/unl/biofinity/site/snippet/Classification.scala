@@ -16,9 +16,6 @@ import net.liftweb.http.S._
 import net.liftweb.mapper._
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
-/*
-import net.liftweb.widgets.autocomplete._
-*/
 
 import scala.actors.Actor
 import scala.xml._
@@ -103,25 +100,7 @@ class Classification {
 								"Create" -> {(nodeSeq: NodeSeq) => {
 									var taxonName = ""
 									var taxonRank = ""
-									
-									/*
-									def getTaxonNames(value: String, limit: Int): Seq[String] = {
-										if (value.length > 2 && taxonRank != "") {
-											Model.Taxon.findAll(Like(Model.Taxon.name, value + "%"), By(Model.Taxon.rank, taxonRank)).removeDuplicates.map(_.name.is).removeDuplicates
-										} else {
-											List()
-										}
-									}
-									
-									def getTaxonRanks(value: String, limit: Int): Seq[String] = {
-										if (value.length > 2) {
-											Model.Taxon.findAll(Like(Model.Taxon.rank, value + "%")).removeDuplicates.map(_.rank.is).removeDuplicates
-										} else {
-											List()
-										}
-									}
-									*/
-									
+
 									def save(): JsCmd = {
 										if (taxonName.length < 1 || taxonRank.length < 1) {
 											Alert("A taxon's name and rank cannot be empty.")
@@ -136,9 +115,11 @@ class Classification {
 											taxonsMap.is.update(Model.Classification.currentClassification.is.entityID, taxons :+ taxon)
 											
 											if (null != embedUpdateID && null != embedUpdateURL) {
-												SetHtml({embedUpdateID}, <lift:embed what={embedUpdateURL}/>)
+												SetHtml({embedUpdateID}, <lift:embed what={embedUpdateURL}/>) &
+												Call("renderTaxonAutoComplete")
 											} else {
-												SetHtml("classification-details", <lift:embed what="/lab/classification-details-update"/>)
+												SetHtml("classification-details", <lift:embed what="/lab/classification-details-update"/>) &
+												Call("renderTaxonAutoComplete")
 											}
 										}
 									}
@@ -146,44 +127,34 @@ class Classification {
 									bind(
 										"taxon",
 										nodeSeq,
-										"Name" -> SHtml.ajaxText("", value => {
-											if (value.length > 1) {
-												taxonName = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase()
-											} else if (value.length > 0) {
-												taxonName = value.substring(0, 1).toUpperCase()
-											} else {
-												taxonName = value
-											}
-											Noop
-										}),
-										/*
-										"Name" -> AutoComplete(
+										"Name" -> SHtml.ajaxText(
 											"",
-											(value: String, limit: Int) => getTaxonNames(value, limit),
-											(value: String) => (),
+											value => {
+												if (value.length > 1) {
+													taxonName = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase()
+												} else if (value.length > 0) {
+													taxonName = value.substring(0, 1).toUpperCase()
+												} else {
+													taxonName = value
+												}
+												Noop
+											},
 											"name" -> "classification-name"
 										),
-										"NameHidden" -> SHtml.ajaxText("", value => {taxonName = value; Noop}, "id" -> "classification-name-hidden", "class" -> "hidden"),
-										*/
-										"Rank" -> SHtml.ajaxText("", value => {
-											if (value.length > 1) {
-												taxonRank = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase()
-											} else if (value.length > 0) {
-												taxonRank = value.substring(0, 1).toUpperCase()
-											} else {
-												taxonRank = value
-											}
-											Noop
-										}),
-										/*
-										"Rank" -> AutoComplete(
+										"Rank" -> SHtml.ajaxText(
 											"",
-											(value, limit) => getTaxonRanks(value, limit),
-											(value: String) => (),
+											value => {
+												if (value.length > 1) {
+													taxonRank = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase()
+												} else if (value.length > 0) {
+													taxonRank = value.substring(0, 1).toUpperCase()
+												} else {
+													taxonRank = value
+												}
+												Noop
+											},
 											"name" -> "classification-rank"
 										),
-										"RankHidden" -> SHtml.ajaxText("", value => {taxonRank = value; Noop}, "id" -> "classification-rank-hidden", "class" -> "hidden"),
-										*/
 										"SaveLink" -> {(nodeSeq: NodeSeq) => SHtml.ajaxButton(nodeSeq, () => save)}
 									)
 								}},
@@ -200,9 +171,11 @@ class Classification {
 											taxonsMap.is.update(Model.Classification.currentClassification.is.entityID, taxons.remove(_.entityID == taxon.entityID))
 											
 											if (null != embedUpdateID && null != embedUpdateURL) {
-												SetHtml({embedUpdateID}, <lift:embed what={embedUpdateURL}/>)
+												SetHtml({embedUpdateID}, <lift:embed what={embedUpdateURL}/>) &
+												Call("renderTaxonAutoComplete")
 											} else {
-												SetHtml("classification-details", <lift:embed what="/lab/classification-details-update"/>)
+												SetHtml("classification-details", <lift:embed what="/lab/classification-details-update"/>) &
+												Call("renderTaxonAutoComplete")
 											}
 										}
 										
@@ -220,7 +193,7 @@ class Classification {
 						}},
 						"ViewLink" -> Text(""),
 						"WikiPageIDLink" -> Text("")
-					)/* ++ Script(renderAutoCompleteJavaScriptCommand)*/
+					) ++ Script(Call("renderTaxonAutoComplete"))
 				)
 			} else {
 				bind(
@@ -316,8 +289,8 @@ class Classification {
 		}
 		
 		def showClassificationDetailsUpdate() = {
-			SetHtml("classification-details", <lift:embed what="lab/classification-details-update" />)/* &
-			renderAutoCompleteJavaScriptCommand*/
+			SetHtml("classification-details", <lift:embed what="lab/classification-details-update" />) &
+			Call("renderTaxonAutoComplete")
 		}
 		
 		def cancelClassificationDetailsUpdate() = {
@@ -371,6 +344,46 @@ class Classification {
 				Nil,
 				SHtml.ajaxInvoke(deleteClassification)._2
 			)
+		) ++
+		Script(
+			Function(
+				"renderTaxonAutoComplete",
+				Nil,
+				JsRaw(
+					"$(\"input[name=classification-rank]\").autocomplete({" +
+						"source: function(request, response) {" +
+							"var data = [];" +
+							"$.ajax({" +
+								"dataType: \"xml\"," +
+								"type: \"GET\"," +
+								"url: \"" + S.hostAndPath + "/service/taxon/ranks?Query=\" + request.term," +
+								"success: function(ranksResponse) {" +
+									"$(ranksResponse).find(\"Rank\").each(function() {" +
+										"data.push($(this).text());" +
+									"});" +
+									"response(data);" +
+								"}" +
+							"});" +
+						"}" +
+					"});" +
+					"$(\"input[name=classification-name]\").autocomplete({" +
+						"source: function(request, response) {" +
+							"var data = [];" +
+							"$.ajax({" +
+								"dataType: \"xml\"," +
+								"type: \"GET\"," +
+								"url: \"" + S.hostAndPath + "/service/taxon/names?Query=\" + request.term + \"&Rank=\" + $(\"input[name=classification-rank]\").val()," +
+								"success: function(namesResponse) {" +
+									"$(namesResponse).find(\"Name\").each(function() {" +
+										"data.push($(this).text());" +
+									"});" +
+									"response(data);" +
+								"}" +
+							"});" +
+						"}" +
+					"});"
+				)
+			)
 		)
 	}
 	
@@ -405,19 +418,6 @@ class Classification {
 		}
 	}
 	
-	def renderAutoCompleteJavaScriptCommand: JsCmd = {
-		JsRaw(
-			"$('input[name=classification-name]').bind('blur', function() {" +
-				"$('#classification-name-hidden').val($(this).val());" +
-				"$('#classification-name-hidden')[0].onblur();" +
-			"});" +
-			"$('input[name=classification-rank]').bind('blur', function() {" +
-				"$('#classification-rank-hidden').val($(this).val());" +
-				"$('#classification-rank-hidden')[0].onblur();" +
-			"});"
-		)
-	}
-	
 	def renderIfNull(xhtml: NodeSeq): NodeSeq = {
 		if (null == Model.Classification.currentClassification.is) {
 			xhtml
@@ -436,7 +436,7 @@ class Classification {
 		}
 		
 		def next(): JsCmd = {
-			JsCmds.Run("showCreateClassification()") 
+			JsCmds.Run("showCreateClassification()")
 		}
 		
 		def previous(): JsCmd = {
@@ -587,7 +587,7 @@ class Classification {
 								val taxonsMap = new edu.unl.biofinity.site.snippet.Classification().taxonsMap
 								taxonsMap.is.update(Model.Classification.currentClassification.is.entityID, taxons)
 								
-								SetHtml("create-classification", <lift:embed what="/lab/create-classification"/>)
+								JsCmds.Run("showCreateClassification()")
 							}
 							
 							bind(
@@ -640,7 +640,8 @@ class Classification {
 	
 	def renderCreateClassificationScripts: NodeSeq = {
 		def showCreateClassification() = {
-			SetHtml("create-classification", <lift:embed what="lab/create-classification" />)
+			SetHtml("create-classification", <lift:embed what="lab/create-classification" />) &
+			Call("renderTaxonAutoComplete")
 		}
 		
 		def showCreateClassificationCopy() = {
@@ -663,7 +664,7 @@ class Classification {
 				taxonsMap.is.update(Model.Classification.currentClassification.is.entityID, classification.taxons)
 			}
 			
-			SetHtml("create-classification", <lift:embed what="lab/create-classification" />)
+			JsCmds.Run("showCreateClassification()")
 		}
 		
 		def checkCreateClassificationImportSearch() = {

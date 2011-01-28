@@ -1,5 +1,6 @@
 package edu.unl.biofinity.api.service
 
+import edu.unl.biofinity.api.{controller => Controller}
 import edu.unl.biofinity.api.{model => Model}
 
 import java.sql.PreparedStatement
@@ -247,7 +248,22 @@ object Taxon {
 			)
 		}
 	}
-	private def fail(status: Int): Box[LiftResponse] = { 
-		Full(InMemoryResponse(Array(), List(), List(), status))
+	
+	def names(r: Req): Box[LiftResponse] = {
+		val names = Controller.Taxon.names(S.param("Query") openOr "", S.param("Rank") openOr "")
+		if (1 > names.length) {
+			Full(XmlResponse(<Names />))
+		} else {
+			Full(XmlResponse(<Names>{names.flatMap(name => {<Name>{name}</Name>})}</Names>))
+		}
+	}
+	
+	def ranks(r: Req): Box[LiftResponse] = {
+		val ranks = Controller.Taxon.ranks(S.param("Query") openOr "")
+		if (1 > ranks.length) {
+			Full(XmlResponse(<Ranks />))
+		} else {
+			Full(XmlResponse(<Ranks>{ranks.flatMap(rank => {<Rank>{rank}</Rank>})}</Ranks>))
+		}
 	}
 }

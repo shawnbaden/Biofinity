@@ -22,7 +22,6 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
-import net.liftweb.widgets.autocomplete._
 
 /**
   * A class that's instantiated early and run.  It allows the application
@@ -144,8 +143,7 @@ class Boot {
 		LiftRules.maxMimeSize = 10 * 1024 * 1024
 		LiftRules.maxMimeFileSize = LiftRules.maxMimeSize
 		LiftRules.useXhtmlMimeType = false
-		
-		AutoComplete.init()
+
 		TwitterBioBlitzImporterScheduler.start()
 		
 		LiftRules.dispatch.prepend{
@@ -178,8 +176,10 @@ class Boot {
 			case r @ Req("service" :: "occurrence"     :: "read"            :: _, _, GetRequest) =>  () => Service.Occurrence.read(r)
 			case r @ Req("service" :: "search"         :: "occurrencesJSON" :: _, _, GetRequest) =>  () => Service.Search.occurrencesJSON(r)
 			case r @ Req("service" :: "taxon"          :: "read"            :: _, _, GetRequest) =>  () => Service.Taxon.read(r)
+			case r @ Req("service" :: "taxon"          :: "names"           :: _, _, GetRequest) =>  () => Service.Taxon.names(r)
 			case r @ Req("service" :: "taxon"          :: "occurrences"     :: _, _, GetRequest) =>  () => Service.Taxon.occurrences(r)
 			case r @ Req("service" :: "taxon"          :: "occurrencesJSON" :: _, _, GetRequest) =>  () => Service.Taxon.occurrencesJSON(r)
+			case r @ Req("service" :: "taxon"          :: "ranks"           :: _, _, GetRequest) =>  () => Service.Taxon.ranks(r)
 			case r @ Req("service" :: "user"           :: "read"            :: _, _, GetRequest) =>  () => Service.User.read(r)
 		}
 	}
