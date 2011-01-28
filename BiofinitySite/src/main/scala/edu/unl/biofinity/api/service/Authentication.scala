@@ -13,6 +13,9 @@ import net.liftweb.mapper._
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+
 import _root_.org.openid4java.consumer.{ConsumerManager, VerificationResult};
 import _root_.org.openid4java.discovery.DiscoveryInformation;
 import _root_.org.openid4java.message.{AuthRequest, ParameterList, Message, MessageExtension};
@@ -94,26 +97,36 @@ object Authentication {
 			}
 		}
 		
-		// redirect to wiki login service
 		val host = S.hostName + ":8080"
-		//val host = "localhost:8080"
-		val encodedOpenID = Helpers.urlEncode(Model.User.currentUser.is.openID.is.toString)
-		val encodedRedirectURL = Helpers.urlEncode(S.hostAndPath+redirectPath)
-		val wikiLoginURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/biologin?openId=" + encodedOpenID + "&returnPage=" + encodedRedirectURL
-
-		Full(RedirectResponse(wikiLoginURL, S responseCookies :_*))		
+		val getMethod = new GetMethod("http://" + host + "/BiofinityWikiServer")
+		val client = new HttpClient()
+		client.executeMethod(getMethod)
+		if (200 == getMethod.getStatusCode) {
+			val encodedOpenID = Helpers.urlEncode(Model.User.currentUser.is.openID.is.toString)
+			val encodedRedirectURL = Helpers.urlEncode(S.hostAndPath+redirectPath)
+			val wikiLoginURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/biologin?openId=" + encodedOpenID + "&returnPage=" + encodedRedirectURL
+			
+			Full(RedirectResponse(wikiLoginURL, S responseCookies :_*))
+		} else {
+			Full(RedirectResponse(redirectURL, S responseCookies :_*))
+		}
 	}
 	
 	def signOut(r: Req) = {
 		Model.User.currentUser(null)
 		Model.User.currentGroup(null)
-		
-		// redirect to wiki logout service
-		val host = S.hostName + ":8080"
-		//val host = "localhost:8080"
-		val wikiLogoutURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/logout?returnPage=" + Helpers.urlEncode(S.hostAndPath+redirectURL)
 
-		Full(RedirectResponse(wikiLogoutURL, S responseCookies :_*))
+		val host = S.hostName + ":8080"
+		val getMethod = new GetMethod("http://" + host + "/BiofinityWikiServer")
+		val client = new HttpClient()
+		client.executeMethod(getMethod)
+		if (200 == getMethod.getStatusCode) {
+			val wikiLogoutURL = "http://" + host + "/BiofinityWikiServer/resources/authentication/logout?returnPage=" + Helpers.urlEncode(S.hostAndPath+redirectURL)
+
+			Full(RedirectResponse(wikiLogoutURL, S responseCookies :_*))
+		} else {
+			Full(RedirectResponse(redirectURL, S responseCookies :_*))
+		}
 	}
 	
 	private def signIn(openID: String): String = {
