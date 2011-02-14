@@ -104,6 +104,7 @@ class Boot {
 			Menu(Loc("Lab Occurrence",              "lab" :: "occurrence" :: Nil, "Lab Occurrence",                       labSignedIn)) ::
 			Menu(Loc("Lab Search",                  "lab" :: "search" :: Nil, "Lab Search",                               labSignedIn)) ::
 			Menu(Loc("Lab Settings",                "lab" :: "settings" :: Nil, "Lab Settings",                           signedIn)) ::
+			Menu(Loc("Lab Classified Taxon",        "lab" :: "classified-taxon" :: Nil, "Lab Classified Taxon",           labSignedIn )) ::
 			Menu(Loc("Lab Taxon",                   "lab" :: "taxon" :: Nil, "Lab Taxon",                                 labSignedIn )) ::
 			Menu(Loc("User Home",                   "user" :: "index" :: Nil, "User Home",                                signOutIfRestricted, signedIn)) ::
 			Menu(Loc("User Info",                   "user" :: "info" :: Nil, "User Info",                                 signOutIfRestricted, signedIn)) ::
@@ -119,6 +120,7 @@ class Boot {
 			Model.AdditionalProperty,
 			Model.AdditionalPropertyBundle,
 			Model.Classification,
+			Model.ClassifiedTaxon,
 			Model.Event,
 			Model.Group,
 			Model.GroupPost,

@@ -61,6 +61,76 @@ class Classification extends LongKeyedMapper[Classification] {
 	}
 }
 
+class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
+	def getSingleton = ClassifiedTaxon
+
+	/* CORE ENTITY TRAITS */
+	object entityID extends MappedLongIndex(this) { override def dbColumnName = "entity_id" }
+	override def primaryKeyField = entityID
+
+	object description extends MappedText(this) { override def dbColumnName = "description" }
+	object source extends MappedLongForeignKey(this, Source) { override def dbColumnName = "source_id" }
+	object sourceItemID extends MappedString(this, 512) { override def dbColumnName = "source_item_id" }
+	object wikiPageID extends MappedLong(this) { override def dbColumnName = "wiki_page_id" }
+
+	def canRead_? = {
+		(source.obj openOr Source).public_? || canUpdate_?
+	}
+	def canUpdate_? = {
+		User.groupSignedIn_? && User.currentGroup.is == (source.obj openOr Source).group
+	}
+	/* CORE ENTITY TRAITS */
+
+	object previousTaxonID extends MappedLong(this) {
+		override def dbColumnName = "previous_taxon_id"
+	}
+
+	object ancestorIDs extends MappedString(this, 4096) {
+		override def dbColumnName = "ancestor_ids"
+	}
+	object originalNameUsage extends MappedString(this, 512) {
+		override def dbColumnName = "original_name_usage"
+	}
+	object parent extends MappedLongForeignKey(this, ClassifiedTaxon) {
+		override def dbColumnName = "parent_id"
+	}
+	object rank extends MappedString(this, 128) {
+		override def dbColumnName = "rank"
+	}
+	object scientificName extends MappedString(this, 512) {
+		override def dbColumnName = "scientific_name"
+	}
+	object verbatimRank extends MappedString(this, 512) {
+		override def dbColumnName = "verbatim_rank"
+	}
+	object vernacularName extends MappedString(this, 512) {
+		override def dbColumnName = "vernacular_name"
+	}
+
+	def ancestors: List[ClassifiedTaxon] = {
+		if (null != ancestorIDs.is && !ancestorIDs.equals("")) {
+			val fullSQL = "SELECT * FROM classified_taxons WHERE entity_id IN (" + ancestorIDs.replaceAll(";", ",")
+			ClassifiedTaxon.findAllByPreparedStatement({database =>
+				database.connection.prepareStatement(fullSQL)
+			})
+		} else {
+			List()
+		}
+	}
+	def children: List[ClassifiedTaxon] = {
+		ClassifiedTaxon.findAll(By(ClassifiedTaxon.parent, entityID))
+	}
+	def descendents: List[ClassifiedTaxon] = {
+		val descedentAncestorIDs =
+			if (ancestorIDs.equals("")) {
+				entityID
+			} else {
+				ancestorIDs + ";" + entityID
+			}
+		ClassifiedTaxon.findAll(Like(ClassifiedTaxon.ancestorIDs, descedentAncestorIDs + "%"))
+	}
+}
+
 class Taxon extends LongKeyedMapper[Taxon] {
 	def getSingleton = Taxon
 	
@@ -144,6 +214,11 @@ object Classification extends Classification with LongKeyedMetaMapper[Classifica
 		}
 		classification
 	}
+}
+object ClassifiedTaxon extends ClassifiedTaxon with LongKeyedMetaMapper[ClassifiedTaxon] {
+	override def dbTableName = "CLASSIFIED_TAXONS"
+
+	object currentClassifiedTaxon extends RequestVar[ClassifiedTaxon](null)
 }
 object Taxon extends Taxon with LongKeyedMetaMapper[Taxon] {
 	override def dbTableName = "TAXONS"
