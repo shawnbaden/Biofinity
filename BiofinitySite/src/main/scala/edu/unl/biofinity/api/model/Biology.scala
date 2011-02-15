@@ -93,6 +93,7 @@ class Occurrence extends LongKeyedMapper[Occurrence] {
 	object reproductiveCondition extends MappedString(this, 512) { override def dbColumnName = "reproductive_condition"}
 	object sex extends MappedString(this, 512) { override def dbColumnName = "sex"}
 	object status extends MappedString(this, 128) {override def dbColumnName = "status"}
+	object taxon extends MappedLongForeignKey(this, ClassifiedTaxon) { override def dbColumnName = "taxon_id"}
 	
 	def associatedMedia = "" // TODO: return list of media files
 	def associatedOccurrences = "" // TODO: record related occurrences

@@ -80,11 +80,7 @@ class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
 		User.groupSignedIn_? && User.currentGroup.is == (source.obj openOr Source).group
 	}
 	/* CORE ENTITY TRAITS */
-
-	object previousTaxonID extends MappedLong(this) {
-		override def dbColumnName = "previous_taxon_id"
-	}
-
+	
 	object ancestorIDs extends MappedString(this, 4096) {
 		override def dbColumnName = "ancestor_ids"
 	}
@@ -109,7 +105,7 @@ class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
 
 	def ancestors: List[ClassifiedTaxon] = {
 		if (null != ancestorIDs.is && !ancestorIDs.equals("")) {
-			val fullSQL = "SELECT * FROM classified_taxons WHERE entity_id IN (" + ancestorIDs.replaceAll(";", ",")
+			val fullSQL = "SELECT * FROM classified_taxons WHERE entity_id IN (" + ancestorIDs.replaceAll(";", ",") + ")"
 			ClassifiedTaxon.findAllByPreparedStatement({database =>
 				database.connection.prepareStatement(fullSQL)
 			})
@@ -128,6 +124,9 @@ class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
 				ancestorIDs + ";" + entityID
 			}
 		ClassifiedTaxon.findAll(Like(ClassifiedTaxon.ancestorIDs, descedentAncestorIDs + "%"))
+	}
+	def occurrences: List[Occurrence] = {
+		Occurrence.findAll(By(Occurrence.taxon, this.entityID))
 	}
 }
 
