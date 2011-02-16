@@ -93,6 +93,9 @@ class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
 	object rank extends MappedString(this, 128) {
 		override def dbColumnName = "rank"
 	}
+	object remarks extends MappedString(this, 512) {
+		override def dbColumnName = "remarks"
+	}
 	object scientificName extends MappedString(this, 512) {
 		override def dbColumnName = "scientific_name"
 	}
