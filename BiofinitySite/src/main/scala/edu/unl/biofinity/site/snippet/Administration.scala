@@ -248,6 +248,95 @@ class Administration {
 		)
 	}
 	
+	def renderTaxonomyPorter(xhtml: NodeSeq): NodeSeq = {
+		def port() = {
+			DB.use(DefaultConnectionIdentifier) {connection =>
+				val classifications = Model.Classification.findAll
+				classifications.foreach(classification => {
+					val classifiedTaxon = Model.ClassifiedTaxon.create
+					val source: Model.Source = classification.source.obj openOr null
+					var privateSource: Model.Source = null
+					var publicSource: Model.Source = null
+					if (null != source) {
+						classifiedTaxon.source(source)
+						val group: Model.Group = source.group
+						if (null != group) {
+							privateSource = group.privateSource.obj openOr null
+							publicSource = group.publicSource.obj openOr null
+						}
+					}
+					classifiedTaxon.sourceItemID("ClassificationID:" + classification.entityID.toString)
+					classifiedTaxon.scientificName(classification.name.is.trim.replaceAll(" +", " "))
+					var ancestorIDs = ""
+					var previousAncestorClassifiedTaxon: Model.ClassifiedTaxon = null
+					val taxons = classification.taxons
+					for (i <- 0 until taxons.length - 1) {
+						val taxon = taxons(i)
+						var ancestorClassifiedTaxon =
+							Model.ClassifiedTaxon.find(
+								By(Model.ClassifiedTaxon.ancestorIDs, ancestorIDs),
+								By(Model.ClassifiedTaxon.source, privateSource),
+								By(Model.ClassifiedTaxon.sourceItemID, taxon.entityID.toString)
+							).openOr(
+								Model.ClassifiedTaxon.find(
+									By(Model.ClassifiedTaxon.ancestorIDs, ancestorIDs),
+									By(Model.ClassifiedTaxon.source, publicSource),
+									By(Model.ClassifiedTaxon.sourceItemID, taxon.entityID.toString)
+								).openOr(null)
+							)
+						if (null == ancestorClassifiedTaxon) {
+							ancestorClassifiedTaxon = Model.ClassifiedTaxon.create
+							ancestorClassifiedTaxon.source(source)
+							ancestorClassifiedTaxon.ancestorIDs(ancestorIDs)
+							ancestorClassifiedTaxon.rank(taxon.rank.is)
+							ancestorClassifiedTaxon.scientificName(taxon.name.is)
+							ancestorClassifiedTaxon.sourceItemID(taxon.entityID.toString)
+							ancestorClassifiedTaxon.originalNameUsage(taxon.name.is)
+							if (null != previousAncestorClassifiedTaxon) {
+								ancestorClassifiedTaxon.parent(previousAncestorClassifiedTaxon)
+							}
+							ancestorClassifiedTaxon.save
+						}
+						if (ancestorIDs.equals("")) {
+							ancestorIDs = ancestorClassifiedTaxon.entityID.is.toString
+						} else {
+							ancestorIDs = ancestorIDs + ";" + ancestorClassifiedTaxon.entityID.is
+						}
+						previousAncestorClassifiedTaxon = ancestorClassifiedTaxon
+					}
+					if (0 < taxons.length) {
+						val taxon = taxons(taxons.length - 1)
+						classifiedTaxon.originalNameUsage(taxon.name)
+						classifiedTaxon.rank(taxon.rank)
+						if (classifiedTaxon.scientificName.is.equals("")) {
+							classifiedTaxon.scientificName(taxon.name)
+						}
+					}
+					classifiedTaxon.ancestorIDs(ancestorIDs)
+					if (null != previousAncestorClassifiedTaxon) {
+						classifiedTaxon.parent(previousAncestorClassifiedTaxon)
+					}
+					if (0 < classification.wikiPageID) {
+						classifiedTaxon.wikiPageID(classification.wikiPageID)
+					}
+					classifiedTaxon.save
+					classification.occurrences.foreach(occurrence => {
+						occurrence.taxon(classifiedTaxon)
+						occurrence.save
+					})
+				})
+			}
+
+			S.redirectTo("/admin")
+		}
+
+		bind(
+			"taxonomy-porter",
+			xhtml,
+			"port" -> {(nodeSeq: NodeSeq) => SHtml.submit(nodeSeq.toString, port)}
+		)
+	}
+	
 	def renderTwitterBioBlitzImporter(xhtml: NodeSeq): NodeSeq = {
 		def start(): JsCmd = {
 			TwitterBioBlitzImporterScheduler.start()
