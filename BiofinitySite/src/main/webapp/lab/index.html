@@ -24,16 +24,18 @@
 					</div>
 				</lift:Group.renderGroup>
 				<div id="taxonomyview">
-					<div class="section_head">Lab Taxonomy</div>
+					<div class="section_head">Taxonomy</div>
 					<lift:Taxon.renderTaxon group="">
 						<taxon:Children>
-							<ul>
-								<children:List>
-									<li>
-										<child:NameLink /><span>(<child:Rank />)</span>
-									</li>
-								</children:List>
-							</ul>
+							<div class="section" style="margin-top: 10px">
+								<ul>
+									<children:List>
+										<li>
+											<taxon:Rank />: <taxon:ScientificNameLink />
+										</li>
+									</children:List>
+								</ul>
+							</div>
 						</taxon:Children>
 					</lift:Taxon.renderTaxon>
 				</div>

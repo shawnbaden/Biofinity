@@ -1,5 +1,6 @@
 package edu.unl.biofinity.site.snippet
 
+import edu.unl.biofinity.api.{controller => Controller}
 import edu.unl.biofinity.api.{model => Model}
 import edu.unl.biofinity.api.{service => Service}
 
@@ -22,11 +23,290 @@ import scala.xml._
 
 class Taxon {
 	def init: NodeSeq = {
-		Model.Taxon.currentTaxon(Model.Taxon.find(S.param("ID").openOr(S.param("TaxonID").openOr(-1))) openOr null)
-		
+		val classifiedTaxon = {
+			val taxon = Model.ClassifiedTaxon.find(S.param("ID") openOr -1) openOr null
+			if (null == taxon) {
+				if (S.param("ClassificationID").isDefined) {
+					Model.ClassifiedTaxon.find(By(Model.ClassifiedTaxon.sourceItemID, "ClassificationID:" + S.param("ClassificationID").open_!)) openOr null
+				} else {
+					null
+				}
+			} else {
+				taxon
+			}
+		}
+		if (null != classifiedTaxon) {
+			val source: Model.Source = classifiedTaxon.source.obj openOr null
+			if (!S.attr("group").isEmpty) {
+				if (source == Model.User.currentGroup.privateSource.obj.openOr(null) || source == Model.User.currentGroup.publicSource.obj.openOr(null)) {
+					Model.ClassifiedTaxon.currentClassifiedTaxon(classifiedTaxon)
+				}
+			} else {
+				if (source.public_?) {
+					Model.ClassifiedTaxon.currentClassifiedTaxon(classifiedTaxon)
+				}
+			}
+		}
 		Text("")
 	}
-	
+
+	def renderTaxon(xhtml: NodeSeq): NodeSeq = {
+		if (null == Model.ClassifiedTaxon.currentClassifiedTaxon.is) {
+			if (!S.attr("group").isEmpty && !S.attr("update").isEmpty) {
+				SHtml.ajaxForm(
+					bind(
+						"taxon",
+						xhtml,
+						"Ancestors" -> Text(""),
+						"CancelLink" -> Text(""),
+						"Children" -> Text(""),
+						"DeleteLink" -> Text(""),
+						"DownloadCSVLink" -> Text(""),
+						"DownloadKMLLink" -> Text(""),
+						"EditLink" -> Text(""),
+						"ID" -> Text(""),
+						"MapLink" -> Text(""),
+						"MediaURL" -> Text(""),
+						"Occurrences" -> Text(""),
+						"OriginalNameUsage" -> Text(""),
+						"Rank" -> Text(""),
+						"Remarks" -> Text(""),
+						"SaveLink" -> Text(""),
+						"ScientificName" -> Text(""),
+						"ScientificNameLink" -> Text(""),
+						"Source" -> Text(""),
+						"VerbatimRank" -> Text(""),
+						"VernacularName" -> Text(""),
+						"ViewLink" -> Text(""),
+						"WikiPageIDLink" -> Text("")
+					)
+				)
+			} else {
+				bind(
+					"taxon",
+					xhtml,
+					"Ancestors" -> Text(""),
+					"CancelLink" -> Text(""),
+					"Children" -> {(nodeSeq: NodeSeq) => {
+						val children: List[Model.ClassifiedTaxon] =
+							Model.ClassifiedTaxon.findAll(NullRef(Model.ClassifiedTaxon.parent)).filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null)))
+						if (null != children && children.length > 0) {
+							bind(
+								"children",
+								nodeSeq,
+								"List" -> {(nodeSeq: NodeSeq) => {
+									val childrenNodeSeq: NodeSeq = children.sort((s,t) => t.scientificName.compareTo(s.scientificName) > 0).flatMap(child => {
+										bind(
+											"taxon",
+											nodeSeq,
+											"Rank" -> child.rank,
+											"ScientificNameLink" -> <a href={"taxon?ID=" + child.entityID}>{child.scientificName}</a>
+										)
+									})
+									childrenNodeSeq
+								}}
+							)
+						} else {
+							Text("")
+						}
+					}},
+					"DeleteLink" -> Text(""),
+					"DownloadCSVLink" -> Text(""),
+					"DownloadKMLLink" -> Text(""),
+					"EditLink" -> Text(""),
+					"ID" -> Text(""),
+					"MapLink" -> Text(""),
+					"MediaURL" -> Text(""),
+					"Occurrences" -> Text(""),
+					"OriginalNameUsage" -> Text(""),
+					"Rank" -> Text(""),
+					"Remarks" -> Text(""),
+					"SaveLink" -> Text(""),
+					"ScientificName" -> Text(""),
+					"ScientificNameLink" -> Text(""),
+					"Source" -> Text(""),
+					"VerbatimRank" -> Text(""),
+					"VernacularName" -> Text(""),
+					"ViewLink" -> Text(""),
+					"WikiPageIDLink" -> Text("")
+				)
+			}
+		} else {
+			def initSource() = {
+				Model.Source.currentSource(Model.ClassifiedTaxon.currentClassifiedTaxon.is.source.obj openOr null)
+			}
+
+			if (!S.attr("group").isEmpty && !S.attr("update").isEmpty && Model.ClassifiedTaxon.currentClassifiedTaxon.is.canUpdate_?) {
+				def save(): JsCmd = {
+					Model.ClassifiedTaxon.currentClassifiedTaxon.is.save
+					SetHtml("taxon-details", <lift:embed what="/lab/taxon-details"/>)
+				}
+
+				SHtml.ajaxForm(
+					bind(
+						"taxon",
+						xhtml,
+						"Ancestors" -> Text(""),
+						"CancelLink" -> {(nodeSeq: NodeSeq) => <a href="javascript: cancelTaxonDetailsUpdate();">{nodeSeq}</a>},
+						"Children" -> Text(""),
+						"DeleteLink" -> Text(""),
+						"DownloadCSVLink" -> Text(""),
+						"DownloadKMLLink" -> Text(""),
+						"EditLink" -> Text(""),
+						"ID" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID,
+						"MapLink" -> Text(""),
+						"MediaURL" -> Text(""),
+						"Occurrences" -> Text(""),
+						"OriginalNameUsage" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.originalNameUsage, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.originalNameUsage(value); JsCmds.Noop}),
+						"Rank" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.rank, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.rank(value); JsCmds.Noop}),
+						"Remarks" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.remarks, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.remarks(value); JsCmds.Noop}),
+						"SaveLink" -> {(nodeSeq: NodeSeq) => SHtml.ajaxButton(nodeSeq, () => save)},
+						"ScientificName" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName(value); JsCmds.Noop}),
+						"ScientificNameLink" -> Text(""),
+						"Source" -> {(nodeSeq: NodeSeq) => {
+							initSource
+							new Source().renderSource(nodeSeq)
+						}},
+						"VerbatimRank" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.verbatimRank, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.verbatimRank(value); JsCmds.Noop}),
+						"VernacularName" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.vernacularName, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.vernacularName(value); JsCmds.Noop}),
+						"ViewLink" -> Text(""),
+						"WikiPageIDLink" -> Text("")
+					)
+				)
+			} else {
+				bind(
+					"taxon",
+					xhtml,
+					"Ancestors" -> {(nodeSeq: NodeSeq) => {
+						val ancestors: List[Model.ClassifiedTaxon] =
+							if (null == Model.ClassifiedTaxon.currentClassifiedTaxon.is) {
+								null
+							} else {
+								Model.ClassifiedTaxon.currentClassifiedTaxon.is.ancestors
+							}
+						if (null != ancestors && ancestors.length > 0) {
+							bind(
+								"ancestors",
+								nodeSeq,
+								"List" -> {(nodeSeq: NodeSeq) => {
+									val ancestorsNodeSeq: NodeSeq = ancestors.flatMap(ancestor => {
+										bind(
+											"taxon",
+											nodeSeq,
+											"Rank" -> ancestor.rank,
+											"ScientificNameLink" -> <a href={"taxon?ID=" + ancestor.entityID}>{ancestor.scientificName}</a>
+										)
+									})
+									ancestorsNodeSeq
+								}}
+							)
+						} else {
+							Text("")
+						}
+					}},
+					"CancelLink" -> Text(""),
+					"Children" -> {(nodeSeq: NodeSeq) => {
+						val children: List[Model.ClassifiedTaxon] =
+							if (null == Model.ClassifiedTaxon.currentClassifiedTaxon.is) {
+								Model.ClassifiedTaxon.findAll(NullRef(Model.ClassifiedTaxon.parent)).filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null)))
+							} else {
+								Model.ClassifiedTaxon.currentClassifiedTaxon.is.children
+							}
+						if (null != children && children.length > 0) {
+							bind(
+								"children",
+								nodeSeq,
+								"List" -> {(nodeSeq: NodeSeq) => {
+									val childrenNodeSeq: NodeSeq = children.sort((s,t) => t.scientificName.compareTo(s.scientificName) > 0).flatMap(child => {
+										bind(
+											"taxon",
+											nodeSeq,
+											"Rank" -> child.rank,
+											"ScientificNameLink" -> <a href={"taxon?ID=" + child.entityID}>{child.scientificName}</a>
+										)
+									})
+									childrenNodeSeq
+								}}
+							)
+						} else {
+							Text("")
+						}
+					}},
+					"DeleteLink" -> Text(""),
+					"DownloadCSVLink" -> Text(""),
+					"DownloadKMLLink" -> Text(""),
+					"EditLink" -> {(nodeSeq: NodeSeq) => {
+						if (!S.attr("group").isEmpty && Model.ClassifiedTaxon.currentClassifiedTaxon.canUpdate_?) {
+							<a href="javascript: showTaxonDetailsUpdate();">{nodeSeq}</a>
+						} else {
+							Text("")
+						}
+					}},
+					"ID" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID,
+					"MapLink" -> Text(""),
+					"MediaURL" -> Text(""),
+					"Occurrences" -> {(nodeSeq: NodeSeq) => {
+						val occurrences = Model.ClassifiedTaxon.currentClassifiedTaxon.is.occurrences.filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null)))
+						if (null != occurrences && occurrences.length > 0) {
+							bind(
+								"occurrences",
+								nodeSeq,
+								"List" -> {(listNodeSeq: NodeSeq) => {
+									val occurrencesNodeSeq: NodeSeq = occurrences.flatMap(occurrence => {
+										Model.Occurrence.currentOccurrence(occurrence)
+										new Occurrence().renderOccurrence(listNodeSeq)
+									})
+									Model.Occurrence.currentOccurrence(null)
+									occurrencesNodeSeq
+								}}
+							)
+						} else {
+							Text("")
+						}
+					}},
+					"OriginalNameUsage" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.originalNameUsage,
+					"Rank" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.rank,
+					"Remarks" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.remarks,
+					"SaveLink" -> Text(""),
+					"ScientificName" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName,
+					"ScientificNameLink" -> <a href={"taxon?ID=" + Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID}>{Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName}</a>,
+					"Source" -> {(nodeSeq: NodeSeq) => {
+						initSource
+						new Source().renderSource(nodeSeq)
+					}},
+					"VerbatimRank" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.verbatimRank,
+					"VernacularName" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.vernacularName,
+					"ViewLink" -> {(nodeSeq: NodeSeq) => {
+						<a href={"taxon?ID=" + Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID}>{nodeSeq}</a>
+					}},
+					"WikiPageIDLink" -> {(nodeSeq: NodeSeq) => {
+						val wikiPageID = Model.ClassifiedTaxon.currentClassifiedTaxon.is.wikiPageID.is
+						if (0 < wikiPageID) {
+							<a href={"/wiki?WikiPageID=" + wikiPageID}>{wikiPageID}</a>
+						} else {
+							if (!S.attr("group").isEmpty) {
+								def create() = {
+									val newWikiPageID = Controller.WikiPage.create("taxon", Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID, Model.ClassifiedTaxon.currentClassifiedTaxon.is.source.obj.open_!.entityID)
+									Model.ClassifiedTaxon.currentClassifiedTaxon.is.wikiPageID(newWikiPageID)
+									Model.ClassifiedTaxon.currentClassifiedTaxon.is.save
+									JsCmds.Run("location.reload(true)")
+								}
+
+								bind(
+									"wiki-page",
+									nodeSeq,
+									"CreateLink" -> {(nodeSeq: NodeSeq) => {SHtml.a(() => create, nodeSeq)}}
+								)
+							} else {
+								Text("")
+							}
+						}
+					}}
+				)
+			}
+		}
+	}
+	/*
 	def renderTaxon(xhtml: NodeSeq): NodeSeq = {
 		var children: List[Model.Taxon] = null
 		
@@ -332,12 +612,47 @@ class Taxon {
 			)
 		}
 	}
-	
+	*/
 	def renderScripts(xhtml: NodeSeq): NodeSeq = {
+		def showTaxonDetails() = {
+			SetHtml("taxon-details", <lift:embed what="lab/taxon-details" />)
+		}
+
+		def showTaxonDetailsUpdate() = {
+			SetHtml("taxon-details", <lift:embed what="lab/taxon-details-update" />)
+		}
+
+		def cancelTaxonDetailsUpdate() = {
+			Model.ClassifiedTaxon.currentClassifiedTaxon(Model.ClassifiedTaxon.find(Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID) openOr null)
+
+			SetHtml("taxon-details", <lift:embed what="lab/taxon-details" />)
+		}
+
 		def showEOLLinks() = {
 			SetHtml("taxon-external-links-EOL", <lift:embed what="taxon-external-links-EOL" />)
 		}
-		
+
+		Script(
+			Function(
+				"showTaxonDetails",
+				Nil,
+				SHtml.ajaxInvoke(showTaxonDetails)._2
+			)
+		) ++
+		Script(
+			Function(
+				"showTaxonDetailsUpdate",
+				Nil,
+				SHtml.ajaxInvoke(showTaxonDetailsUpdate)._2
+			)
+		) ++
+		Script(
+			Function(
+				"cancelTaxonDetailsUpdate",
+				Nil,
+				SHtml.ajaxInvoke(cancelTaxonDetailsUpdate)._2
+			)
+		) ++
 		Script(
 			Function(
 				"showEOLLinks",
@@ -345,6 +660,22 @@ class Taxon {
 				SHtml.ajaxInvoke(showEOLLinks)._2
 			)
 		)
+	}
+
+	def renderIfNull(xhtml: NodeSeq): NodeSeq = {
+		if (null == Model.ClassifiedTaxon.currentClassifiedTaxon.is) {
+			xhtml
+		} else {
+			Text("")
+		}
+	}
+
+	def renderIfNotNull(xhtml: NodeSeq): NodeSeq = {
+		if (null == Model.ClassifiedTaxon.currentClassifiedTaxon.is) {
+			Text("")
+		} else {
+			xhtml
+		}
 	}
 	
 	def renderOccurrencesJSON: NodeSeq = {

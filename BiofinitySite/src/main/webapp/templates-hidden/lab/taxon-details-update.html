@@ -1,0 +1,62 @@
+<div>
+    <lift:Taxon.renderTaxon group="" update="">
+		<div class="section_head">Taxon Details <taxon:CancelLink>Cancel</taxon:CancelLink></div>
+		<table>
+			<tr>
+				<td>
+					<b>Rank</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#taxonRank">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:Rank /><span>&nbsp;The taxonomic rank of the most specific name in the scientific name.</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Scientific Name</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#scientificName">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:ScientificName /><span>&nbsp;The full scientific name, with authorship and date information if known.</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Vernacular Name</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#vernacularName">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:VernacularName /><span>&nbsp;A common or vernacular name.</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Original Name Usage</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#originalNameUsage">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:OriginalNameUsage /><span>&nbsp;The taxon name, with authorship and date information if known, as it originally appeared when first established under the rules of the associated nomenclatural code. </span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Verbatim Rank</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimTaxonRank">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:VerbatimRank /><span>&nbsp;The taxonomic rank of the most specific name in the scientificName as it appears in the original record.</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#taxonRemarks">[*]</a></sup>:
+				</td>
+				<td>
+					<taxon:Remarks /><span>&nbsp;Comments or notes about the taxon or name.</span>
+				</td>
+			</tr>
+		</table>
+        <p>
+            <taxon:SaveLink>&nbsp;Save&nbsp;</taxon:SaveLink>&nbsp;
+            <taxon:CancelLink>Cancel</taxon:CancelLink>
+        </p>
+		<p>
+			[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for a <a href="http://rs.tdwg.org/dwc/terms/index.htm#Taxon">taxon</a>.
+		</p>
+	</lift:Taxon.renderTaxon>
+</div>

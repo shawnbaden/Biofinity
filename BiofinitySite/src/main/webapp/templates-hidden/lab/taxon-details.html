@@ -1,0 +1,82 @@
+<lift:Taxon.renderTaxon group="">
+	<div class="section_head">Taxon Details <taxon:EditLink>Edit</taxon:EditLink></div>
+	<table>
+		<tr>
+			<td>
+				<b>ID</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#taxonID">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:ID />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Wiki Page</b>:
+			</td>
+			<td>
+				<taxon:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this taxon.</taxon:WikiPageIDLink>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Visibility</b>:
+			</td>
+			<td>
+				<taxon:Source>
+					<lift:Source.renderSource group=""><b><source:SourceType /></b></lift:Source.renderSource>
+				</taxon:Source>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Rank</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#taxonRank">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:Rank />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Scientific Name</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#scientificName">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:ScientificName />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Vernacular Name</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#vernacularName">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:VernacularName />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Original Name Usage</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#originalNameUsage">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:OriginalNameUsage />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Verbatim Rank</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#verbatimTaxonRank">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:VerbatimRank />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Remarks</b><sup><a class="reference" href="http://rs.tdwg.org/dwc/terms/index.htm#taxonRemarks">[*]</a></sup>:
+			</td>
+			<td>
+				<taxon:Remarks />
+			</td>
+		</tr>
+	</table>
+	<p>
+		[*] denotes reference to <a href="http://rs.tdwg.org/dwc/terms/index.htm">Darwin Core terms</a> for a <a href="http://rs.tdwg.org/dwc/terms/index.htm#Taxon">taxon</a>.
+	</p>
+</lift:Taxon.renderTaxon>

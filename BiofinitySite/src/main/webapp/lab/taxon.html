@@ -1,53 +1,49 @@
-<lift:surround with="split_page">
+<lift:surround with="full_page">
 	<lift:with-param name="main_content">
 		<lift:Taxon.init group="" />
 		<head>
-			<title>My Labs: <lift:Taxon.renderTaxon group=""><taxon:Rank />: <taxon:Name /></lift:Taxon.renderTaxon> - The Biofinity Project</title>
+			<title>My Labs: <lift:Taxon.renderTaxon group=""><taxon:Rank>Taxonomy</taxon:Rank>: <taxon:ScientificName>root</taxon:ScientificName></lift:Taxon.renderTaxon> - The Biofinity Project</title>
 			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
 			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
 			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" />
 		</head>
 		<lift:Taxon.renderScripts group ="" />
 	</lift:with-param>
-	
+
     <lift:with-param name="page_menus">
         <lift:embed what="lab/menu"/>
     </lift:with-param>
-	
+
 	<lift:with-param name="primary_content">
 		<lift:Taxon.renderTaxon group="">
+			<a href="taxon">Taxonomy</a>
+			<lift:Taxon.renderIfNotNull>
+			>
+				<taxon:Ancestors>
+					<ancestors:List>
+						<taxon:Rank />: <taxon:ScientificNameLink /> >
+					</ancestors:List>
+				</taxon:Ancestors>
+				<b><taxon:Rank /></b>: <b><taxon:ScientificName /></b>
+				<h2><taxon:Rank>Taxonomy</taxon:Rank>: <span class="nodeName"><taxon:ScientificName>root</taxon:ScientificName></span></h2>
+				<div id="taxon-details">
+					<lift:embed what="lab/taxon-details" />
+				</div>
+				<div id="taxon-children">
+					<lift:embed what="lab/taxon-children" />
+				</div>
+			</lift:Taxon.renderIfNotNull>
 			<div id="taxonomyview">
-				<h2><taxon:Rank />: <span class="nodeName"><taxon:Name /></span></h2>
+
 				<taxon:Children>
-					<div class="section" style="margin-top: 10px">
-						<ul>
+					<table>
 							<children:List>
-								<li>
-									<child:NameLink /><span>(<child:Rank />)</span>
-								</li>
+								<tr>
+									<td><taxon:Rank />:</td><td><taxon:ScientificNameLink /></td>
+								</tr>
 							</children:List>
-						</ul>
-					</div>
-					<br />
-					<div style="clear: both;" />
+					</table>
 				</taxon:Children>
-				<taxon:Classifications>
-					<div class="section_head">Classifications</div>
-					<classifications:List>
-						<div class="searchResult">
-							<classification:NameLink /> (<b>ID</b>: <classification:IDLink />)<br />
-							<div style="height: 4px;">&nbsp;</div>
-							<b>Taxa</b>:&nbsp;&nbsp;
-							<classification:Taxons>
-								<taxons:List>
-									<taxon:NameLink /> (<b><taxon:Rank /></b>) |
-								</taxons:List>
-							</classification:Taxons>
-							<br/>
-						</div>
-					</classifications:List>
-					<div style="clear: both;" />
-				</taxon:Classifications>
 				<taxon:Occurrences>
 					<div class="section_head">Occurrences</div>
 					<table id="occurrences">
@@ -77,25 +73,10 @@
 						</occurrences:List>
 					</table>
 				</taxon:Occurrences>
-				<div id="wall"><!-- 3D Wall Goes Here --></div>
-				<script type="text/javascript">
-					var flashvars = {
-						feed: &#39;<taxon:MediaURL />&#39;,
-						style: 'light',
-						backgroundColor: '#ffffff',
-						numRows: '5'
-					};
-					
-					var params = {
-						allowscriptaccess: 'always'
-					};
-					
-					swfobject.embedSWF('http://apps.cooliris.com/embed/cooliris.swf', 'wall', '100%', '500', '9.0.0', '', flashvars, params);
-				</script>
 			</div>
 		</lift:Taxon.renderTaxon>
 	</lift:with-param>
-	
+
 	<lift:with-param name="secondary_content">
 		<div class="section_head"><b>Actions</b></div>
 		<div class="link_group">
