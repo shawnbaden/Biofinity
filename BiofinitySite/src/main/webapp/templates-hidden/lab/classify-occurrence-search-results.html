@@ -2,25 +2,25 @@
 	<div id="results">
 		<search:Results>
 			<results:AlertText><p class="warning">&nbsp;&nbsp;The search query must be more than 2 characters.</p></results:AlertText>
-			<results:Classifications>
-				<h2>Classifications</h2>
-				<classifications:EmptyText>No results were found.  Would you like to <a href="create-classification">create a classification</a>?</classifications:EmptyText>
-				<classifications:List>
+			<results:Taxons>
+				<h2>Results</h2>
+				<taxons:EmptyText>No results were found.</taxons:EmptyText>
+				<taxons:List>
 					<div class="searchResult">
-						<classification:NameLink /><br />
-						<b>Taxa</b>:&nbsp;&nbsp;
-						<classification:Taxons>
-							<taxons:List>
-								<taxon:NameLink /> (<b><taxon:Rank /></b>) |
-							</taxons:List>
-						</classification:Taxons>
+						<b><taxon:ScientificNameLink /></b><br />
+						<taxon:Ancestors>
+							<ancestors:List>
+								<taxon:Rank />: <taxon:ScientificNameLink /> >
+							</ancestors:List>
+						</taxon:Ancestors>
+						<taxon:Rank />: <taxon:ScientificName />
 						<br/>
 						<div style="height: 8px;">&nbsp;</div>
-						<classification:SelectLink><b>Assign Classification</b></classification:SelectLink>
+						<taxon:SelectLink><b>Classify With This Taxon</b></taxon:SelectLink>
 						<div style="height: 4px;">&nbsp;</div>
 					</div>
-				</classifications:List>
-			</results:Classifications>
+				</taxons:List>
+			</results:Taxons>
 		</search:Results>
 	</div>
 </lift:Search.renderSearch>

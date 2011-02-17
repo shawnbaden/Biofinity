@@ -205,22 +205,11 @@ class Search {
 	}
 	
 	def renderSearch(xhtml: NodeSeq): NodeSeq = {
-		var classifications: List[Model.Classification] = null
-		var taxons: List[Model.Taxon] = null
-		
-		def initClassifications() = {
-			if (null == classifications) {
-				initTaxons
-				classifications = (
-					Model.Classification.findAll(Like(Model.Classification.name, "%" + searchQuery.is + "%")) :::
-					taxons.flatMap(taxon => taxon.taxonomyNodes.filter(taxonomyNode => taxonomyNode.leaf).map(taxonomyNode => taxonomyNode.classification.obj.open_!))
-				).removeDuplicates.filter(classification => Source.sourceFilter(classification.source.obj.openOr(null)))
-			}
-		}
-		
+		var taxons: List[Model.ClassifiedTaxon] = null
+
 		def initTaxons() = {
 			if (null == taxons) {
-				taxons = Model.Taxon.findAll(By(Model.Taxon.name, searchQuery))
+				taxons = Model.ClassifiedTaxon.findAll(Like(Model.ClassifiedTaxon.scientificName, "%" + searchQuery.is + "%")).filter(taxon => Source.sourceFilter(taxon.source.obj.openOr(null)))
 			}
 		}
 		
@@ -236,41 +225,18 @@ class Search {
 						"results",
 						nodeSeq,
 						"AlertText" -> Text(""),
-						"Classifications" -> {(nodeSeq: NodeSeq) => {
-							initClassifications
-							if (null != classifications && classifications.length > 0) {
-								bind(
-									"classifications",
-									nodeSeq,
-									"EmptyText" -> Text(""),
-									"List" -> {(listNodeSeq: NodeSeq) => {
-										val classificationsNodeSeq: NodeSeq = classifications.flatMap(classification => {
-											Model.Classification.currentClassification(classification)
-											new Classification().renderClassification(listNodeSeq)
-										})
-										Model.Classification.currentClassification(null)
-										classificationsNodeSeq
-									}}
-								)
-							} else {
-								bind(
-									"classifications",
-									nodeSeq,
-									"EmptyText" -> {(nodeSeq: NodeSeq) => {
-										nodeSeq
-									}},
-									"List" -> Text("")
-								)
-							}
-						}},
 						"Occurrences" -> {(nodeSeq: NodeSeq) => {
-							initClassifications
+							initTaxons
+							val taxonIDsAsString = taxons.map(_.entityID.toString).foldLeft[String]("-1")(_ + "," + _)
 							val occurrences: List[Model.Occurrence] =
-								(classifications
-									.flatMap(classification => classification.occurrences.map(occurrence => occurrence))
-									.filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null))) :::
-								Model.Occurrence.findAll(Like(Model.Occurrence.details, "%" + searchQuery + "%")).filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null))))
-								.removeDuplicates
+								(
+									Model.Occurrence.findAllByPreparedStatement({database =>
+										database.connection.prepareStatement("SELECT * FROM occurrences WHERE taxon_id IN (" + taxonIDsAsString + ")")
+									}) :::
+									Model.Occurrence.findAll(Like(Model.Occurrence.details, "%" + searchQuery + "%"))
+								)
+								.distinct.filter(occurrence => Source.sourceFilter(occurrence.source.obj.openOr(null)))
+							
 							if (null != occurrences && occurrences.length > 0) {
 								bind(
 									"occurrences",
@@ -303,17 +269,27 @@ class Search {
 								bind(
 									"taxons",
 									nodeSeq,
+									"EmptyText" -> {(nodeSeq: NodeSeq) => {
+										Text("")
+									}},
 									"List" -> {(listNodeSeq: NodeSeq) => {
 										val taxonsNodeSeq: NodeSeq = taxons.flatMap(taxon => {
-											Model.Taxon.currentTaxon(taxon)
+											Model.ClassifiedTaxon.currentClassifiedTaxon(taxon)
 											new Taxon().renderTaxon(listNodeSeq)
 										})
-										Model.Taxon.currentTaxon(null)
+										Model.ClassifiedTaxon.currentClassifiedTaxon(null)
 										taxonsNodeSeq
 									}}
 								)
 							} else {
-								Text("")
+								bind(
+									"taxons",
+									nodeSeq,
+									"EmptyText" -> {(nodeSeq: NodeSeq) => {
+										nodeSeq
+									}},
+									"List" -> Text("")
+								)
 							}
 						}}
 					)
@@ -322,7 +298,6 @@ class Search {
 						"results",
 						nodeSeq,
 						"AlertText" -> {(nodeSeq: NodeSeq) => nodeSeq},
-						"Classifications" -> Text(""),
 						"Occurrences" -> Text(""),
 						"Taxons" -> Text("")
 					)

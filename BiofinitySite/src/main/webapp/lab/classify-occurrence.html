@@ -1,8 +1,8 @@
-<lift:surround with="split_page">
+<lift:surround with="full_page">
 	<lift:with-param name="main_content">
 		<lift:Occurrence.init group="" />
 		<head>
-			<title>My Labs: Assign a Classification to an Occurrence - The Biofinity Project</title>
+			<title>My Labs: Classify Occurrence - The Biofinity Project</title>
 			<link rel="stylesheet" type="text/css" href="/resources/css/data.css" />
 			<link rel="stylesheet" type="text/css" href="/resources/css/lab.css" />
 		</head>
@@ -14,21 +14,8 @@
     </lift:with-param>
 	
 	<lift:with-param name="primary_content">
-		<h2>Assign a Classification to an Occurrence</h2>
-		<p>
-			Use the form below to search for a classification to assign to this occurrence.
-			Search will look for matches based on the name of a classification and the name of the deepest child taxon (typically species or subspecies) of a classification.
-		</p>
-		<lift:Occurrence.renderClassifyOccurrence group="">
-			<classify-occurrence:SearchQuery />&nbsp;<classify-occurrence:SearchExecuteLink>&nbsp;Search&nbsp;</classify-occurrence:SearchExecuteLink>
-			<div id="classify-occurrence-search-results">
-			</div>
-		</lift:Occurrence.renderClassifyOccurrence>
-	</lift:with-param>
-	
-	<lift:with-param name="secondary_content">
 		<lift:Occurrence.renderOccurrence group="">
-			<div class="section_head">Occurrence <occurrence:ViewLink>View</occurrence:ViewLink></div>
+			<div class="section_head">Classify Occurrence <occurrence:ViewLink>View</occurrence:ViewLink></div>
 			<table>
 				<tr>
 					<td>
@@ -36,6 +23,16 @@
 					</td>
 					<td>
 						<occurrence:IDLink />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Visibility</b>:
+					</td>
+					<td>
+						<occurrence:Source>
+							<lift:Source.renderSource group=""><b><source:SourceType /></b></lift:Source.renderSource>
+						</occurrence:Source>
 					</td>
 				</tr>
 				<tr>
@@ -88,5 +85,14 @@
 				</tr>
 			</table>
 		</lift:Occurrence.renderOccurrence>
+		<p>
+			Use the form below to search for a taxon to assign to this occurrence.<br />
+			Search will perform a fuzzy match based on the scientific name.
+		</p>
+		<lift:Occurrence.renderClassifyOccurrence group="">
+			<classify-occurrence:SearchQuery />&nbsp;<classify-occurrence:SearchExecuteLink>&nbsp;Search&nbsp;</classify-occurrence:SearchExecuteLink>
+			<div id="classify-occurrence-search-results">
+			</div>
+		</lift:Occurrence.renderClassifyOccurrence>
 	</lift:with-param>
 </lift:surround>

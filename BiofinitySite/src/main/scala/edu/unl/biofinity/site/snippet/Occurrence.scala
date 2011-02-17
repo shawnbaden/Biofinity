@@ -1034,17 +1034,17 @@ class Occurrence {
 	}
 	
 	def renderClassifyOccurrenceScripts: NodeSeq = {
-		def selectClassification(entityID: String) = {
-			val classification = Model.Classification.find(entityID) openOr null
+		def selectTaxon(entityID: String) = {
+			val taxon = Model.ClassifiedTaxon.find(entityID) openOr null
 			
-			if (null != classification) {
+			if (null != taxon) {
 				val occurrenceSource = Model.Occurrence.currentOccurrence.is.source.obj.open_!
-				val classificationSource = classification.source.obj.open_!
-				if (occurrenceSource.public_? && classificationSource.private_?) {
-					classification.source(classification.source.obj.open_!.group.publicSource.obj.open_!)
-					classification.save
+				val taxonSource = taxon.source.obj.open_!
+				if (occurrenceSource.public_? && taxonSource.private_?) {
+					taxon.source(taxon.source.obj.open_!.group.publicSource.obj.open_!)
+					taxon.save
 				}
-				Model.Occurrence.currentOccurrence.is.classification(classification)
+				Model.Occurrence.currentOccurrence.is.taxon(taxon)
 				Model.Occurrence.currentOccurrence.is.save
 			}
 			
@@ -1053,9 +1053,9 @@ class Occurrence {
 		
 		Script(
 			Function(
-				"selectClassification",
+				"selectTaxon",
 				"entityID" :: Nil,
-				SHtml.ajaxCall(JsVar("entityID"), selectClassification _)._2
+				SHtml.ajaxCall(JsVar("entityID"), selectTaxon _)._2
 			)
 		)
 	}

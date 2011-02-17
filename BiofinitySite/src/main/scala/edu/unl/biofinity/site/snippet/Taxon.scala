@@ -74,6 +74,7 @@ class Taxon {
 						"SaveLink" -> Text(""),
 						"ScientificName" -> Text(""),
 						"ScientificNameLink" -> Text(""),
+						"SelectLink" -> Text(""),
 						"Source" -> Text(""),
 						"VerbatimRank" -> Text(""),
 						"VernacularName" -> Text(""),
@@ -124,6 +125,7 @@ class Taxon {
 					"SaveLink" -> Text(""),
 					"ScientificName" -> Text(""),
 					"ScientificNameLink" -> Text(""),
+					"SelectLink" -> Text(""),
 					"Source" -> Text(""),
 					"VerbatimRank" -> Text(""),
 					"VernacularName" -> Text(""),
@@ -163,6 +165,7 @@ class Taxon {
 						"SaveLink" -> {(nodeSeq: NodeSeq) => SHtml.ajaxButton(nodeSeq, () => save)},
 						"ScientificName" -> SHtml.ajaxText(Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName, value => {Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName(value); JsCmds.Noop}),
 						"ScientificNameLink" -> Text(""),
+						"SelectLink" -> Text(""),
 						"Source" -> {(nodeSeq: NodeSeq) => {
 							initSource
 							new Source().renderSource(nodeSeq)
@@ -270,6 +273,9 @@ class Taxon {
 					"SaveLink" -> Text(""),
 					"ScientificName" -> Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName,
 					"ScientificNameLink" -> <a href={"taxon?ID=" + Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID}>{Model.ClassifiedTaxon.currentClassifiedTaxon.is.scientificName}</a>,
+					"SelectLink" -> {(nodeSeq: NodeSeq) => {
+						<button onclick={"javascript: selectTaxon(" + Model.ClassifiedTaxon.currentClassifiedTaxon.is.entityID + ");"}>{nodeSeq}</button>
+					}},
 					"Source" -> {(nodeSeq: NodeSeq) => {
 						initSource
 						new Source().renderSource(nodeSeq)
