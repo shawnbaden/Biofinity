@@ -15,11 +15,11 @@
 
 	<lift:with-param name="primary_content">
 		<lift:Occurrence.renderOccurrence group="">
-			<occurrence:Classification>
-				<lift:Classification.renderClassification group="">
-					<h2><classification:Name /></h2>
-				</lift:Classification.renderClassification>
-			</occurrence:Classification>
+			<occurrence:Taxon>
+				<lift:Taxon.renderTaxon group="">
+					<h2><taxon:ScientificName /></h2>
+				</lift:Taxon.renderTaxon>
+			</occurrence:Taxon>
 		</lift:Occurrence.renderOccurrence>
 		<div id="occurrence-details">
 			<lift:embed what="lab/occurrence-details" />
@@ -199,29 +199,33 @@
 	<lift:with-param name="secondary_content">
 		<div>
 			<lift:Occurrence.renderOccurrence group="">
-				<occurrence:Classification>
-					<lift:Classification.renderIfNull group="">
-						<div class="section_head">Classification</div>
-						<span class="warning">No classification has been assigned to this occurrence.</span>
-					</lift:Classification.renderIfNull>
-					<lift:Classification.renderClassification group="">
-						<div class="section_head">Classification <classification:ViewLink>View</classification:ViewLink></div>
-						<classification:Taxons>
-							<taxons:EmptyText>This classification has no taxa associated with it.</taxons:EmptyText>
-							<table>
-								<taxons:List>
+				<occurrence:Taxon>
+					<lift:Taxon.renderIfNull group="">
+						<div class="section_head">Taxon</div>
+						<span class="warning">This occurrence has not been classified.</span>
+					</lift:Taxon.renderIfNull>
+					<lift:Taxon.renderIfNotNull>
+						<lift:Taxon.renderTaxon group="">
+							<div class="section_head">Taxon <taxon:ViewLink>View</taxon:ViewLink></div>
+							<taxon:Ancestors>
+								<table>
+									<ancestors:List>
+										<tr>
+											<td><b><taxon:Rank /></b>: </td>
+											<td><taxon:ScientificNameLink /></td>
+										</tr>
+									</ancestors:List>
 									<tr>
 										<td><b><taxon:Rank /></b>: </td>
-										<td><taxon:NameLink /></td>
+										<td><taxon:ScientificNameLink /></td>
 									</tr>
-								</taxons:List>
-							</table>
-						</classification:Taxons>
-						<br />
-						<b>Name</b>: <classification:Name /><br />
-						<b>Wiki Page</b>: <classification:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this classification.</classification:WikiPageIDLink>
-					</lift:Classification.renderClassification>
-				</occurrence:Classification>
+								</table>
+							</taxon:Ancestors>
+							<br />
+							<b>Wiki Page</b>: <taxon:WikiPageIDLink><wiki-page:CreateLink>Create a wiki page</wiki-page:CreateLink> for this taxon.</taxon:WikiPageIDLink>
+						</lift:Taxon.renderTaxon>
+					</lift:Taxon.renderIfNotNull>
+				</occurrence:Taxon>
 				<br />
 			</lift:Occurrence.renderOccurrence>
 		</div>

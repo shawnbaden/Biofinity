@@ -53,6 +53,10 @@ class Occurrence {
 			def initSource() = {
 				Model.Source.currentSource(Model.Occurrence.currentOccurrence.is.source.obj openOr null)
 			}
+
+			def initTaxon() = {
+				Model.ClassifiedTaxon.currentClassifiedTaxon(Model.Occurrence.currentOccurrence.is.taxon.obj openOr null)
+			}
 			
 			if ((!S.attr("group").isEmpty && !S.attr("update").isEmpty && Model.Occurrence.currentOccurrence.canUpdate_?) || !S.attr("updateExplicit").isEmpty) {				
 				def save(): JsCmd = {
@@ -250,6 +254,10 @@ class Occurrence {
 							new Source().renderSource(nodeSeq)
 						}},
 						"Status" -> SHtml.ajaxText(Model.Occurrence.currentOccurrence.is.status, value => {Model.Occurrence.currentOccurrence.is.status(value); JsCmds.Noop}),
+						"Taxon" -> {(nodeSeq: NodeSeq) => {
+							initTaxon
+							new Taxon().renderTaxon(nodeSeq)
+						}},
 						"UnpublishLink" -> Text(""),
 						"ViewLink" -> Text(""),
 						"WikiPageIDLink" -> Text("")
@@ -420,6 +428,10 @@ class Occurrence {
 						new Source().renderSource(nodeSeq)
 					}},
 					"Status" -> Model.Occurrence.currentOccurrence.get.status,
+					"Taxon" -> {(nodeSeq: NodeSeq) => {
+						initTaxon
+						new Taxon().renderTaxon(nodeSeq)
+					}},
 					"UnpublishLink" -> {(nodeSeq: NodeSeq) => {
 						val source = Model.Occurrence.currentOccurrence.is.source.obj openOr null
 						val groupUser = Model.GroupUser.find(By(Model.GroupUser.user, Model.User.currentUser.is), By(Model.GroupUser.group, Model.User.currentGroup.is)) openOr null
