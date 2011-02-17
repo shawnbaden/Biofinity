@@ -1,5 +1,7 @@
 package edu.unl.biofinity.api.model
 
+import java.sql.ResultSet
+
 import net.liftweb._
 import net.liftweb.common._
 import net.liftweb.http._
@@ -130,6 +132,45 @@ class ClassifiedTaxon extends LongKeyedMapper[ClassifiedTaxon] {
 	}
 	def occurrences: List[Occurrence] = {
 		Occurrence.findAll(By(Occurrence.taxon, this.entityID))
+	}
+	def occurrenceIDs: List[Long] = {
+		var occurrenceIDs: List[Long] = List()
+		DB.use(DefaultConnectionIdentifier) {connection =>
+			val fullSQL = "SELECT entity_id FROM occurrences WHERE taxon_id = ?"
+
+			DB.prepareStatement(fullSQL, connection) {preparedStatement =>
+				preparedStatement.setLong(1, entityID)
+				val results: ResultSet = preparedStatement.executeQuery()
+				while (results.next()) {
+					val entityID = results.getLong("ENTITY_ID")
+					occurrenceIDs = occurrenceIDs ::: List(entityID)
+				}
+			}
+		}
+		occurrenceIDs
+	}
+	def occurrencesIncludingDescendents: List[Occurrence] = {
+		val occurrenceIDsAsString = occurrenceIDsIncludingDescendents.map(_.toString).foldLeft[String]("-1")(_ + "," + _)
+		val fullSQL = "SELECT * FROM occurrences WHERE entity_id IN (" + occurrenceIDsAsString + ")"
+		Occurrence.findAllByPreparedStatement({database =>
+			database.connection.prepareStatement(fullSQL)
+		})
+	}
+	def occurrenceIDsIncludingDescendents: List[Long] = {
+		val descendentIDsAsString = descendents.map(_.entityID.toString).foldLeft[String](entityID.toString)(_ + "," + _)
+		var occurrenceIDs: List[Long] = List()
+		DB.use(DefaultConnectionIdentifier) {connection =>
+			val fullSQL = "SELECT entity_id FROM occurrences WHERE taxon_id IN (" + descendentIDsAsString + ")"
+
+			DB.prepareStatement(fullSQL, connection) {preparedStatement =>
+				val results: ResultSet = preparedStatement.executeQuery()
+				while (results.next()) {
+					val entityID = results.getLong("ENTITY_ID")
+					occurrenceIDs = occurrenceIDs ::: List(entityID)
+				}
+			}
+		}
+		occurrenceIDs
 	}
 }
 

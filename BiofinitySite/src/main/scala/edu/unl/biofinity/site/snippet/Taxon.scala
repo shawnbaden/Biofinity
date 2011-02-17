@@ -236,8 +236,24 @@ class Taxon {
 						}
 					}},
 					"DeleteLink" -> Text(""),
-					"DownloadCSVLink" -> Text(""),
-					"DownloadKMLLink" -> Text(""),
+					"DownloadCSVLink" -> {(nodeSeq: NodeSeq) => {
+						val taxon = Model.ClassifiedTaxon.currentClassifiedTaxon.is
+
+						def setOccurrences() = {
+							Model.Occurrence.currentOccurrenceIDs(taxon.occurrenceIDsIncludingDescendents)
+						}
+
+						SHtml.link("/service/occurrence/occurrencesCSV", () => setOccurrences, nodeSeq)
+					}},
+					"DownloadKMLLink" -> {(nodeSeq: NodeSeq) => {
+						val taxon = Model.ClassifiedTaxon.currentClassifiedTaxon.is
+
+						def setOccurrences() = {
+							Model.Occurrence.currentOccurrenceIDs(taxon.occurrenceIDsIncludingDescendents)
+						}
+
+						SHtml.link("/service/occurrence/occurrencesKML", () => setOccurrences, nodeSeq)
+					}},
 					"EditLink" -> {(nodeSeq: NodeSeq) => {
 						if (!S.attr("group").isEmpty && Model.ClassifiedTaxon.currentClassifiedTaxon.canUpdate_?) {
 							<a href="javascript: showTaxonDetailsUpdate();">{nodeSeq}</a>
